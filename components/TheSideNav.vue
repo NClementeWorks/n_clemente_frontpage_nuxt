@@ -23,10 +23,10 @@
 </script>
 
 <template>
-  <div class="flex fixed col-start-1 w-1/6 h-2/3 m-0">
+  <divs>
     <UVerticalNavigation
       :links="links"
       class="w-full my-auto"
       />
-  </div>
+  </divs>
 </template>
