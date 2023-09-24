@@ -5,9 +5,8 @@
 
 <template>
   <div>
-    <h1 class="text-2xl">
-      Hi mom!
-    </h1>
+
+    <TheHero />
 
     <p>When I was in my room and about to lie down, I thought I heard a whispering at my door. I went to it softly and listened. Unless my ears deceived me, I heard the voice of the Count:--</p>
 
@@ -17,7 +16,7 @@
 
     <p>At last I felt that subtle change in the air, and knew that the morning had come. Then came the welcome cock-crow, and I felt that I was safe. With a glad heart, I opened my door and ran down to the hall. I had seen that the door was unlocked, and now escape was before me. With hands that trembled with eagerness, I unhooked the chains and drew back the massive bolts.</p>
 
-    <p>But the door would not move. Despair seized me. I pulled, and pulled, at the door, and shook it till, massive as it was, it rattled in its casement. I could see the bolt shot. It had been locked after I left the Count.</p>
+    <p id="installation">But the door would not move. Despair seized me. I pulled, and pulled, at the door, and shook it till, massive as it was, it rattled in its casement. I could see the bolt shot. It had been locked after I left the Count.</p>
 
     <p>Then a wild desire took me to obtain that key at any risk, and I determined then and there to scale the wall again and gain the Count's room. He might kill me, but death now seemed the happier choice of evils. Without a pause I rushed up to the east window, and scrambled down the wall, as before, into the Count's room. It was empty, but that was as I expected. I could not see a key anywhere, but the heap of gold remained. I went through the door in the corner and down the winding stair and along the dark passage to the old chapel. I knew now well enough where to find the monster I sought.</p>
 

@@ -20,4 +20,8 @@ export default defineNuxtConfig ({
   //   global: true,
   //   icons: ['fas']
   // }
+
+  tailwindcss: {
+    configPath: "./tailwind.config.ts",
+  },
 })

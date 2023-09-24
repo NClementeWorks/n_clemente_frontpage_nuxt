@@ -3,9 +3,24 @@
 <script setup>
   useHead ({
     htmlAttrs: {
-      class: 'scroll-smooth'
+      class: 'scroll-smooth bg=[#F2F6F8]'
     }
   })
+
+  const colors = {
+    green: {
+      hex: '#32deb3',
+      rgb: '(50, 222, 179)',
+    },
+    magenta: {
+      hex: '#ed24f4',
+      rgb: '(237, 36, 244)'
+    },
+    blue: {
+      hex: '#1dbbe2',
+      rgb: '(29, 187, 226)'
+    }
+  }
 
 </script>
 
@@ -21,8 +36,10 @@
     </select> -->
       <!-- <option value="sepia">Sepia</option> -->
 
+    <TheHexagons />
+
     <TheSideNav
-      class="flex col-start-1 col-span-5 md:col-span-1 m-0 sticky md:fixed w-full md:w-1/6 h-fit md:h-2/3 bg-white shadow-md left-0 top-0 md:left-auto md:shadow-none"
+      class="flex col-start-1 col-span-5 md:col-span-1 m-0 sticky md:fixed w-full md:w-1/6 h-fit md:h-2/3 shadow-md left-0 top-0 md:left-auto md:shadow-none"
       />
 
     <NuxtPage
