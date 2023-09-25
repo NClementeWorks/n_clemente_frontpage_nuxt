@@ -6,9 +6,23 @@
 <template>
   <div>
 
-    <TheHero />
+    <!-- profile -->
+    <div
+      id="profile_pic_wrapper"
+      class="absolute opacity-30 top-24 -left-24 md:left-0"
+      >
+      <img
+        src="/img/profile_300.png"
+        />
+    </div>
 
-    <p>When I was in my room and about to lie down, I thought I heard a whispering at my door. I went to it softly and listened. Unless my ears deceived me, I heard the voice of the Count:--</p>
+    <SVGHexagonsGroup
+      class="absolute top-56 -left-32 md:top-24 md:-left-28"
+      />
+
+    <TheHero class="relative" />
+
+    <!-- <p>When I was in my room and about to lie down, I thought I heard a whispering at my door. I went to it softly and listened. Unless my ears deceived me, I heard the voice of the Count:--</p>
 
     <p>"Back, back, to your own place! Your time is not yet come. Wait! Have patience! To-night is mine. To-morrow night is yours!" There was a low, sweet ripple of laughter, and in a rage I threw open the door, and saw without the three terrible women licking their lips. As I appeared they all joined in a horrible laugh, and ran away.</p>
 
@@ -26,6 +40,6 @@
 
     <p>As I write there is in the passage below a sound of many tramping feet and the crash of weights being set down heavily, doubtless the boxes, with their freight of earth. There is a sound of hammering; it is the box being nailed down. Now I can hear the heavy feet tramping again along the hall, with many other idle feet coming behind them.</p>
 
-    <p>The door is shut, and the chains rattle; there is a grinding of the key in the lock; I can hear the key withdraw: then another door opens and shuts; I hear the creaking of lock and bolt.</p>
+    <p>The door is shut, and the chains rattle; there is a grinding of the key in the lock; I can hear the key withdraw: then another door opens and shuts; I hear the creaking of lock and bolt.</p> -->
   </div>
 </template>
