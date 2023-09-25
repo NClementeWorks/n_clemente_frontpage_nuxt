@@ -23,10 +23,10 @@
 </script>
 
 <template>
-  <divs>
+  <div>
     <UVerticalNavigation
       :links="links"
       class="w-full my-auto"
       />
-  </divs>
+  </div>
 </template>
