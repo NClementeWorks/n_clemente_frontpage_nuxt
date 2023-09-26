@@ -29,22 +29,27 @@
       <div
         class="relative"
         >
-        <UIcon
-          name="i-heroicons-plus"
+        <VIcon
+          icon="fas fa-plus"
           class="w-5"
           />
         <h2 class="text-4xl py-4">UX Designer</h2>
       </div>
       <!-- <h2 class="text-4xl py-4">Expanded-Stack Developer</h2> -->
 
-      <UButton
-        color="blue"
-        :ui="{ rounded: 'rounded-full' }"
+      <PrimaryBtn>Let's Work!</PrimaryBtn>
+      <SecondaryBtn
+        append-icon="fas fa-arrow-right"
         >
-        Let's Work!
-      </UButton>
+        Use Cases
+      </SecondaryBtn>
 
     </div>
 
   </div>
 </template>
+
+<style lang="sass">
+// #text_bubble_wrapper
+
+</style>

@@ -1,0 +1,13 @@
+@use 'vuetify/settings' with (
+
+  // $color-pack: false,
+
+  $button-font-size: 20px,
+  $button-font-weight: 500,
+  $button-height: 55px,
+  $button-padding-ratio: 1.38,
+  $button-border-radius: 28px,
+  $button-rounded-border-radius: 28px,
+  $button-text-transform: 'capitalize',
+
+);

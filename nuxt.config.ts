@@ -3,23 +3,19 @@ export default defineNuxtConfig ({
 
   devtools: { enabled: true },
 
-  modules: [ '@nuxt/ui', '@nuxtjs/color-mode' ],
-
-  colorMode: {
-    preference: 'light', // default value of $colorMode.preference
-    fallback: 'light', // fallback value if not system preference found
-    hid: 'nuxt-color-mode-script',
-    globalName: '__NUXT_COLOR_MODE__',
-    componentName: 'ColorScheme',
-    classPrefix: '',
-    classSuffix: '-mode',
-    storageKey: 'nuxt-color-mode'
-  },
+  modules: [
+    '@nuxt/ui',
+    '@nuxtjs/color-mode',
+    'vuetify-nuxt-module',
+  ],
   
-  // ui: {
-  //   global: true,
-  //   icons: ['fas']
-  // }
+  vuetify: {
+    vuetifyOptions: './vuetify.config.ts',
+    moduleOptions: {
+      /* other module options */
+      styles: { configFile: 'assets/sass/vuetify_settings.scss' }
+    },
+  },
 
   tailwindcss: {
     configPath: "./tailwind.config.ts",

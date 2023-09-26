@@ -11,9 +11,15 @@
   },
   "devDependencies": {
     "@nuxt/devtools": "latest",
-    "nuxt": "^3.7.3"
+    "nuxt": "^3.7.3",
+    "vuetify-nuxt-module": "^0.5.12"
   },
   "dependencies": {
-    "@nuxt/ui": "^2.8.1"
+    "@fortawesome/fontawesome-svg-core": "^6.4.2",
+    "@fortawesome/free-solid-svg-icons": "^6.4.2",
+    "@fortawesome/vue-fontawesome": "^3.0.3",
+    "@nuxt/ui": "^2.8.1",
+    "gsap": "^3.12.2",
+    "sass": "^1.68.0"
   }
 }

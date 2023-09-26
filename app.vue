@@ -3,7 +3,7 @@
 <script setup>
   useHead ({
     htmlAttrs: {
-      class: 'scroll-smooth bg=[#F2F6F8]'
+      class: 'scroll-smooth bg-surface'
     }
   })
 
