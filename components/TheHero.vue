@@ -1,48 +1,80 @@
 <!-- TheHero -->
 
+<script setup>
+  const display = useDisplay()
+</script>
+
 <template>
   <div>
 
-      
     <!-- text bubble -->
     <div
       id="text_bubble_wrapper"
-      class="absolute left-16 md:left-44"
+      :class="{
+        md: display.mdAndUp.value
+      }"
       >
       <div
-        class="absolute min-w-[18rem] min-h-[13rem]"
+        class="text_bubble_image"
         >
         <SVGTextBubble />
       </div>
       
-      <h3 class="absolute text-3xl py-4 top-3 left-[4.5rem] font-light opacity-50 whitespace-nowrap">Hi!</h3>
-      <h1 class="absolute text-xl py-4 top-5 left-[7rem] font-light opacity-75 w-fit whitespace-nowrap">My name is</h1>
-      <h1 class="absolute text-4xl py-4 top-12 left-[4.5rem]">Noliani Clemente</h1>
+      <div class="text_bubble_text_wrapper">
+        <div class="text_bubble_text_line--top">
+          <h3 class="text_bubble_text text_bubble_text--hi">Hi!</h3>
+          <h1 class="text_bubble_text text_bubble_text--name">My name is</h1>
+        </div>
+        
+        <h1 class="text_bubble_text text_bubble_text--full_name">Noliani Clemente</h1>
+      </div>
       
     </div>
 
     <!-- hero text -->
-    <div id="hero_text" class="relative top-72 left-16 w-[72vw] md:top-48 md:left-80 md:w-[36vw]">
+    <div
+      id="hero_heading"
+      :class="{
+        md: display.mdAndUp.value
+      }">
 
-      <h2 class="text-xl -p">I'm a</h2>
-      <h2 class="text-4xl pb-4">Full-Stack Developer</h2>
-      <div
-        class="relative"
-        >
+      <h2 class="hero_heading_text hero_heading_text--pre">I'm a</h2>
+      <h2 class="hero_heading_text hero_heading_text--developer">Full-Stack Developer</h2>
+      <div class="hero_heading_text hero_heading_text_line--last">
         <VIcon
           icon="fas fa-plus"
-          class="w-5"
+          class="hero_heading_text hero_heading_text--plus"
           />
-        <h2 class="text-4xl py-4">UX Designer</h2>
+        <h2 class="hero_heading_text hero_heading_text--designer">UX Designer</h2>
       </div>
       <!-- <h2 class="text-4xl py-4">Expanded-Stack Developer</h2> -->
 
-      <PrimaryBtn>Let's Work!</PrimaryBtn>
-      <SecondaryBtn
-        append-icon="fas fa-arrow-right"
-        >
-        Use Cases
-      </SecondaryBtn>
+      <div class="hero_buttons">
+        <PrimaryBtn>
+          Let's Work!
+        </PrimaryBtn>
+
+        <div class="hero_buttons_secondary">
+          <SecondaryBtn
+            class="mx-4"
+            >
+            Use Cases
+          </SecondaryBtn>
+
+          <VDivider
+            :vertical="true" 
+            color="black"
+            thickness="2"
+            />
+
+          <SecondaryBtn
+            class="mx-4"
+            >
+            Resume
+          </SecondaryBtn>
+        </div>
+
+      </div>
 
     </div>
 
@@ -50,6 +82,90 @@
 </template>
 
 <style lang="sass">
-// #text_bubble_wrapper
+  @import url('./assets/sass/vuetify_settings.scss')
 
+  #text_bubble_wrapper
+    position: absolute
+    left: 4rem
+
+    &.md
+      left: 11rem
+
+    .text_bubble_image
+      position: absolute
+      min-width: 20rem
+      min-height: 15rem
+      padding: 1rem
+      top: -3rem
+      left: -4rem
+
+    .text_bubble_text
+      font-weight: var( --font-weight-thin )
+      white-space: nowrap
+      margin: 0
+
+      &_wrapper
+        position: absolute
+        top: 1.5rem
+        left: .75rem
+        display: flex
+        flex-direction: column
+
+      &_line--top
+        display: flex
+        align-items: baseline
+
+      &--hi
+        font-size: calc( var( --font-size-default ) * 2.5 )
+        margin-right: .5rem 
+        opacity: .5
+      &--name
+        font-size: calc( var( --font-size-default ) )
+        opacity: .75
+        width: fit-content
+      &--full_name
+        font-size: calc( var( --font-size-default ) * 1.75 )
+
+  #hero_heading
+    left: 13.75rem
+    position: relative
+    top: 19rem
+    width: fit-content
+
+    .hero_heading_text
+      font-weight: var( --font-weight-thiner )
+      margin: 0
+      padding-bottom: .5rem
+
+      &--pre
+        font-size: calc( var( --font-size-default ) * 1.2 )
+        opacity: .85
+
+      &--developer,
+      &--designer
+        font-size: calc( var( --font-size-default ) * 2.5 )
+
+      &--plus
+        position: absolute
+        left: -2rem
+
+      &_line--last
+        align-items: center
+        display: flex
+        position: reltive
+
+    .hero_buttons
+      display: flex
+      flex-wrap: wrap
+
+      &_secondary
+        display: flex
+    
+    .md
+      top: 12rem
+      left: 20rem
+      width: 36vw
+
+  .secondary_button_wrapper
+    border-right: 1px solid rgba( var( --v-theme-light_gray ) )
 </style>

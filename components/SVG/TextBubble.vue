@@ -1,7 +1,7 @@
 <template>
   <!-- Generator: Adobe Illustrator 26.2.1, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
   <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="40px" y="0px"
-    viewBox="0 0 285 207" style="enable-background:new 0 0 274 207;" xml:space="preserve">
+    viewBox="-10 -10 305 227" style="enable-background:new 0 0 274 207;" xml:space="preserve">
 
     <g>
       <g>

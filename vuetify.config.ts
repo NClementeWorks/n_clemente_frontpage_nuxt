@@ -5,7 +5,10 @@ const theme_colors = {
   magenta: '#ed24f4',
   cyan: '#1dbbe2',
   blue: '#0000B2',
+  white: '#ffffff',
   off_white: '#F2F6F8',
+  light_gray: 'rgba(0,0,0,.1)',
+  black: '#000000',
 }
 
   // green rgb: '(50, 222, 179)',
@@ -58,6 +61,7 @@ export default defineVuetifyConfiguration({
       rounded: true,
       color: 'white',
       elevation: '0',
+      appendIcon: 'fas fa-angles-down',
     },
 
   },

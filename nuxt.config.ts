@@ -4,8 +4,6 @@ export default defineNuxtConfig ({
   devtools: { enabled: true },
 
   modules: [
-    '@nuxt/ui',
-    '@nuxtjs/color-mode',
     'vuetify-nuxt-module',
   ],
   
@@ -17,7 +15,4 @@ export default defineNuxtConfig ({
     },
   },
 
-  tailwindcss: {
-    configPath: "./tailwind.config.ts",
-  },
 })

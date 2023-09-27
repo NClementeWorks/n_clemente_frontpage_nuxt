@@ -4,10 +4,38 @@
 
   $button-font-size: 20px,
   $button-font-weight: 500,
+  $button-text-letter-spacing: .05em,
   $button-height: 55px,
   $button-padding-ratio: 1.38,
   $button-border-radius: 28px,
   $button-rounded-border-radius: 28px,
   $button-text-transform: 'capitalize',
 
+  // $list-border-radius: 1rem,
 );
+
+:root {
+  --font-size-default: 1rem;
+  --font-weight-thin: 300;
+  --font-weight-thiner: 200;
+  --list-border-radius: 1rem;
+}
+
+::selection {
+  background: rgba( var( --v-theme-green ), .5 );
+}
+
+.v-btn{
+  &.text-white {
+    color: rgb( var( --v-theme-blue ) );
+    font-weight: 700;
+  }
+
+  .v-icon {
+    --v-icon-size-multiplier: 0.5;
+  }
+}
+
+hr {
+  border-color: rgb( var( --color-gray ) / 1);
+}
