@@ -7,7 +7,6 @@ const theme_colors = {
   blue: '#0000B2',
   white: '#ffffff',
   off_white: '#F2F6F8',
-  light_gray: 'rgba(0,0,0,.1)',
   black: '#000000',
 }
 
