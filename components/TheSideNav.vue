@@ -32,7 +32,6 @@
 </template>
 
 <style lang="sass">
-  @import url('./assets/sass/vuetify_settings.scss')
 
   .v-list.side_nav_menu_list
     
@@ -45,6 +44,7 @@
 
   .v-list-item.side_nav_menu_list_item
     border-bottom: 1px solid rgba( 0, 0, 0, .1 )
+    cursor: pointer
 
     &:first-child
       border-top-right-radius: var( --list-border-radius )

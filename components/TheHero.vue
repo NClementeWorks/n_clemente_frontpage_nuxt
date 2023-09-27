@@ -54,8 +54,13 @@
           Let's Work!
         </PrimaryBtn>
 
+        <SecondaryBtn>
+          Explore
+        </SecondaryBtn>
+
         <div class="hero_buttons_secondary">
-          <SecondaryBtn
+
+          <!-- <SecondaryBtn
             class="mx-4"
             >
             Use Cases
@@ -71,8 +76,24 @@
             class="mx-4"
             >
             Resume
-          </SecondaryBtn>
+          </SecondaryBtn> -->
         </div>
+
+      </div>
+
+      <div class="profile_links">
+
+        <h4 class="profile_links_heading">Profile Links</h4>
+
+        <BlocksLink
+          link="linkedin.com/in/noliani/"
+          :external="true"
+          />
+
+        <BlocksLink
+          link="be.net/noliani_clemente"
+          :external="true"
+          />
 
       </div>
 
@@ -82,7 +103,6 @@
 </template>
 
 <style lang="sass">
-  @import url('./assets/sass/vuetify_settings.scss')
 
   #text_bubble_wrapper
     position: absolute
@@ -157,15 +177,29 @@
     .hero_buttons
       display: flex
       flex-wrap: wrap
+      margin-top: 3rem
 
-      &_secondary
-        display: flex
+      .v-btn
+        margin-right: 2rem
     
     .md
       top: 12rem
       left: 20rem
       width: 36vw
 
-  .secondary_button_wrapper
-    border-right: 1px solid rgba( var( --v-theme-light_gray ) )
+    .profile_links
+
+      margin-top: 4rem
+
+      &_heading
+        color: rgba( var( --v-theme-black ), .5 )
+        font-size: 1.25rem
+
+      .blocks_link
+        font-size: 1.25rem
+        margin-top: 1rem
+
+        &:last-child
+          padding-bottom: 1px // hack, otherwise underline appears less thick than it should -NC 27-09-23
+
 </style>

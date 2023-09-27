@@ -49,10 +49,12 @@
 </template>
 
 <style lang="sass">
-// @import "./assets/sass/vuetify_settings.scss"
 
 *
   font-family: Roboto, sans-serif
+
+.v-container
+  min-height: 100vh
 
 .side_nav
   &_wrapper
@@ -75,4 +77,5 @@
 .main_content
   margin-left: calc( 100vw * ( 2/12 ) )
   position: relative
+  
 </style>

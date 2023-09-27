@@ -25,10 +25,24 @@
   background: rgba( var( --v-theme-green ), .5 );
 }
 
-.v-btn{
+.v-btn {
+
+  cursor: pointer;
+
   &.text-white {
     color: rgb( var( --v-theme-blue ) );
     font-weight: 700;
+
+    &:hover {
+      .v-btn__content {        
+        text-decoration: underline;
+      }
+    }
+
+    .v-btn__content,
+    .v-btn__append {
+      color: rgb( var( --v-theme-blue ) );
+    }
   }
 
   .v-icon {
