@@ -23,7 +23,7 @@
     <VIcon
       v-if="external"
       icon="fas fa-up-right-from-square"
-      size="xs"
+      size="x-small"
       class="blocks_link_icon"
       ></VIcon>
   </a>

@@ -53,3 +53,12 @@
 hr {
   border-color: rgb( var( --color-gray ) / 1);
 }
+
+.v-icon--size{
+  &-x-small {
+    font-size: calc( var(--v-icon-size-multiplier) * .8em );
+  }
+  &-x-large {
+    font-size: calc( var(--v-icon-size-multiplier) * 4em );
+  }
+}

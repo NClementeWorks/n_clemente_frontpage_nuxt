@@ -27,7 +27,18 @@
       
       />
 
-    <TheHero id="the_hero" class="relative" />
+    <VRow>
+      <VCol>
+        <TheHero id="the_hero" />
+      </VCol>
+    </VRow>
+
+    <VRow>
+      <VCol>
+        <TheExpandedStack id="the_expanded_stack" />
+      </VCol>
+    </VRow>
+
   </div>
 </template>
 
@@ -49,4 +60,7 @@
     &.md
       top: 6rem
       left: -7rem
+
+  #the_hero
+    height: 50rem
 </style>
