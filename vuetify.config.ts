@@ -47,6 +47,9 @@ export default defineVuetifyConfiguration({
   },
 
   defaults: {
+
+    // Buttons
+
     VBtn: {
       rounded: true,
     },
@@ -64,6 +67,18 @@ export default defineVuetifyConfiguration({
       appendIcon: 'fas fa-angles-down',
     },
 
+    // Cards
+
+    VCard: {
+      flat: true,
+    },
+
+    // Forms
+
+    VTextField: {
+      density: 'compact',
+      variant: 'underlined',
+    }
   },
 
 })

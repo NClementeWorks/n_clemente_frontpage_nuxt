@@ -30,9 +30,9 @@
 </script>
 
 <template>
-  <div class="expanded_stack_section">
+  <div class="section expanded_stack_section">
 
-    <h2 class="expanded_stack_heading">The Expanded-Stack</h2>
+    <h2 class="section_heading expanded_stack_heading">The Expanded-Stack</h2>
 
     <div
       :style="{
@@ -84,9 +84,6 @@
       align-items: center
       position: relative
 
-    &_heading
-      font-size: calc( var( --font-size-default ) * 2.5 )
-      align-self: flex-start
 
     &_items_wrapper
       left: calc(26% + .6rem)

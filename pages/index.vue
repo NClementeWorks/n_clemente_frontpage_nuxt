@@ -45,6 +45,12 @@
       </VCol>
     </VRow>
 
+    <VRow>
+      <VCol>
+        <TheUseCases id="the_use_cases" />
+      </VCol>
+    </VRow>
+
   </div>
 </template>
 
@@ -74,5 +80,13 @@
     height: 60rem
 
   #the_cta
-    border: thin solid
+    height: 8rem
+
+  .section
+    padding-top: 2rem
+
+    &_heading
+      font-size: calc(var(--font-size-default) * 2.5)
+      align-self: flex-start
+
 </style>
