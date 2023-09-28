@@ -40,6 +40,7 @@
 
       <h2 class="hero_heading_text hero_heading_text--pre">I'm a</h2>
       <h2 class="hero_heading_text hero_heading_text--developer">Full-Stack Developer</h2>
+      <div class="hero_heading_text_line"></div>
       <div class="hero_heading_text hero_heading_text_line--last">
         <VIcon
           icon="fas fa-plus"
@@ -169,10 +170,16 @@
         position: absolute
         left: -2rem
 
-      &_line--last
-        align-items: center
-        display: flex
-        position: reltive
+      &_line
+        height: 1px
+        width: 100vw
+        background: rgb( var( --v-theme-gray ) )
+        opacity: .38
+
+        &--last
+          align-items: center
+          display: flex
+          position: reltive
 
     .hero_buttons
       display: flex
@@ -182,7 +189,7 @@
       .v-btn
         margin-right: 2rem
     
-    .md
+    &.md
       top: 12rem
       left: 20rem
       width: 36vw
