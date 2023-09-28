@@ -57,6 +57,12 @@
       </VCol>
     </VRow>
 
+    <VRow>
+      <VCol>
+        <TheContactForm id="the_contact_form" />
+      </VCol>
+    </VRow>
+
   </div>
 </template>
 
