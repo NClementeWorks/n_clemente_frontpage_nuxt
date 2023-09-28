@@ -10,7 +10,7 @@
 </script>
 
 <template>
-  <VApp>
+  <VApp class="bg-off_white">
     <VContainer>
       
       <!-- <select v-model="$colorMode.preference">
@@ -52,6 +52,9 @@
 
 *
   font-family: Roboto, sans-serif
+
+html
+  overflow-x: hidden
 
 .v-container
   min-height: 100vh
