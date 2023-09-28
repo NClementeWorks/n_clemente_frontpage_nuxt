@@ -51,6 +51,12 @@
       </VCol>
     </VRow>
 
+    <VRow>
+      <VCol>
+        <TheTopSkills id="the_top_skills" />
+      </VCol>
+    </VRow>
+
   </div>
 </template>
 
