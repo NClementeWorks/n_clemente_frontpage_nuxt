@@ -39,6 +39,12 @@
       </VCol>
     </VRow>
 
+    <VRow>
+      <VCol>
+        <TheCTA id="the_cta" />
+      </VCol>
+    </VRow>
+
   </div>
 </template>
 
@@ -63,4 +69,10 @@
 
   #the_hero
     height: 50rem
+
+  #the_expanded_stack
+    height: 60rem
+
+  #the_cta
+    border: thin solid
 </style>

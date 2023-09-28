@@ -30,7 +30,7 @@
 </script>
 
 <template>
-  <div class="expanded_stack">
+  <div class="expanded_stack_section">
 
     <h2 class="expanded_stack_heading">The Expanded-Stack</h2>
 
@@ -40,7 +40,7 @@
         top: '10rem',
         display: 'flex',
         flexDirection: 'column',
-        left: '32%',
+        left: '26%',
       }"
       >
       <SVGHexagon
@@ -78,17 +78,18 @@
 <style lang="sass">
   .expanded_stack
 
-    display: flex
-    flex-direction: column
-    align-items: center
-    position: relative
+    &_section
+      display: flex
+      flex-direction: column
+      align-items: center
+      position: relative
 
     &_heading
       font-size: calc( var( --font-size-default ) * 2.5 )
       align-self: flex-start
 
     &_items_wrapper
-      left: calc(32% + .6rem)
+      left: calc(26% + .6rem)
       position: absolute
       top: 9.5rem
 
