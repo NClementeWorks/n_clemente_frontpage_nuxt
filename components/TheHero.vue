@@ -1,7 +1,8 @@
 <!-- TheHero -->
 
 <script setup>
-  const display = useDisplay()
+  const display = useDisplay ()
+  const menu = useMenu ()
 </script>
 
 <template>
@@ -87,12 +88,9 @@
         <h4 class="profile_links_heading">Profile Links</h4>
 
         <BlocksLink
-          link="linkedin.com/in/noliani/"
-          :external="true"
-          />
-
-        <BlocksLink
-          link="be.net/noliani_clemente"
+          v-for="link in menu.profile_links"
+          :key="link.link"
+          :link="link.link"
           :external="true"
           />
 

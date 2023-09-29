@@ -1,18 +1,7 @@
 <!-- SideNav -->
 
 <script setup>
-  const links = [{
-    label: 'Home',
-    icon: 'home',
-    to: '#the_hero'
-  }, {
-    label: 'Vertical Navigation',
-    to: '#vertical-navigation'
-  }, {
-    label: 'Command Palette',
-    icon: '',
-    to: '#command-palette'
-  }]
+  const menu = useMenu ()
 </script>
 
 <template>
@@ -21,10 +10,9 @@
       class="side_nav_menu_list"
       >
       <VListItem
-        v-for="link in links"
-        :key="link.label"
-        :title="link.label"
-        :prepend-icon="`fas fa-${ link.icon }`"
+        v-for="menu in menu.main_menu"
+        :key="menu.link"
+        :title="menu.label"
         class="side_nav_menu_list_item bg-white opacity-50"
         />
     </VList>

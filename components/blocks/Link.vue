@@ -19,7 +19,7 @@
     :target="external ? '_blank' : ''"
     class="blocks_link"
     >
-      <slot>{{ link }}</slot>
+      <slot>{{ link.replace ( 'http://www.', '' ) }}</slot>
     <VIcon
       v-if="external"
       icon="fas fa-up-right-from-square"

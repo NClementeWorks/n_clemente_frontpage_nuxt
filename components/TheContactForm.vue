@@ -49,6 +49,8 @@
 
     &_section
       margin-bottom: 3rem
+
+    &_row
       position: relative
 
       &::before

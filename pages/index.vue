@@ -57,9 +57,15 @@
       </VCol>
     </VRow>
 
-    <VRow>
+    <VRow class="contact_form_row">
       <VCol>
         <TheContactForm id="the_contact_form" />
+      </VCol>
+    </VRow>
+
+    <VRow class="footer_row">
+      <VCol>
+        <TheFooter id="the_footer" />
       </VCol>
     </VRow>
 
