@@ -29,8 +29,12 @@
 
 <style lang="sass">
 
-  .side_nav_menu_list_wrapper
-    padding-right: 1rem
+  .side_nav
+    &_wrapper
+      background-image: radial-gradient( ellipse at center left, rgba( var( --v-theme-black ), .1 ), transparent 57% )
+
+    &_menu_list_wrapper
+      padding-right: 1rem
 
   .v-list.side_nav_menu_list
     box-shadow: -.25rem .5rem .5rem rgba( 0, 0, 0, .2 ), -.15rem .9rem 1rem rgba( 0, 0, 0, .1 ), -.05rem .5rem 1.5rem rgba( 0, 0, 0, .05 )
