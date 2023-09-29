@@ -90,6 +90,17 @@
           }"
           />
       </div>
+      <div
+        class="current_skill_wrapper"
+        :style="{
+          top: `${ hexagons.default_width_px * 1.15 }px`,
+          left: `${ hexagons.default_height_px * -.55 }px`,
+          width: `${ hexagons.default_height_px }px`,
+          height: `${ hexagons.default_width_px }px`,
+        }"
+        >
+        Vue.js
+      </div>
     </div>
 
     <SecondaryBtn
@@ -117,4 +128,12 @@
     &_review_resume_btn
       margin: 2rem 0
 
+  .current_skill_wrapper
+    position: absolute
+    display: flex
+    align-items: center
+    justify-content: center
+    font-weight: var( --font-weight-bold )
+    font-size: 1.5rem
+    
 </style>
