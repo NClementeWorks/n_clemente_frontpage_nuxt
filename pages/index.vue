@@ -105,7 +105,7 @@
     height: 50rem
 
   #the_expanded_stack
-    height: 60rem
+    height: 55rem
 
   #the_cta
     height: 8rem

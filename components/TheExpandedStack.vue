@@ -40,7 +40,7 @@
         top: '10rem',
         display: 'flex',
         flexDirection: 'column',
-        left: '26%',
+        left: '38%',
       }"
       >
       <SVGHexagon
@@ -86,7 +86,7 @@
 
 
     &_items_wrapper
-      left: calc(26% + .6rem)
+      left: calc(38% + .6rem)
       position: absolute
       top: 9.5rem
 
