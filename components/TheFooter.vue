@@ -81,6 +81,7 @@
     &_section
       margin-bottom: 2rem
       color: white
+      width: 100%
 
       .footer_sub_heading
         color: white
@@ -115,6 +116,9 @@
 
     &_row
       position: relative
+
+      .v-footer
+        background: transparent
 
       &::before
         background: rgb( var( --v-theme-blue ) )

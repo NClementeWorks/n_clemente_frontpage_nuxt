@@ -65,7 +65,17 @@
 
     <VRow class="footer_row">
       <VCol>
-        <TheFooter id="the_footer" />
+        
+        <VFooter>
+          <TheFooter id="the_footer" />
+          <TheCopyrights
+            id="the_copyrights"
+            :style="{
+              left: `calc( ( ${ display.width.value }px - 1200px ) / 2 )`
+            }"
+            />
+        </VFooter>
+        
       </VCol>
     </VRow>
 
@@ -107,4 +117,11 @@
       font-size: calc(var(--font-size-default) * 2.5)
       align-self: flex-start
 
+  #the_copyrights
+    position: fixed
+    width: calc( 10% )
+    /* border: 1px solid white */
+    text-align: left
+    bottom: 0
+    color: gray
 </style>
