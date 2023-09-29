@@ -59,28 +59,6 @@
         <SecondaryBtn>
           Explore
         </SecondaryBtn>
-
-        <div class="hero_buttons_secondary">
-
-          <!-- <SecondaryBtn
-            class="mx-4"
-            >
-            Use Cases
-          </SecondaryBtn>
-
-          <VDivider
-            :vertical="true" 
-            color="black"
-            thickness="2"
-            />
-
-          <SecondaryBtn
-            class="mx-4"
-            >
-            Resume
-          </SecondaryBtn> -->
-        </div>
-
       </div>
 
       <div class="profile_links">
