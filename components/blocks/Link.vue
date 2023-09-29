@@ -1,4 +1,4 @@
-<!-- Link -->
+<!-- BlocksLink -->
 
 <script setup>
   const props = defineProps ({
@@ -11,10 +11,37 @@
       default: false,
     },
   })
+
+  const {
+    link,
+  } = toRefs ( props )
+  
+  /**
+   * Anchor links
+   */
+
+  const is_anchor = computed ( () => link.value.match( /^#/ ) )
+
+  function scrollToAnchor () {
+    document
+      .querySelector ( link.value )
+      .scrollIntoView ({
+        behavior: 'smooth',
+        block: 'center',
+      })
+  }
 </script>
 
 <template>
   <a
+    v-if="is_anchor"
+    class="blocks_link"
+    @click.prevent="scrollToAnchor"
+    >
+    <slot>{{ link }}</slot>
+  </a>
+  <a
+    v-else
     :href="link"
     :target="external ? '_blank' : ''"
     class="blocks_link"
@@ -33,6 +60,7 @@
 
  a.blocks_link
   color: rgba( var( --v-theme-on-background ), var( --v-medium-emphasis-opacity ) )
+  cursor: pointer
   display: flex
   text-decoration: none
   transition: all .2s ease

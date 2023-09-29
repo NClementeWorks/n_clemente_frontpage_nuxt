@@ -12,9 +12,17 @@
       <VListItem
         v-for="menu in menu.main_menu"
         :key="menu.link"
-        :title="menu.label"
         class="side_nav_menu_list_item bg-white opacity-50"
-        />
+        :class="{
+          highlight: menu.highlight
+        }"
+        >
+        <BlocksLink
+          :link="menu.link"
+          >
+          {{ menu.label }}
+        </BlocksLink>
+      </VListItem>
     </VList>
   </div>
 </template>

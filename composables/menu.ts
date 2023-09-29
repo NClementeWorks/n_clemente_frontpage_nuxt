@@ -8,19 +8,19 @@ export const useMenu = () => {
       },
       {
         label: `Expanded-Stack`,
-        link: '#',
+        link: '#the_expanded_stack',
       },
       {
         label: `Use Cases`,
-        link: '#',
+        link: '#the_use_cases',
       },
       {
         label: `Resume Top Skills`,
-        link: '#',
+        link: '#the_top_skills',
       },
       {
         label: `Let's Work!`,
-        link: '#',
+        link: '#the_contact_form',
         highlight: true,
       },
     ],
