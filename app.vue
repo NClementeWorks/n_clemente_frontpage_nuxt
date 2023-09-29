@@ -3,14 +3,14 @@
 <script setup>
   useHead ({
     htmlAttrs: {
-      class: 'scroll-smooth bg-surface'
+      class: 'bg-surface'
     }
   })
 
 </script>
 
 <template>
-  <VApp class="bg-off_white">
+  <VApp class="bg-surface">
     <VContainer>
       
       <!-- <select v-model="$colorMode.preference">
