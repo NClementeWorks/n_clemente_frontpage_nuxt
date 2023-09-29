@@ -31,15 +31,12 @@
           >
           <TheSideNav />
         </VCol>
-          <!-- class="flex col-start-1 col-span-5 md:col-span-1 m-0 sticky md:fixed w-full md:w-1/6 h-fit md:h-2/3 shadow-md left-0 top-0 md:left-auto md:shadow-none opacity-80" -->
 
         <VCol
           cols="10"
           class="main_content"
           >
-          <NuxtPage
-          />
-          <!-- class="relative col-start-1 md:col-start-2 col-span-5 mx-4 py-4 md:px-4 row-start-2 md:row-start-1" -->
+          <NuxtPage />
         </VCol>
 
       </VRow>
@@ -55,6 +52,7 @@
 
 html
   overflow-x: hidden
+  scroll-behavior: smooth
 
 .v-container
   min-height: 100vh
