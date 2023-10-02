@@ -1,6 +1,8 @@
 export const useMenu = () => {
 
   return {
+    current_menu: 0,
+
     main_menu: [
       {
         label: `Home`,

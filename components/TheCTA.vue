@@ -12,7 +12,7 @@
 <template>
   <div class="cta_section">
 
-    <div
+    <!-- <div
       v-for="line in 2" :key="line"
       :style="{
         position: 'absolute',
@@ -29,7 +29,7 @@
           left: ( hex - 1 ) * hexagons.default_width_px,
         }"  
         />
-    </div>
+    </div> -->
 
     <PrimaryBtn>
       Lets Work!

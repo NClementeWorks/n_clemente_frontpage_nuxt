@@ -34,7 +34,7 @@
 
     <h2 class="section_heading expanded_stack_heading">The Expanded-Stack</h2>
 
-    <div
+    <!-- <div
       :style="{
         position: 'absolute',
         top: '10rem',
@@ -53,7 +53,7 @@
           top: `${ ( hex - 1 ) * 7.625 * .8 }rem`,
         }"  
         />
-    </div>
+    </div> -->
 
     <div class="expanded_stack_items_wrapper">
       <div
@@ -86,7 +86,7 @@
 
 
     &_items_wrapper
-      left: calc(38% + .6rem)
+      left: calc(38% + 1rem)
       position: absolute
       top: 9.5rem
 

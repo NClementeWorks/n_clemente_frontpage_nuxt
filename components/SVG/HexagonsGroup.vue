@@ -2,28 +2,247 @@
 
 <script setup>
   import gsap from 'gsap'
+  import { ScrollTrigger } from "gsap/ScrollTrigger";
+  import { CustomEase } from "gsap/CustomEase";
+
+  gsap.registerPlugin ( ScrollTrigger )
+
+  const display = useDisplay ()
+  // console.log('display',display)
+  const menu = useMenu ()
+  const hexagon = useHexagons ()
   
+  const screen_width = computed ( () => display.width.value )
+  const screen_height = computed ( () => display.height.value )
+  let unwatch_screen_width = ref ( null )
+
+  const hexagon_default_gap_px = 8
+  const hexagon_paths = ref ( [] )
+
+  const hexagon_grid_width_px = hexagon.default_width_px + hexagon_default_gap_px
+  const hexagon_grid_height_px = hexagon.default_height_px * .75 + hexagon_default_gap_px
+
+  const hexagon_grid_column_px = col => hexagon_grid_width_px * .5 * col
+  const hexagon_grid_row_px = row => hexagon_grid_height_px * row
+
+  const hexagon_compressed_grid_column_px = col => ( hexagon.default_width_px - hexagon_default_gap_px ) * .5 * col
+  const hexagon_compressed_grid_row_px = row => ( hexagon.default_height_px - hexagon_default_gap_px ) * row
+
+  const hexagons_anchor_positions = [
+    // hero
+    {
+      anchor: {
+        get x () { return screen_width.value / 5 },
+        y: 125,
+      },
+      x: [
+        hexagon_grid_column_px ( 0 ),
+        hexagon_grid_column_px ( 1 ),
+        hexagon_grid_column_px ( 0 ),
+        hexagon_grid_column_px ( 1 ),
+        hexagon_grid_column_px ( 3 ),
+        hexagon_grid_column_px ( 2 ),
+        hexagon_grid_column_px ( 1 ),
+      ],
+      y: [
+        hexagon_grid_row_px ( 0 ),
+        hexagon_grid_row_px ( 1 ),
+        hexagon_grid_row_px ( 2 ),
+        hexagon_grid_row_px ( 3 ),
+        hexagon_grid_row_px ( 3 ),
+        hexagon_grid_row_px ( 4 ),
+        hexagon_grid_row_px ( 5 ),
+      ],
+    },
+
+    // expanded stack
+    {
+      anchor: {
+        get x () { return screen_width.value / 2 },
+        get y () { return screen_height.value / 2 },
+      },
+      x: [
+        hexagon_grid_column_px ( 0 ),
+        hexagon_grid_column_px ( 1 ),
+        hexagon_grid_column_px ( 0 ),
+        hexagon_grid_column_px ( 1 ),
+        hexagon_grid_column_px ( 0 ),
+        hexagon_grid_column_px ( 1 ),
+        hexagon_grid_column_px ( 0 ),
+      ],
+      y: [
+        -hexagon_grid_row_px ( 3 ),
+        -hexagon_grid_row_px ( 2 ),
+        -hexagon_grid_row_px ( 1 ),
+        hexagon_grid_row_px ( 0 ),
+        hexagon_grid_row_px ( 1 ),
+        hexagon_grid_row_px ( 2 ),
+        hexagon_grid_row_px ( 3 ),
+      ],
+    },
+
+    // cta
+    {
+      anchor: {
+        get x () { return screen_width.value / 2 },
+        get y () { return screen_height.value / 2 },
+      },
+      x: [
+        -hexagon_compressed_grid_column_px ( 6 ),
+        -hexagon_compressed_grid_column_px ( 4 ),
+        -hexagon_compressed_grid_column_px ( 2 ),
+        hexagon_compressed_grid_column_px ( 0 ),
+        hexagon_compressed_grid_column_px ( 2 ),
+        hexagon_compressed_grid_column_px ( 4 ),
+        hexagon_compressed_grid_column_px ( 6 ),
+      ],
+      y: [
+        -hexagon_compressed_grid_row_px ( 1 ),
+        hexagon_compressed_grid_row_px ( 0 ),
+        -hexagon_compressed_grid_row_px ( 1 ),
+        hexagon_compressed_grid_row_px ( 0 ),
+        -hexagon_compressed_grid_row_px ( 1 ),
+        hexagon_compressed_grid_row_px ( 0 ),
+        -hexagon_compressed_grid_row_px ( 1 ),
+      ],
+    }
+  ]
+
   onMounted ( () => {
-    console.log('HexagonsGroup onMounted')
-    gsap.to ( "#hexagon_1", { duration: 1, x: 300, y: 300, scale: 0.5, rotation: 180, skewX: 45 } );
-    gsap.to ( "#hexagon_2", { duration: 1, x: 100, y: -2, scale: 0.5, rotation: 180, skewX: 45 } );
-    gsap.to ( "#hexagon_3", { duration: 1, x: 108, y: 200, scale: 0.5, rotation: 180, skewX: 45 } );
+    // console.log('HexagonsGroup onMounted')
+    // console.log('HexagonsGroup onMounted :: screen_width', screen_width.value)
+    // console.log('HexagonsGroup onMounted :: hexagon_paths', hexagon_paths)
+
+    /**
+     * Initial positioning on Hero
+     */
+    unwatch_screen_width = watch ( screen_width, () => {
+      // console.log('menu.current_menu', menu.current_menu)
+      // console.log('hexagons_anchor_positions [ menu.current_menu ]', hexagons_anchor_positions [ menu.current_menu ])
+
+      // timeline
+      // const tl_master = gsap.timeline ({ 
+      //   defaults: {
+      //     // ease: CustomEase.create("custom", "M0,0 C0.296,0 0.618,0.214 0.7,0.5 0.761,0.713 0.78,1 1,1 "),
+      //     ease: 'sine',
+      //   },
+      // })
+      
+      const tl_hero = gsap.timeline ({})
+      const tl_stack = gsap.timeline ({})
+      const tl_cta = gsap.timeline ({})
+      // const tl_hero = gsap.timeline ({
+      //   scrollTrigger: {
+      //     trigger: '#the_hero',
+      //     start: 'top top',
+      //     end: 'center center',
+      //     scrub: true
+      //   },
+      //   ease: 'sine',
+      // })
+      
+      // hexagon_paths.value.forEach ( ( hex, index ) => {
+
+        // hero
+        tl_hero.set (
+          hexagon_paths.value,
+          {
+            x: index => hexagons_anchor_positions [ 0 ].anchor.x
+              + hexagons_anchor_positions [ 0 ].x [ index ],
+            y: index => hexagons_anchor_positions [ 0 ].anchor.y
+              + hexagons_anchor_positions [ 0 ].y [ index ],
+          },
+        )
+
+        // expanded stack
+        tl_stack.fromTo (
+          hexagon_paths.value,
+          {
+            x: index => hexagons_anchor_positions [ 0 ].anchor.x
+              + hexagons_anchor_positions [ 0 ].x [ index ],
+            y: index => hexagons_anchor_positions [ 0 ].anchor.y
+              + hexagons_anchor_positions [ 0 ].y [ index ],
+          },
+          {
+            scrollTrigger: {
+              trigger: '#the_expanded_stack',
+              start: 'top center',
+              end: 'center center',
+              scrub: true,
+            },
+            x: index => hexagons_anchor_positions [ 1 ].anchor.x
+              + hexagons_anchor_positions [ 1 ].x [ index ],
+            y: index => hexagons_anchor_positions [ 1 ].anchor.y
+              + hexagons_anchor_positions [ 1 ].y [ index ],
+            scale: index => index >= 6 ? 0 : 1,
+            stagger: .1,
+          },
+        )
+
+        // cta
+        tl_cta.fromTo (
+          hexagon_paths.value,
+          {
+            x: index => hexagons_anchor_positions [ 1 ].anchor.x
+              + hexagons_anchor_positions [ 1 ].x [ index ],
+            y: index => hexagons_anchor_positions [ 1 ].anchor.y
+              + hexagons_anchor_positions [ 1 ].y [ index ],
+            scale: index => index >= 6 ? 0 : 1,
+          },
+          {
+            scrollTrigger: {
+              trigger: '#the_cta',
+              start: '-100% center',
+              end: 'center center',
+              scrub: true
+            },
+            x: index => hexagons_anchor_positions [ 2 ].anchor.x
+              + hexagons_anchor_positions [ 2 ].x [ index ],
+            y: index => hexagons_anchor_positions [ 2 ].anchor.y
+              + hexagons_anchor_positions [ 2 ].y [ index ],
+            stagger: .1,
+          },
+        )
+
+      // })
+      unwatch_screen_width ()
+
+    })
+
+  })
+
+  onBeforeUnmount ( () => {
+    unwatch_screen_width ()
   })
 </script>
 
 <template>
-  <svg width="282" height="619" viewBox="0 0 282 619" xmlns="http://www.w3.org/2000/svg"
-    filter="url(#inset-shadow)"
-    fill="url(#paint0_linear_1432_2175)"
+  <svg
+    :width="screen_width"
+    :height="screen_height"
+    :viewBox="`0 0 ${ screen_width } ${ screen_height }`"
+    xmlns="http://www.w3.org/2000/svg"
+    filter="url( #inset_shadow )"
     >
     
-    <rect x="70" y="0" width="200" height="600"
-      clip-path="url(#clip_path)"
+    <rect x="0" y="0" 
+      :width="screen_width"
+      :height="screen_height"
+      clip-path="url( #clip_path )"
+      fill="url( #linear_gradient )"
       ></rect>
 
     <defs>
       <clipPath id="clip_path">
+        
         <path
+          v-for="hex in 7"
+          :key="hex"
+          :id="`hex_${ hex }`"
+          :ref="el => hexagon_paths.push ( el )"
+          d="M3.8147e-06 85.84C3.8147e-06 89.8822 2.1669 93.6153 5.67106 95.6425L48.8351 120.489C52.3393 122.504 56.6482 122.504 60.1524 120.489L103.329 95.6425C106.833 93.6276 109 89.8822 109 85.84V36.1722C109 32.13 106.833 28.397 103.329 26.3697L60.1648 1.51117C56.6606 -0.503724 52.3517 -0.503724 48.8475 1.51117L5.68346 26.3573C2.1793 28.3722 0.0123843 32.1176 0.0123843 36.1598V85.84H3.8147e-06Z"
+          />
+        <!-- <path
           id="hexagon_1"
           d="M108.013 85.1321C108.013 89.1409 105.866 92.8432 102.394 94.8538L59.6263 119.495C56.1543 121.493 51.885 121.493 48.413 119.495L5.63261 94.8538C2.16062 92.8555 0.0136871 89.1409 0.0136871 85.1321V35.8739C0.0136871 31.8651 2.16062 28.1628 5.63261 26.1523L48.4007 1.49871C51.8727 -0.499569 56.1421 -0.499569 59.6141 1.49871L102.382 26.14C105.854 28.1383 108.001 31.8528 108.001 35.8617V85.1321H108.013Z"
           />
@@ -50,10 +269,10 @@
         <path
           id="hexagon_7"
           d="M167.626 582.487C167.626 586.496 165.479 590.198 162.007 592.208L119.239 616.85C115.767 618.848 111.498 618.848 108.026 616.85L65.2451 592.208C61.7731 590.21 59.6261 586.496 59.6261 582.487V533.229C59.6261 529.22 61.7731 525.517 65.2451 523.507L108.013 498.854C111.485 496.855 115.755 496.855 119.227 498.854L161.995 523.495C165.467 525.493 167.614 529.208 167.614 533.216V582.487H167.626Z"
-          />
+          /> -->
       </clipPath>
 
-      <filter id="inset-shadow" x="-50%" y="-50%" width="200%" height="200%">
+      <filter id="inset_shadow" x="-50%" y="-50%" width="200%" height="200%">
         <feComponentTransfer in=SourceAlpha>
           <feFuncA type="table" tableValues="1 0" />
         </feComponentTransfer>
@@ -68,10 +287,16 @@
         </feMerge>
       </filter>
       
-      <linearGradient id="paint0_linear_1432_2175" x1="271.226" y1="595.347" x2="21.8945" y2="149.532" gradientUnits="userSpaceOnUse">
-        <stop stop-color="#32DEB3" />
-        <stop offset="0.536499" stop-color="#1DBBE2" />
-        <stop offset="1" stop-color="#ED24F4" />
+      <linearGradient id="linear_gradient"
+        x1="0%"
+        y1="0%"
+        x2="0%"
+        y2="100%"
+        gradientUnits="userSpaceOnUse"
+        >
+        <stop offset="0%" stop-color="#ED24F4" />
+        <stop offset="50%" stop-color="#1DBBE2" />
+        <stop offset="100%" stop-color="#32DEB3" />
       </linearGradient>
     </defs>
   </svg>

@@ -61,6 +61,10 @@
       .v-card
         margin: 1rem 2rem
 
+        &--variant-elevated,
+        &--variant-flat
+          background: transparent
+
         .use_case
           &_title
             font-size: 2rem
