@@ -7,9 +7,30 @@
     }
   })
 
+  const display = useDisplay()
+
 </script>
 
 <template>
+
+  <!-- profile -->
+  <div
+    id="profile_pic_wrapper"
+    :class="{
+      md: display.mdAndUp.value
+    }"
+    >
+    <img
+      src="/img/profile_300.png"
+      />
+  </div>
+  
+  <!-- hexagon -->
+  <SVGHexagonsGroup
+    id="hexagons_group" 
+    />
+
+  <!-- app content -->
   <VApp class="bg-surface">
     <VContainer>
       
@@ -53,6 +74,20 @@
 html
   overflow-x: hidden
   scroll-behavior: smooth
+
+#hexagons_group
+  position: fixed
+  top: 0
+  left: 0
+
+#profile_pic_wrapper
+  position: absolute
+  opacity: .3
+  top: 6rem
+  left: -6rem
+
+  &.md
+    left: 25vw
 
 .v-container
   min-height: 100vh
