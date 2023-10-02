@@ -1,6 +1,8 @@
 <!-- TheUseCases -->
 
 <script setup>
+  import { useUseCaseStore } from '@/stores/useCase'
+
   const use_cases = [
     {
       title: 'Multilingual Bible Search',
@@ -13,6 +15,12 @@
       client: 'One Voice Fellowship',
     },
   ]
+
+  const use_case_images = ref ( [] )
+  const use_case_store = useUseCaseStore ()
+  console.log('use_case_store',use_case_store)
+  use_case_store.set_use_case_images ( use_case_images.value )
+  
 </script>
 
 <template>
@@ -27,9 +35,12 @@
           :key="use_case.title"
           cols="6"
           >
-          <VCard>
+          <VCard class="use_case_card">
 
-            <VImg :src="`img/use_cases/${ use_case.img }`"></VImg>
+            <VImg
+              :ref="el => use_case_images.push ( el )"
+              :src="`img/use_cases/${ use_case.img }`"
+              ></VImg>
 
             <VCardTitle>
               <h3 class="use_case_title">{{ use_case.title }}</h3>

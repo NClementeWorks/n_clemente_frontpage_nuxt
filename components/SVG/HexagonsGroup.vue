@@ -4,6 +4,8 @@
   import gsap from 'gsap'
   import { ScrollTrigger } from "gsap/ScrollTrigger";
   import { CustomEase } from "gsap/CustomEase";
+  import { useUseCaseStore } from '@/stores/useCase'
+import { storeToRefs } from '@pinia/nuxt/dist/runtime/composables';
 
   gsap.registerPlugin ( ScrollTrigger )
 
@@ -11,7 +13,10 @@
   // console.log('display',display)
   const menu = useMenu ()
   const hexagon = useHexagons ()
+  const use_case_store = useUseCaseStore ()
+  const { use_case_images } = storeToRefs ( use_case_store )
   
+    
   const screen_width = computed ( () => display.width.value )
   const screen_height = computed ( () => display.height.value )
   let unwatch_screen_width = ref ( null )
@@ -114,46 +119,41 @@
   ]
 
   onMounted ( () => {
-    // console.log('HexagonsGroup onMounted')
-    // console.log('HexagonsGroup onMounted :: screen_width', screen_width.value)
-    // console.log('HexagonsGroup onMounted :: hexagon_paths', hexagon_paths)
-
     /**
      * Initial positioning on Hero
      */
-    unwatch_screen_width = watch ( screen_width, () => {
+    unwatch_screen_width = watch ( screen_width, async () => {
       
-      cta_hexagons.value = Math.ceil ( screen_width.value / hexagon_width_px ) * 2
-      console.log('cta_hexagons', cta_hexagons)
-
+      // hero
       const tl_hero = gsap.timeline ({})
-      const tl_stack = gsap.timeline ({})
-      const tl_cta = gsap.timeline ({})
       
-      // hexagon_paths.value.forEach ( ( hex, index ) => {
+      const hero_start = {
+        x: index => hexagons_anchor_positions [ 0 ].anchor.x
+          + hexagons_anchor_positions [ 0 ].x [ index ],
+        y: index => hexagons_anchor_positions [ 0 ].anchor.y
+          + hexagons_anchor_positions [ 0 ].y [ index ],
+        scale: 1,
+      }
 
-        // hero
-        const hero_start = {
-          x: index => hexagons_anchor_positions [ 0 ].anchor.x
-            + hexagons_anchor_positions [ 0 ].x [ index ],
-          y: index => hexagons_anchor_positions [ 0 ].anchor.y
-            + hexagons_anchor_positions [ 0 ].y [ index ],
-          scale: 1,
-        }
-        tl_hero.set (
+      tl_hero
+        .set (
           hexagon_paths.value,
           hero_start,
         )
 
-        // expanded stack
-        const stack_start = {
-          x: index => hexagons_anchor_positions [ 1 ].anchor.x
-            + hexagons_anchor_positions [ 1 ].x [ index ],
-          y: index => hexagons_anchor_positions [ 1 ].anchor.y
-            + hexagons_anchor_positions [ 1 ].y [ index ],
-          scale: index => index >= 6 ? 0 : 1,
-        }
-        tl_stack.fromTo (
+      // expanded stack
+      const tl_stack = gsap.timeline ({})
+
+      const stack_start = {
+        x: index => hexagons_anchor_positions [ 1 ].anchor.x
+          + hexagons_anchor_positions [ 1 ].x [ index ],
+        y: index => hexagons_anchor_positions [ 1 ].anchor.y
+          + hexagons_anchor_positions [ 1 ].y [ index ],
+        scale: index => index >= 6 ? 0 : 1,
+      }
+
+      tl_stack
+        .fromTo (
           hexagon_paths.value,
           hero_start,
           {
@@ -168,15 +168,18 @@
           },
         )
 
-        // cta
-        const cta_start = {
-          x: index => hexagons_anchor_positions [ 2 ].anchor.x
-            + hexagons_anchor_positions [ 2 ].x [ index ],
-          y: index => hexagons_anchor_positions [ 2 ].anchor.y
-            + hexagons_anchor_positions [ 2 ].y [ index ],
-          scale: 1,
-        }
-        tl_cta
+      // cta
+      const tl_cta = gsap.timeline ({})
+      
+      const cta_start = {
+        x: index => hexagons_anchor_positions [ 2 ].anchor.x
+          + hexagons_anchor_positions [ 2 ].x [ index ],
+        y: index => hexagons_anchor_positions [ 2 ].anchor.y
+          + hexagons_anchor_positions [ 2 ].y [ index ],
+        scale: 1,
+      }
+
+      tl_cta
         .fromTo (
           hexagon_paths.value,
           stack_start,
@@ -191,66 +194,99 @@
             stagger: .1,
           },
         )
+
+      cta_hexagons.value = Math.ceil ( screen_width.value / hexagon_width_px ) * 2
+      
+      watch ( () => cta_hexagon_paths.value.length, async () => {
+
+        const tl_cta_sides = gsap.timeline ({})
+
+        const cta_hex_left_side = cta_hexagon_paths.value.filter ( ( h, i ) => i % 2 === 0 )
+        const cta_hex_right_side = cta_hexagon_paths.value.filter ( ( h, i ) => i % 2 === 1 )
+
+        const cta_right_side_start = {
+          x: index => hexagons_anchor_positions [ 2 ].anchor.x
+            + hexagon_compressed_grid_column_px ( index )
+            + hexagon_compressed_grid_column_px ( 3 ),
+          y: index => hexagons_anchor_positions [ 2 ].anchor.y
+            + hexagons_anchor_positions [ 2 ].y [ index % 2 ],
+          scale: 0,
+        }
+        const cta_left_side_start = {
+          x: index => hexagons_anchor_positions [ 2 ].anchor.x
+            - hexagon_compressed_grid_column_px ( index )
+            - hexagon_compressed_grid_column_px ( 3 ),
+          y: index => hexagons_anchor_positions [ 2 ].anchor.y
+            + hexagons_anchor_positions [ 2 ].y [ index % 2 ],
+          scale: 0,
+        }
+
+        const cta_sides_trigger = {
+            scrollTrigger: {
+            trigger: '#the_cta',
+            start: '-50% center',
+            end: 'top center',
+            scrub: true,
+          },
+          scale: 1,
+          stagger: .05,
+          ease: 'sine',
+        }
         
-        watch ( () => cta_hexagon_paths.value.length, async () => {
+        tl_cta_sides
+          .set (
+            cta_hex_right_side,
+            cta_right_side_start,
+          )
+          .set (
+            cta_hex_left_side,
+            cta_left_side_start,
+          )
+          .fromTo (
+            cta_hex_right_side,
+            cta_right_side_start,
+            cta_sides_trigger,
+          )
+          .fromTo (
+            cta_hex_left_side,
+            cta_left_side_start,
+            cta_sides_trigger,
+          )
+      })
+      
+      // use cases
+      const tl_use_cases = gsap.timeline ({})
 
-          const tl_cta_sides = gsap.timeline ({})
+      watch ( () => use_case_images.value.length, () => {
 
-          const cta_hex_left_side = cta_hexagon_paths.value.filter ( ( h, i ) => i % 2 === 0 )
-          const cta_hex_right_side = cta_hexagon_paths.value.filter ( ( h, i ) => i % 2 === 1 )
+        const use_case_card_images = use_case_images.value
 
-          const cta_right_side_start = {
-            x: index => hexagons_anchor_positions [ 2 ].anchor.x
-              + hexagon_compressed_grid_column_px ( index )
-              + hexagon_compressed_grid_column_px ( 3 ),
-            y: index => hexagons_anchor_positions [ 2 ].anchor.y
-              + hexagons_anchor_positions [ 2 ].y [ index % 2 ],
-            scale: 0,
-          }
-          const cta_left_side_start = {
-            x: index => hexagons_anchor_positions [ 2 ].anchor.x
-              - hexagon_compressed_grid_column_px ( index )
-              - hexagon_compressed_grid_column_px ( 3 ),
-            y: index => hexagons_anchor_positions [ 2 ].anchor.y
-              + hexagons_anchor_positions [ 2 ].y [ index % 2 ],
-            scale: 0,
-          }
+        const use_case_image_scale = use_case_card_images [ 0 ].height / hexagon_height_px
+        
+        const use_cases_start = {
+          x: index => use_case_cards [ index ].offsetTop,
+          y: index => hexagons_anchor_positions [ 0 ].anchor.y
+            + hexagons_anchor_positions [ 0 ].y [ index ],
+          scale: scale_to_use_case_image,
+        }
 
-          const cta_sides_trigger = {
-             scrollTrigger: {
-              trigger: '#the_cta',
-              start: '-50% center',
-              end: 'top center',
-              scrub: true,
+        tl_use_cases
+          .to (
+            hexagon_paths.value.filter ( ( h, i ) => i <= 1 ),
+            {
+              ...use_cases_start,
+              scrollTrigger: {
+                trigger: '#the_use_cases',
+                start: 'top center',
+                end: 'center center',
+                scrub: true,
+              },
+              stagger: .05,
+              ease: 'sine',
             },
-            scale: 1,
-            stagger: .05,
-            ease: 'sine',
-          }
-          
-          tl_cta_sides
-            .set (
-              cta_hex_right_side,
-              cta_right_side_start,
-            )
-            .set (
-              cta_hex_left_side,
-              cta_left_side_start,
-            )
-            .fromTo (
-              cta_hex_right_side,
-              cta_right_side_start,
-              cta_sides_trigger,
-            )
-            .fromTo (
-              cta_hex_left_side,
-              cta_left_side_start,
-              cta_sides_trigger,
-            )
-        })
-        
+          )
+      })
 
-      // })
       unwatch_screen_width ()
 
     })
