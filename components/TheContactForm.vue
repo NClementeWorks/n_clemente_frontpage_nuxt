@@ -5,7 +5,7 @@
 
   const message_max_chars = 1000
   const message_rules = [
-    value => value.length <= message_max_chars || `Max ${ message_max_chars } characters`
+    value => value?.length <= message_max_chars || `Max ${ message_max_chars } characters`
   ]
   
 </script>
