@@ -2,10 +2,10 @@
 
 <script setup>
   import gsap from 'gsap'
-  import { ScrollTrigger } from "gsap/ScrollTrigger";
-  import { CustomEase } from "gsap/CustomEase";
+  import { ScrollTrigger } from "gsap/ScrollTrigger"
+  import { CustomEase } from "gsap/CustomEase"
   import { useUseCaseStore } from '@/stores/useCase'
-import { storeToRefs } from '@pinia/nuxt/dist/runtime/composables';
+  import { storeToRefs } from 'pinia'
 
   gsap.registerPlugin ( ScrollTrigger )
 
@@ -14,6 +14,7 @@ import { storeToRefs } from '@pinia/nuxt/dist/runtime/composables';
   const menu = useMenu ()
   const hexagon = useHexagons ()
   const use_case_store = useUseCaseStore ()
+  console.log('=== use_case_store',use_case_store)
   const { use_case_images } = storeToRefs ( use_case_store )
   
     
@@ -252,27 +253,95 @@ import { storeToRefs } from '@pinia/nuxt/dist/runtime/composables';
             cta_left_side_start,
             cta_sides_trigger,
           )
+          .fromTo (
+            cta_hex_right_side.reverse (),
+            { scale: 1 },
+            {
+              scrollTrigger: {
+                trigger: '#the_cta',
+                start: 'top 45%',
+                end: 'top 30%',
+                scrub: true,
+              },
+              scale: 0,
+              stagger: .05,
+              ease: 'sine',
+            },
+          )
+          .fromTo (
+            cta_hex_left_side.reverse (),
+            { scale: 1 },
+            {
+              scrollTrigger: {
+                trigger: '#the_cta',
+                start: 'top 45%',
+                end: 'top 30%',
+                scrub: true,
+              },
+              scale: 0,
+              stagger: .05,
+              ease: 'sine',
+            },
+          )
+          // .to (
+          //   cta_hexagon_paths.value,
+          //   {
+          //     scrollTrigger: {
+          //       trigger: '#the_use_cases',
+          //       start: 'top center',
+          //       end: '25% center',
+          //       scrub: true,
+          //     },
+          //     x: ,
+          //     y: ,
+          //     scale: gsap.utils.random ( 0, 1 ),
+          //     stagger: .05,
+          //     ease: 'sine',
+          //   }
+          // )
       })
       
       // use cases
+      // .use_case_card
       const tl_use_cases = gsap.timeline ({})
+      let get_left = el => {
+        console.log('___get_left', el.offsetLeft, el)
+        return el.parentElement
+          ? el.offsetLeft + get_left ( el.parentElement )
+          : el.offsetLeft
+      }
 
-      watch ( () => use_case_images.value.length, () => {
+      watch ( () => use_case_images.value [ 0 ].naturalHeight, () => {
+        if ( use_case_images.value [ 0 ].naturalHeight <= 0 )
+          return
 
-        const use_case_card_images = use_case_images.value
+        console.log('use_case_images.value [ 0 ].image.clientLeft', use_case_images.value [ 0 ].image)
 
-        const use_case_image_scale = use_case_card_images [ 0 ].height / hexagon_height_px
+        const use_case_image_scale = use_case_images.value [ 0 ].naturalHeight / hexagon_height_px
+        console.log('use_case_image_scale',use_case_image_scale)
+        const use_case_image_half_width = use_case_images.value [ 0 ].naturalWidth / 2
+        const use_case_image_half_height = use_case_images.value [ 0 ].naturalHeight / 2
+        const use_case_image_0_left = get_left ( use_case_images.value [ 0 ].$el )
+        const use_case_image_1_left = get_left ( use_case_images.value [ 1 ].$el )
+        console.log('use_case_image_1_left', use_case_image_0_left, use_case_image_1_left)
         
         const use_cases_start = {
-          x: index => use_case_cards [ index ].offsetTop,
-          y: index => hexagons_anchor_positions [ 0 ].anchor.y
-            + hexagons_anchor_positions [ 0 ].y [ index ],
-          scale: scale_to_use_case_image,
+          x: index => 
+          // get_left ( use_case_images.value [ index ].$el ),
+          ( screen_width.value * .525 )
+          + (
+            index === 0
+              ? - use_case_image_half_width * 2.5
+              : use_case_image_half_width
+            ),
+          y: ( screen_width.value / 2 ) - ( use_case_images.value [ 0 ].naturalHeight * 2 ),
+          scale: use_case_image_scale + .5,
         }
 
         tl_use_cases
           .to (
-            hexagon_paths.value.filter ( ( h, i ) => i <= 1 ),
+            hexagon_paths.value.
+            filter ( ( h, i ) => i <= 1 ),
             {
               ...use_cases_start,
               scrollTrigger: {
@@ -351,8 +420,8 @@ import { storeToRefs } from '@pinia/nuxt/dist/runtime/composables';
       
       <linearGradient id="linear_gradient"
         x1="0%"
-        y1="0%"
-        x2="0%"
+        y1="35%"
+        x2="85%"
         y2="100%"
         gradientUnits="userSpaceOnUse"
         >
