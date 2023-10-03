@@ -65,7 +65,7 @@
           height: `${ hexagons.default_height_px * 3 }px`
       }"
       >
-      <SVGHexagon
+      <!-- <SVGHexagon
         v-for="( skill, index ) in skills"
         :key="skill.name"
         :style="{
@@ -74,7 +74,7 @@
           top: `${ hexagon_top ( index ) }px`,
           left: `${ hexagon_left ( index ) }px`,
         }"
-        />
+        /> -->
       <div>
         <VImg
           v-for="( skill, index ) in skills"
@@ -135,5 +135,5 @@
     justify-content: center
     font-weight: var( --font-weight-bold )
     font-size: 1.5rem
-    
+
 </style>

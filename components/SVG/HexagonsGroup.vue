@@ -116,8 +116,53 @@
         hexagon_compressed_grid_row_px ( 0 ),
         -hexagon_compressed_grid_row_px ( 1 ),
       ],
+    },
+
+    // skills
+    {
+      anchor: {
+        get x () { return screen_width.value / 2 },
+        get y () { return screen_height.value / 2 },
+      },
+      x: [
+        hexagon_compressed_grid_row_px ( 0 ),
+        -hexagon_compressed_grid_row_px ( 1 ),
+        hexagon_compressed_grid_row_px ( 1 ),
+        -hexagon_compressed_grid_row_px ( 1 ),
+        hexagon_compressed_grid_row_px ( 1 ),
+        hexagon_compressed_grid_row_px ( 0 ),
+        hexagon_compressed_grid_row_px ( 0 ),
+      ],
+      y: [
+        -hexagon_compressed_grid_column_px ( 2 ),
+        -hexagon_compressed_grid_column_px ( 1 ),
+        -hexagon_compressed_grid_column_px ( 1 ),
+        hexagon_compressed_grid_column_px ( 1 ),
+        hexagon_compressed_grid_column_px ( 1 ),
+        hexagon_compressed_grid_column_px ( 2 ),
+        hexagon_compressed_grid_column_px ( 0 ),
+      ],
+      x_gap: [
+        0, -2, 2, -2, 2, 0, 0
+      ],
+      y_gap: [
+        -3, -1, -1, 1, 1, 3, 0
+      ],
     }
   ]
+
+  const base_scroll_trigger = ({ trigger, ...args }) => ({
+    scrollTrigger: {
+      trigger,
+      start: args.start || 'top center',
+      end: args.end || 'bottom center',
+      scrub: args.scrub || true,
+      // markers: args.markers || true,
+      // pin: args.pin || true,
+    },
+    stagger: args.stagger || .05,
+    ease: args.ease || 'sine',
+  })
 
   onMounted ( () => {
     /**
@@ -158,14 +203,12 @@
           hexagon_paths.value,
           hero_start,
           {
-            ...stack_start,
-            scrollTrigger: {
+            ...base_scroll_trigger ({
               trigger: '#the_expanded_stack',
               start: 'top center',
               end: 'center center',
-              scrub: true,
-            },
-            stagger: .1,
+            }),
+            ...stack_start,
           },
         )
 
@@ -185,19 +228,18 @@
           hexagon_paths.value,
           stack_start,
           {
-            ...cta_start,
-            scrollTrigger: {
+            ...base_scroll_trigger ({
               trigger: '#the_cta',
               start: '-100% center',
               end: 'top center',
-              scrub: true,
-            },
-            stagger: .1,
+            }),
+            ...cta_start,
           },
         )
 
       cta_hexagons.value = Math.ceil ( screen_width.value / hexagon_width_px ) * 2
       
+      // cta sides hexagons
       watch ( () => cta_hexagon_paths.value.length, async () => {
 
         const tl_cta_sides = gsap.timeline ({})
@@ -223,15 +265,12 @@
         }
 
         const cta_sides_trigger = {
-            scrollTrigger: {
+          ...base_scroll_trigger ({
             trigger: '#the_cta',
             start: '-50% center',
             end: 'top center',
-            scrub: true,
-          },
+          }),
           scale: 1,
-          stagger: .05,
-          ease: 'sine',
         }
         
         tl_cta_sides
@@ -257,30 +296,24 @@
             cta_hex_right_side.reverse (),
             { scale: 1 },
             {
-              scrollTrigger: {
+              ...base_scroll_trigger ({
                 trigger: '#the_cta',
                 start: 'top 45%',
                 end: 'top 30%',
-                scrub: true,
-              },
+              }),
               scale: 0,
-              stagger: .05,
-              ease: 'sine',
             },
           )
           .fromTo (
             cta_hex_left_side.reverse (),
             { scale: 1 },
             {
-              scrollTrigger: {
+              ...base_scroll_trigger ({
                 trigger: '#the_cta',
                 start: 'top 45%',
                 end: 'top 30%',
-                scrub: true,
-              },
+              }),
               scale: 0,
-              stagger: .05,
-              ease: 'sine',
             },
           )
           // .to (
@@ -300,16 +333,24 @@
           //   }
           // )
       })
-      
+
       // use cases
       // .use_case_card
       const tl_use_cases = gsap.timeline ({})
-      let get_left = el => {
-        console.log('___get_left', el.offsetLeft, el)
-        return el.parentElement
-          ? el.offsetLeft + get_left ( el.parentElement )
-          : el.offsetLeft
-      }
+      const image_bg_hexagons = hexagon_paths.value.filter ( ( h, i ) => i <= 1 )
+      const surounding_hexagons = hexagon_paths.value.filter ( ( h, i ) => i > 1 )
+
+      // let get_left = el => {
+      //   console.log('___get_left', el.offsetLeft, el)
+      //   return el.parentElement
+      //     ? el.offsetLeft + get_left ( el.parentElement )
+      //     : el.offsetLeft
+      // }
+      
+      let use_cases_start = {}
+      
+      let use_cases_random_start = {}
+
 
       watch ( () => use_case_images.value [ 0 ].naturalHeight, () => {
         if ( use_case_images.value [ 0 ].naturalHeight <= 0 )
@@ -321,11 +362,10 @@
         console.log('use_case_image_scale',use_case_image_scale)
         const use_case_image_half_width = use_case_images.value [ 0 ].naturalWidth / 2
         const use_case_image_half_height = use_case_images.value [ 0 ].naturalHeight / 2
-        const use_case_image_0_left = get_left ( use_case_images.value [ 0 ].$el )
-        const use_case_image_1_left = get_left ( use_case_images.value [ 1 ].$el )
-        console.log('use_case_image_1_left', use_case_image_0_left, use_case_image_1_left)
-        
-        const use_cases_start = {
+        // const use_case_image_0_left = get_left ( use_case_images.value [ 0 ].$el )
+        // const use_case_image_1_left = get_left ( use_case_images.value [ 1 ].$el )
+        // console.log('use_case_image_1_left', use_case_image_0_left, use_case_image_1_left)
+        use_cases_start = {
           x: index => 
           // get_left ( use_case_images.value [ index ].$el ),
           ( screen_width.value * .525 )
@@ -334,30 +374,114 @@
               ? - use_case_image_half_width * 2.5
               : use_case_image_half_width
             ),
-          y: ( screen_width.value / 2 ) - ( use_case_images.value [ 0 ].naturalHeight * 2 ),
+
+          y: () =>
+            ( screen_height.value / 2 )
+            - ( use_case_images.value [ 0 ].naturalHeight ),
+
           scale: use_case_image_scale + .5,
         }
+        
+        use_cases_random_start = {
+          x: index => 
+            // get_left ( use_case_images.value [ index ].$el ),
+            ( screen_width.value * .525 )
+            + (
+              index === 0
+                ? - use_case_image_half_width * 2.5
+                : use_case_image_half_width
+              )
+            * (
+              gsap.utils.random ( 1, 2, 1 ) === 1
+              ? gsap.utils.random ( -1.5, -1 )
+              : gsap.utils.random ( 1, 1.5 )
+            ),
 
+          y: () =>
+            ( screen_height.value / 2 )
+            - ( use_case_images.value [ 0 ].naturalHeight )
+            * (
+              gsap.utils.random ( 1, 2, 1 ) === 1
+              ? gsap.utils.random ( -.25, -.5 )
+              : gsap.utils.random ( .5, 1.25 )
+            ),
+
+          scale: () => gsap.utils.random ( 0.5, 1 ),
+        }
+        
         tl_use_cases
-          .to (
-            hexagon_paths.value.
-            filter ( ( h, i ) => i <= 1 ),
+          .fromTo (
+            image_bg_hexagons,
+            cta_start,
             {
-              ...use_cases_start,
-              scrollTrigger: {
+              ...base_scroll_trigger ({
                 trigger: '#the_use_cases',
                 start: 'top center',
-                end: 'center center',
-                scrub: true,
-              },
-              stagger: .05,
-              ease: 'sine',
+                end: 'top top',
+              }),
+              ...use_cases_start,
+            },
+          )
+          .fromTo (
+            surounding_hexagons,
+            {
+              x: index => hexagons_anchor_positions [ 2 ].anchor.x
+                + hexagons_anchor_positions [ 2 ].x [ index + 2 ],
+              y: index => hexagons_anchor_positions [ 2 ].anchor.y
+                + hexagons_anchor_positions [ 2 ].y [ index + 2 ],
+              scale: 1,
+            },
+            {
+              ...base_scroll_trigger ({
+                trigger: '#the_use_cases',
+                start: 'top center',
+                end: 'top top',
+              }),
+              ...use_cases_random_start,
             },
           )
       })
+      
+      const tl_skills = gsap.timeline ({})
+
+      const skills_start = shift => ({
+        x: index => hexagons_anchor_positions [ 3 ].anchor.x * 1.25
+          + hexagons_anchor_positions [ 3 ].x [ index + shift ]
+          + ( hexagon_default_gap_px * hexagons_anchor_positions [ 3 ].x_gap [ index + shift ] ),
+        y: index => hexagons_anchor_positions [ 3 ].anchor.y
+          + hexagons_anchor_positions [ 3 ].y [ index + shift ]
+          + ( hexagon_default_gap_px * hexagons_anchor_positions [ 3 ].y_gap [ index + shift ] ),
+        scale: index => index + shift === 6 ? 0 : 1,
+        rotation: 90,
+      })
+
+      tl_skills.fromTo (
+        image_bg_hexagons,
+        use_cases_start,
+        {
+          ...base_scroll_trigger ({
+            trigger: '#the_top_skills',
+            start: 'center center',
+            end: 'bottom center',
+          }),
+          ...skills_start ( 0 ),
+        },
+      )
+
+      tl_skills.to (
+        surounding_hexagons,
+        {
+          ...base_scroll_trigger ({
+            trigger: '#the_top_skills',
+            start: 'center center',
+            end: 'bottom center',
+          }),
+          ...skills_start ( 2 ),
+        },
+      )
 
       unwatch_screen_width ()
-
+      
     })
 
   })
@@ -390,7 +514,10 @@
           v-for="hex in 7"
           :key="hex"
           :id="`hex_${ hex }`"
-          :ref="el => hexagon_paths.push ( el )"
+          :ref="el => {
+            if ( !hexagon_paths.includes ( el ) )
+              hexagon_paths.push ( el )
+          }"
           d="M3.8147e-06 85.84C3.8147e-06 89.8822 2.1669 93.6153 5.67106 95.6425L48.8351 120.489C52.3393 122.504 56.6482 122.504 60.1524 120.489L103.329 95.6425C106.833 93.6276 109 89.8822 109 85.84V36.1722C109 32.13 106.833 28.397 103.329 26.3697L60.1648 1.51117C56.6606 -0.503724 52.3517 -0.503724 48.8475 1.51117L5.68346 26.3573C2.1793 28.3722 0.0123843 32.1176 0.0123843 36.1598V85.84H3.8147e-06Z"
           />
 
