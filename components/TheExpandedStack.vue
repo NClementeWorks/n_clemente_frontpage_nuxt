@@ -103,6 +103,7 @@
 
       .v-icon
         color: rgb( var( --v-theme-blue ) )
+        mix-blend-mode: color-burn
 
     &_text
       margin-left: 2rem
