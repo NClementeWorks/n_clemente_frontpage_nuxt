@@ -87,22 +87,13 @@
       align-items: center
       position: relative
 
-
-    &_items_wrapper
-      left: calc(38% + 1rem)
-      position: absolute
-      top: 9.5rem
-
     &_item
-      margin: 2.15rem 0
+      margin: 1.8rem 0 2.23rem
       display: flex
       align-items: center
 
       &:nth-child(2n)
-        margin-left: 2.65rem
-
-      &:nth-child(2n - 1)
-        margin-left: -1.1rem
+        margin-left: 3.6rem
 
       .v-icon
         color: rgb( var( --v-theme-blue ) )

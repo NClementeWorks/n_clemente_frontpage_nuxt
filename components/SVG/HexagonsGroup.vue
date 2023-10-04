@@ -169,7 +169,7 @@
   })
 
   let get_left = el => {
-    console.log('___get_left', el.offsetLeft, el)
+    // console.log('___get_left', el.offsetLeft, el)
     return el.offsetParent
       ? el.offsetLeft + get_left ( el.offsetParent )
       : el.offsetLeft
@@ -182,12 +182,26 @@
       : el.offsetTop
   }
   
+  // const draw_mark = ( {top, left}, text, fixed ) => {
+  //   const div = document.createElement ( 'div' )
+  //   div.id = 'custom_marker'
+  //   div.style.overflow = 'visible'
+  //   div.style.height = '2px'
+  //   div.style.width = '20px'
+  //   div.style.background = 'red'
+  //   div.style.position = fixed ? 'fixed' : 'absolute'
+  //   div.style.top = top ? `${ top }px` : '50%'
+  //   div.style.left = left ? `${ left }px` : '50%'
+  //   div.innerText = text
+  //   const nuxt_el = document.querySelector ( '#__nuxt' )
+  //   nuxt_el.appendChild ( div )
+  // }
+
   onMounted ( async () => {
     await nextTick ()
     /**
      * Set SVG height to page total height
      */
-    console.log('docuemnt', document.body.scrollHeight, document)
     screen_height.value = document.body.scrollHeight
 
     /**
@@ -221,9 +235,14 @@
 
       const expanded_stack_items_el = document.querySelector ( '#expanded_stack_items' )
       const expanded_stack_items_el_top = get_top ( expanded_stack_items_el )
+      const expanded_stack_items_el_left = get_left ( expanded_stack_items_el )
+
+      const expanded_stack_firts_item_el = document.querySelector ( '#expanded_stack_items .expanded_stack_item .v-icon' )
 
       const stack_start = {
-        x: index => hexagons_anchor_positions [ 1 ].anchor.x
+        x: index => expanded_stack_items_el_left
+          - ( hexagon.default_width_px / 2 )
+          + ( expanded_stack_firts_item_el.offsetWidth / 2 )
           + hexagons_anchor_positions [ 1 ].x [ index ],
         y: index => expanded_stack_items_el_top
           + hexagon_grid_row_px ( index ),
@@ -251,15 +270,17 @@
       
       const cta_el = document.querySelector ( '#the_cta' )
       const cta_el_top = get_top ( cta_el )
-      console.log('cta_el',cta_el?.offsetTop, cta_el_top, cta_el)
+      
+      const cta_el_left = get_left ( cta_el )
+      const cta_center = cta_el_left + ( cta_el.offsetWidth / 2 ) - ( hexagon.default_width_px * 2 )
 
       const cta_start_y = index => cta_el_top
           - ( hexagon.default_height_px / 3 )
           + hexagon_compressed_grid_row_px ( index % 2 )
 
       const cta_start = {
-        x: index => hexagons_anchor_positions [ 2 ].anchor.x
-          + hexagons_anchor_positions [ 2 ].x [ index ],
+        x: index => cta_center
+          + hexagon_compressed_grid_column_px ( index ),
         y: cta_start_y,
         scale: 1,
       }
@@ -271,7 +292,7 @@
           {
             ...base_scroll_trigger ({
               trigger: '#the_cta',
-              start: '-100% center',
+              start: 'bottom bottom',
               end: 'top center',
               snap: .5
             }),
@@ -279,10 +300,10 @@
           },
         )
 
-      cta_hexagons.value = Math.ceil ( screen_width.value / hexagon_width_px ) * 2
+      cta_hexagons.value = Math.ceil ( screen_width.value / hexagon_width_px ) * 2 + 4 // add extra padding
       
       // cta sides hexagons
-      watch ( () => cta_hexagon_paths.value.length, async () => {
+      watch ( () => cta_hexagon_paths.value.length, async () =>  {
 
         const tl_cta_sides = gsap.timeline ({})
 
@@ -290,16 +311,15 @@
         const cta_hex_right_side = cta_hexagon_paths.value.filter ( ( h, i ) => i % 2 === 1 )
 
         const cta_right_side_start = {
-          x: index => hexagons_anchor_positions [ 2 ].anchor.x
-            + hexagon_compressed_grid_column_px ( index )
-            + hexagon_compressed_grid_column_px ( 3 ),
+          x: index => cta_center
+            + hexagon_compressed_grid_column_px ( index + 6 ),
           y: cta_start_y,
           scale: 0,
         }
+
         const cta_left_side_start = {
-          x: index => hexagons_anchor_positions [ 2 ].anchor.x
-            - hexagon_compressed_grid_column_px ( index )
-            - hexagon_compressed_grid_column_px ( 3 ),
+          x: index => cta_center
+            - hexagon_compressed_grid_column_px ( index ),
           y: cta_start_y,
           scale: 0,
         }
@@ -307,7 +327,7 @@
         const cta_sides_trigger = {
           ...base_scroll_trigger ({
             trigger: '#the_cta',
-            start: '-50% center',
+            start: '-100% center',
             end: 'top center',
             scrub: undefined,
             snap: undefined,
@@ -361,94 +381,48 @@
        * use cases
        */
       const tl_use_cases = gsap.timeline ({})
-      const image_bg_hexagons = hexagon_paths.value.filter ( ( h, i ) => i <= 1 )
-      const surounding_hexagons = hexagon_paths.value.filter ( ( h, i ) => i > 1 )
 
-      let use_cases_start = {}
       let use_cases_random_start = {}
 
-      const use_cases_el = document.querySelector ( '#the_use_cases' )
-      const use_cases_el_top = get_top ( use_cases_el )
-
-      const use_case_img_el = document.querySelector ( '#the_use_cases .v-img' )
-      const use_case_img_el_top = get_top ( use_case_img_el )
+      const use_case_img_el = [ ...document.querySelectorAll ( '#the_use_cases .v-img' ) ]  
+      const use_case_img_el_top = get_top ( use_case_img_el [ 0 ] )
+      const use_case_imgs_el_left = use_case_img_el.map ( el => get_left ( el ) )
       
-      const hexagon_proportions = hexagon.default_width_px / hexagon.default_height_px
-      const use_case_img_el_hegiht = use_case_img_el.offsetWidth * hexagon_proportions
+      const hexagon_proportions = hexagon.default_height_px / hexagon.default_width_px
+      const use_case_img_el_hegiht = use_case_img_el [ 0 ].offsetWidth * hexagon_proportions
       const use_case_img_el_bottom = use_case_img_el_top + use_case_img_el_hegiht
+      const use_case_image_width = use_case_img_el [ 0 ].offsetWidth
 
-      const use_case_image_scale = use_case_img_el.offsetWidth / hexagon.default_width_px
-      const use_case_image_half_width = use_case_img_el.offsetWidth / 2
+      const use_case_random = () => gsap.utils.random ( use_case_img_el_top, use_case_img_el_bottom )
 
-      use_cases_start = {
-        x: index => 
-          ( screen_width.value * .525 )
-          + (
-            index === 0
-              ? - use_case_image_half_width * 2.5
-              : use_case_image_half_width
-            ),
-
-        y: () => use_case_img_el_top,
-
-        scale: use_case_image_scale ,//+ .5,
-      }
-      
-      const use_case_random = () => gsap.utils.random ( 1, 2, 1 ) === 1
-        ? gsap.utils.random ( use_case_img_el_top, use_case_img_el_top + ( use_case_img_el_hegiht * .25 ) )
-        : gsap.utils.random ( use_case_img_el_top + ( use_case_img_el_hegiht * .75 ), use_case_img_el_bottom )
+      const use_case_random_x_options = [
+          () => gsap.utils.random ( screen_width.value * .2, use_case_imgs_el_left [ 0 ] ),
+          () => gsap.utils.random ( use_case_imgs_el_left [ 0 ] + use_case_image_width - hexagon.default_width_px, use_case_imgs_el_left [ 1 ] ),
+          () => gsap.utils.random ( use_case_imgs_el_left [ 1 ] + use_case_image_width, use_case_imgs_el_left [ 1 ] + use_case_image_width, + hexagon.default_width_px ),
+      ]
 
       use_cases_random_start = {
-        x: index => 
-          ( screen_width.value * .525 )
-          + (
-            index === 0
-              ? - use_case_image_half_width * 2.5
-              : use_case_image_half_width
-            )
-          * (
-            gsap.utils.random ( 1, 2, 1 ) === 1
-            ? gsap.utils.random ( -1.5, -1 )
-            : gsap.utils.random ( 1, 1.5 )
-          ),
-
+        x: index => {
+          const rnd_option = index % 3
+          return use_case_random_x_options [ rnd_option ] ()
+        },
         y: () => use_case_random (),
-
         scale: () => gsap.utils.random ( 0.5, 1 ),
       }
       
       tl_use_cases
         .fromTo (
-          image_bg_hexagons,
+          hexagon_paths.value,
           cta_start,
           {
             ...base_scroll_trigger ({
               trigger: '#the_use_cases',
               start: 'top 25%',
-              end: 'top top',
-            }),
-            ...use_cases_start,
-          },
-        )
-        .fromTo (
-          surounding_hexagons,
-          {
-            x: index => hexagons_anchor_positions [ 2 ].anchor.x
-              + hexagons_anchor_positions [ 2 ].x [ index + 2 ],
-            y: index => hexagons_anchor_positions [ 2 ].anchor.y
-              + hexagons_anchor_positions [ 2 ].y [ index + 2 ],
-            scale: 1,
-          },
-          {
-            ...base_scroll_trigger ({
-              trigger: '#the_use_cases',
-              start: 'top 25%',
-              end: 'top top',
+              end: '-5% top',
             }),
             ...use_cases_random_start,
           },
         )
-      // })
       
       /**
        * top skills
@@ -457,42 +431,36 @@
 
       const skills_el = document.querySelector ( '#top_skills_flower' )
       const skills_el_top = get_top ( skills_el )
+      const skills_el_left = get_left ( skills_el )
+      const skills_icon_el = document.querySelector ( '#top_skills_flower .v-img' )
+      const calculated_skills_section_top = skills_el_top + use_case_img_el_hegiht
 
       const skills_rows = [ 0, 1, 1, 3, 3, 4, 2 ]
+      const skills_rows_gaps = [ 0, 2, 2, 4 , 4, 6, 3 ]
+      const skills_cols = [ 1, 0, 2, 2, 0, 1, 1 ]
+      const skills_cols_gaps = [ 2, 0, 4, 4, 0, 2, 2 ]
 
-      const skills_start = shift => ({
-        x: index => hexagons_anchor_positions [ 3 ].anchor.x * 1.25
-          + hexagons_anchor_positions [ 3 ].x [ index + shift ]
-          + ( hexagon_default_gap_px * hexagons_anchor_positions [ 3 ].x_gap [ index + shift ] ),
-        y: index => skills_el_top + use_case_img_el_hegiht
-          + hexagon_compressed_grid_column_px ( skills_rows [ index + shift ] )
-          + ( hexagon_default_gap_px * hexagons_anchor_positions [ 3 ].y_gap [ index + shift ] ),
-        scale: index => index + shift === 6 ? 0 : 1,
+      const skills_start = {
+        x: index => skills_el_left
+          - ( ( hexagon.default_height_px - ( skills_icon_el.offsetWidth / 2 ) ) / 2 )
+          + hexagon_compressed_grid_row_px ( skills_cols [ index ] )
+          + ( hexagon_default_gap_px * skills_cols_gaps [ index ] ),
+        y: index => calculated_skills_section_top
+          + hexagon_compressed_grid_column_px ( skills_rows [ index ] )
+          + ( hexagon_default_gap_px * skills_rows_gaps [ index ] ),
+        scale: index => index === 6 ? 0 : 1,
         rotation: 90,
-      })
-
-      tl_skills.fromTo (
-        image_bg_hexagons,
-        use_cases_start,
-        {
-          ...base_scroll_trigger ({
-            trigger: '#the_top_skills',
-            start: 'center center',
-            end: 'bottom center',
-          }),
-          ...skills_start ( 0 ),
-        },
-      )
+      }
 
       tl_skills.to (
-        surounding_hexagons,
+        hexagon_paths.value,
         {
           ...base_scroll_trigger ({
             trigger: '#the_top_skills',
-            start: 'center center',
-            end: 'bottom center',
+            start: () => calculated_skills_section_top - ( display.height.value * .85 ),
+            end: () => calculated_skills_section_top - ( display.height.value * .5 ),
           }),
-          ...skills_start ( 2 ),
+          ...skills_start,
         },
       )
 
