@@ -156,9 +156,10 @@
       trigger,
       start: args.start || 'top center',
       end: args.end || 'bottom center',
-      scrub: args.scrub || true,
+      scrub: args.scrub || 1.5,
       // markers: args.markers || true,
-      // pin: args.pin || true,
+      pin: args.pin || false,
+      snap: args.snap || 1,
     },
     stagger: args.stagger || .05,
     ease: args.ease || 'sine',
@@ -232,6 +233,7 @@
               trigger: '#the_cta',
               start: '-100% center',
               end: 'top center',
+              snap: .5
             }),
             ...cta_start,
           },
@@ -269,8 +271,21 @@
             trigger: '#the_cta',
             start: '-50% center',
             end: 'top center',
+            scrub: 0,
+            snap: false,
           }),
           scale: 1,
+        }
+
+        const cta_sides_trigger_reverse = {
+          ...base_scroll_trigger ({
+            trigger: '#the_cta',
+            start: 'top 45%',
+            end: 'top 30%',
+            scrub: 0,
+            snap: false,
+          }),
+          scale: 0,
         }
         
         tl_cta_sides
@@ -295,26 +310,12 @@
           .fromTo (
             cta_hex_right_side.reverse (),
             { scale: 1 },
-            {
-              ...base_scroll_trigger ({
-                trigger: '#the_cta',
-                start: 'top 45%',
-                end: 'top 30%',
-              }),
-              scale: 0,
-            },
+            cta_sides_trigger_reverse,
           )
           .fromTo (
             cta_hex_left_side.reverse (),
             { scale: 1 },
-            {
-              ...base_scroll_trigger ({
-                trigger: '#the_cta',
-                start: 'top 45%',
-                end: 'top 30%',
-              }),
-              scale: 0,
-            },
+            cta_sides_trigger_reverse,
           )
           // .to (
           //   cta_hexagon_paths.value,
