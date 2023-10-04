@@ -76,7 +76,7 @@ html
   scroll-behavior: smooth
 
 #hexagons_group
-  position: fixed
+  position: absolute
   top: 0
   left: 0
 

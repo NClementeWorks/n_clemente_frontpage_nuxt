@@ -60,7 +60,9 @@
       Top Resume Skills
     </h3>
 
-    <div class="top_skills_flower_wrapper"
+    <div
+      id="top_skills_flower"
+      class="top_skills_flower_wrapper"
       :style="{
           height: `${ hexagons.default_height_px * 3 }px`
       }"

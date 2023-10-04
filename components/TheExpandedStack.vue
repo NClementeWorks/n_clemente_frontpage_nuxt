@@ -55,7 +55,10 @@
         />
     </div> -->
 
-    <div class="expanded_stack_items_wrapper">
+    <div
+      id="expanded_stack_items"
+      class="expanded_stack_items_wrapper"
+      >
       <div
         v-for="item in items"
         :key="item.icon"
