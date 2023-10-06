@@ -299,12 +299,19 @@
       const use_case_img_el_bottom = use_case_img_el_top + use_case_img_el_hegiht
       const use_case_image_width = use_case_img_el [ 0 ].offsetWidth
 
-      const use_case_random = () => gsap.utils.random ( use_case_img_el_top, use_case_img_el_bottom )
-
       const use_case_random_x_options = [
-          () => gsap.utils.random ( screen_width.value * .2, use_case_imgs_el_left [ 0 ] ),
-          () => gsap.utils.random ( use_case_imgs_el_left [ 0 ] + use_case_image_width - hexagon.default_width_px, use_case_imgs_el_left [ 1 ] ),
-          () => gsap.utils.random ( use_case_imgs_el_left [ 1 ] + use_case_image_width, use_case_imgs_el_left [ 1 ] + use_case_image_width, + hexagon.default_width_px ),
+        () => gsap.utils.random (
+          screen_width.value * .2,
+          use_case_imgs_el_left [ 0 ]
+        ),
+        () => gsap.utils.random (
+          use_case_imgs_el_left [ 0 ] + use_case_image_width - hexagon.default_width_px,
+          use_case_imgs_el_left [ 1 ]
+        ),
+        () => gsap.utils.random (
+          use_case_imgs_el_left [ 1 ] + use_case_image_width,
+          use_case_imgs_el_left [ 1 ] + use_case_image_width, + hexagon.default_width_px
+        ),
       ]
 
       use_cases_random_start = {
@@ -312,7 +319,10 @@
           const rnd_option = index % 3
           return use_case_random_x_options [ rnd_option ] ()
         },
-        y: () => use_case_random (),
+        y: () => gsap.utils.random (
+          use_case_img_el_top,
+          use_case_img_el_bottom - hexagon.default_height_px
+        ),
         scale: () => gsap.utils.random ( 0.5, 1 ),
       }
       
