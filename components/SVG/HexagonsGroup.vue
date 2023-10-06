@@ -19,10 +19,21 @@
   
     
   const screen_width = computed ( () => display.width.value )
-  const screen_height = ref ( 0 )
+  const screen_height = computed ( () => display.height.value )
+  const page_height = ref ( 0 )
   // computed ( () => document?.body?.scrollHeight )
   let unwatch_screen_width = ref ( null )
 
+
+  const colors = [
+    '1DBBE2',
+    'ED24F4',
+    '1DBBE2',
+    '32DEB3',
+  ]
+  const screen_splits = ref ( 1 )
+  
+  const svg_rectangle = ref ( null )
   const hexagon_default_gap_px = 8
   const hexagon_paths = ref ( [] )
   const cta_hexagons = ref ( 0 )
@@ -202,13 +213,18 @@
     /**
      * Set SVG height to page total height
      */
-    screen_height.value = document.body.scrollHeight
+    page_height.value = document.body.scrollHeight
 
     /**
      * Initial positioning on Hero
      */
     unwatch_screen_width = watch ( screen_width, async () => {
-      
+        
+      /**
+       * setup color divisions
+       */
+      screen_splits.value = Math.ceil ( page_height.value / screen_height.value )
+
       /**
        * hero
        */
@@ -478,15 +494,18 @@
 <template>
   <svg
     :width="screen_width"
-    :height="screen_height"
-    :viewBox="`0 0 ${ screen_width } ${ screen_height }`"
+    :height="page_height"
+    :viewBox="`0 0 ${ screen_width } ${ page_height }`"
     xmlns="http://www.w3.org/2000/svg"
     filter="url( #inset_shadow )"
     >
     
-    <rect x="0" y="0" 
+    <rect
+      id="svg_rectangle"
+      ref="svg_rectangle"
+      x="0" y="0"
       :width="screen_width"
-      :height="screen_height"
+      :height="page_height"
       clip-path="url( #clip_path )"
       fill="url( #linear_gradient )"
       ></rect>
@@ -531,14 +550,20 @@
       
       <linearGradient id="linear_gradient"
         x1="0%"
-        y1="35%"
+        y1="0%"
         x2="85%"
         y2="100%"
         gradientUnits="userSpaceOnUse"
         >
-        <stop offset="25%" stop-color="#ED24F4" />
+        <stop
+          v-for="index in ( screen_splits * colors.length )"
+          :key="index"
+          :offset="`${ (index - 1) * screen_height / page_height / colors.length * 100 }%`" :stop-color="`#${ colors [ ( index - 1 ) % colors.length ] }`"
+          :data-index="index"
+          />
+        <!-- <stop offset="25%" stop-color="#ED24F4" />
         <stop offset="50%" stop-color="#1DBBE2" />
-        <stop offset="75%" stop-color="#32DEB3" />
+        <stop offset="75%" stop-color="#32DEB3" /> -->
       </linearGradient>
     </defs>
   </svg>
