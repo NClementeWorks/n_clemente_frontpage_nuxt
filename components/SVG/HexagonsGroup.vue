@@ -7,6 +7,10 @@
   import { useUseCaseStore } from '@/stores/useCase'
   import { storeToRefs } from 'pinia'
 
+  const animations_hero = useAnimationsHexagonsHero ()
+  const animations_stack = useAnimationsHexagonsStack ()
+  const animations_cta = useAnimationsHexagonsCTA ()
+
   gsap.registerPlugin ( ScrollTrigger )
 
   const display = useDisplay ()
@@ -112,175 +116,30 @@
       /**
        * hero
        */
-      const tl_hero = gsap.timeline ({})
-
+      const hero_start = animations_hero.init_start ( screen_width )
+      animations_hero.init_timeline ( hexagon_paths, hero_start )
       
-      const hero_cols = [ 0, 1, 0, 1, 3, 2, 1 ]
-      const hero_rows = [ 0, 1, 2, 3, 3, 4, 5 ]
-      
-      const hero_start = {
-        x: index => screen_width.value / 5
-          + hexagon_grid_column_px( hero_cols [ index ] ),
-        y: index => hexagon.default_height_px
-          + hexagon_grid_row_px ( hero_rows [ index ] ),
-        scale: 1,
-      }
-
-      tl_hero
-        .set (
-          hexagon_paths.value,
-          hero_start,
-        )
-
       /**
        * expanded stack
        */
-      const tl_stack = gsap.timeline ({})
-
-      const expanded_stack_items_el = document.querySelector ( '#expanded_stack_items' )
-      const expanded_stack_items_el_top = get_top ( expanded_stack_items_el )
-      const expanded_stack_items_el_left = get_left ( expanded_stack_items_el )
-
-      const expanded_stack_firts_item_el = document.querySelector ( '#expanded_stack_items .expanded_stack_item .v-icon' )
-
-      const stack_start = {
-        x: index => expanded_stack_items_el_left
-          - ( hexagon.default_width_px / 2 )
-          + ( expanded_stack_firts_item_el.offsetWidth / 2 )
-          + hexagon_grid_column_px ( index % 2 ),
-        y: index => expanded_stack_items_el_top
-          + hexagon_grid_row_px ( index ),
-        scale: index => index >= 6 ? 0 : 1,
-      }
-
-      tl_stack
-        .fromTo (
-          hexagon_paths.value,
-          hero_start,
-          {
-            ...base_scroll_trigger ({
-              trigger: '#the_expanded_stack',
-              start: 'top center',
-              end: 'center center',
-            }),
-            ...stack_start,
-          },
-        )
+      const stack_start = animations_stack.init_start ( document )
+      animations_stack.init_timeline ( hexagon_paths, hero_start, stack_start )
 
       /**
        * cta
        */
-      const tl_cta = gsap.timeline ({})
+      const cta_config = animations_cta.calculate_config ( document )
+      const cta_start = animations_cta.init_start ( cta_config )
+      animations_cta.init_timeline ( hexagon_paths, stack_start, cta_start )
       
-      const cta_el = document.querySelector ( '#the_cta' )
-      const cta_el_top = get_top ( cta_el )
       
-      const cta_el_left = get_left ( cta_el )
-      const cta_center = cta_el_left
-        + ( cta_el.offsetWidth / 2 )
-        - ( hexagon.default_width_px * 2 )
-
-      const cta_start_y = index => cta_el_top
-        - ( hexagon.default_height_px / 3 )
-        + hexagon_compressed_grid_row_px ( index % 2 )
-
-      const cta_start = {
-        x: index => cta_center
-          + hexagon_compressed_grid_column_px ( index ),
-        y: cta_start_y,
-        scale: 1,
-      }
-
-      tl_cta
-        .fromTo (
-          hexagon_paths.value,
-          stack_start,
-          {
-            ...base_scroll_trigger ({
-              trigger: '#the_cta',
-              start: 'bottom bottom',
-              end: 'top center',
-              snap: .5
-            }),
-            ...cta_start,
-          },
-        )
 
       cta_hexagons.value = Math.ceil ( screen_width.value / hexagon_width_px ) * 2 + 4 // add extra padding
       
       // cta sides hexagons
       watch ( () => cta_hexagon_paths.value.length, async () =>  {
 
-        const tl_cta_sides = gsap.timeline ({})
-
-        const cta_hex_left_side = cta_hexagon_paths.value.filter ( ( h, i ) => i % 2 === 0 )
-        const cta_hex_right_side = cta_hexagon_paths.value.filter ( ( h, i ) => i % 2 === 1 )
-
-        const cta_right_side_start = {
-          x: index => cta_center
-            + hexagon_compressed_grid_column_px ( index + 6 ),
-          y: cta_start_y,
-          scale: 0,
-        }
-
-        const cta_left_side_start = {
-          x: index => cta_center
-            - hexagon_compressed_grid_column_px ( index ),
-          y: cta_start_y,
-          scale: 0,
-        }
-
-        const cta_sides_trigger = {
-          ...base_scroll_trigger ({
-            trigger: '#the_cta',
-            start: '-100% center',
-            end: 'top center',
-            scrub: undefined,
-            snap: undefined,
-          }),
-          scale: 1,
-        }
-
-        const cta_sides_trigger_reverse = {
-          ...base_scroll_trigger ({
-            trigger: '#the_cta',
-            start: 'top 25%',
-            end: 'top top',
-            scrub: undefined,
-            snap: undefined,
-          }),
-          scale: 0,
-        }
         
-        tl_cta_sides
-          .set (
-            cta_hex_right_side,
-            cta_right_side_start,
-          )
-          .set (
-            cta_hex_left_side,
-            cta_left_side_start,
-          )
-          .fromTo (
-            cta_hex_right_side,
-            cta_right_side_start,
-            cta_sides_trigger,
-          )
-          .fromTo (
-            cta_hex_left_side,
-            cta_left_side_start,
-            cta_sides_trigger,
-          )
-          .fromTo (
-            cta_hex_right_side.reverse (),
-            { scale: 1 },
-            cta_sides_trigger_reverse,
-          )
-          .fromTo (
-            cta_hex_left_side.reverse (),
-            { scale: 1 },
-            cta_sides_trigger_reverse,
-          )
       })
 
       /**
