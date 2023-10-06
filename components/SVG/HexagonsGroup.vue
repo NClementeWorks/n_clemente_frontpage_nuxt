@@ -11,11 +11,9 @@
 
   const display = useDisplay ()
   // console.log('display',display)
-  const menu = useMenu ()
   const hexagon = useHexagons ()
   const use_case_store = useUseCaseStore ()
   console.log('=== use_case_store',use_case_store)
-  const { use_case_images } = storeToRefs ( use_case_store )
   
     
   const screen_width = computed ( () => display.width.value )
@@ -50,120 +48,6 @@
 
   const hexagon_compressed_grid_column_px = col => ( hexagon_width_px - hexagon_default_gap_px ) * .5 * col
   const hexagon_compressed_grid_row_px = row => ( hexagon_height_px - hexagon_default_gap_px ) * row
-
-  const hexagons_default_top = 125
-
-  const hexagons_anchor_positions = [
-    // hero
-    {
-      anchor: {
-        get x () { return screen_width.value / 5 },
-        y: hexagons_default_top,
-      },
-      x: [
-        hexagon_grid_column_px ( 0 ),
-        hexagon_grid_column_px ( 1 ),
-        hexagon_grid_column_px ( 0 ),
-        hexagon_grid_column_px ( 1 ),
-        hexagon_grid_column_px ( 3 ),
-        hexagon_grid_column_px ( 2 ),
-        hexagon_grid_column_px ( 1 ),
-      ],
-      y: [
-        hexagon_grid_row_px ( 0 ),
-        hexagon_grid_row_px ( 1 ),
-        hexagon_grid_row_px ( 2 ),
-        hexagon_grid_row_px ( 3 ),
-        hexagon_grid_row_px ( 3 ),
-        hexagon_grid_row_px ( 4 ),
-        hexagon_grid_row_px ( 5 ),
-      ],
-    },
-
-    // expanded stack
-    {
-      anchor: {
-        get x () { return screen_width.value / 2 },
-        get y () { return screen_height.value / 2 },
-      },
-      x: [
-        hexagon_grid_column_px ( 0 ),
-        hexagon_grid_column_px ( 1 ),
-        hexagon_grid_column_px ( 0 ),
-        hexagon_grid_column_px ( 1 ),
-        hexagon_grid_column_px ( 0 ),
-        hexagon_grid_column_px ( 1 ),
-        hexagon_grid_column_px ( 0 ),
-      ],
-      y: [
-        -hexagon_grid_row_px ( 3 ),
-        -hexagon_grid_row_px ( 2 ),
-        -hexagon_grid_row_px ( 1 ),
-        hexagon_grid_row_px ( 0 ),
-        hexagon_grid_row_px ( 1 ),
-        hexagon_grid_row_px ( 2 ),
-        hexagon_grid_row_px ( 3 ),
-      ],
-    },
-
-    // cta
-    {
-      anchor: {
-        get x () { return screen_width.value / 2 },
-        get y () { return screen_height.value / 2 },
-      },
-      x: [
-        -hexagon_compressed_grid_column_px ( 3 ),
-        -hexagon_compressed_grid_column_px ( 2 ),
-        -hexagon_compressed_grid_column_px ( 1 ),
-        hexagon_compressed_grid_column_px ( 0 ),
-        hexagon_compressed_grid_column_px ( 1 ),
-        hexagon_compressed_grid_column_px ( 2 ),
-        hexagon_compressed_grid_column_px ( 3 ),
-      ],
-      y: [
-        -hexagon_compressed_grid_row_px ( 1 ),
-        hexagon_compressed_grid_row_px ( 0 ),
-        -hexagon_compressed_grid_row_px ( 1 ),
-        hexagon_compressed_grid_row_px ( 0 ),
-        -hexagon_compressed_grid_row_px ( 1 ),
-        hexagon_compressed_grid_row_px ( 0 ),
-        -hexagon_compressed_grid_row_px ( 1 ),
-      ],
-    },
-
-    // skills
-    {
-      anchor: {
-        get x () { return screen_width.value / 2 },
-        get y () { return screen_height.value / 2 },
-      },
-      x: [
-        hexagon_compressed_grid_row_px ( 0 ),
-        -hexagon_compressed_grid_row_px ( 1 ),
-        hexagon_compressed_grid_row_px ( 1 ),
-        -hexagon_compressed_grid_row_px ( 1 ),
-        hexagon_compressed_grid_row_px ( 1 ),
-        hexagon_compressed_grid_row_px ( 0 ),
-        hexagon_compressed_grid_row_px ( 0 ),
-      ],
-      y: [
-        -hexagon_compressed_grid_column_px ( 2 ),
-        -hexagon_compressed_grid_column_px ( 1 ),
-        -hexagon_compressed_grid_column_px ( 1 ),
-        hexagon_compressed_grid_column_px ( 1 ),
-        hexagon_compressed_grid_column_px ( 1 ),
-        hexagon_compressed_grid_column_px ( 2 ),
-        hexagon_compressed_grid_column_px ( 0 ),
-      ],
-      x_gap: [
-        0, -2, 2, -2, 2, 0, 0
-      ],
-      y_gap: [
-        -3, -1, -1, 1, 1, 3, 0
-      ],
-    }
-  ]
 
   const base_scroll_trigger = ({ trigger, ...args }) => ({
     scrollTrigger: {
@@ -229,12 +113,16 @@
        * hero
        */
       const tl_hero = gsap.timeline ({})
+
+      
+      const hero_cols = [ 0, 1, 0, 1, 3, 2, 1 ]
+      const hero_rows = [ 0, 1, 2, 3, 3, 4, 5 ]
       
       const hero_start = {
-        x: index => hexagons_anchor_positions [ 0 ].anchor.x
-          + hexagons_anchor_positions [ 0 ].x [ index ],
-        y: index => hexagons_anchor_positions [ 0 ].anchor.y
-          + hexagons_anchor_positions [ 0 ].y [ index ],
+        x: index => screen_width.value / 5
+          + hexagon_grid_column_px( hero_cols [ index ] ),
+        y: index => hexagon.default_height_px
+          + hexagon_grid_row_px ( hero_rows [ index ] ),
         scale: 1,
       }
 
@@ -259,7 +147,7 @@
         x: index => expanded_stack_items_el_left
           - ( hexagon.default_width_px / 2 )
           + ( expanded_stack_firts_item_el.offsetWidth / 2 )
-          + hexagons_anchor_positions [ 1 ].x [ index ],
+          + hexagon_grid_column_px ( index % 2 ),
         y: index => expanded_stack_items_el_top
           + hexagon_grid_row_px ( index ),
         scale: index => index >= 6 ? 0 : 1,
@@ -288,11 +176,13 @@
       const cta_el_top = get_top ( cta_el )
       
       const cta_el_left = get_left ( cta_el )
-      const cta_center = cta_el_left + ( cta_el.offsetWidth / 2 ) - ( hexagon.default_width_px * 2 )
+      const cta_center = cta_el_left
+        + ( cta_el.offsetWidth / 2 )
+        - ( hexagon.default_width_px * 2 )
 
       const cta_start_y = index => cta_el_top
-          - ( hexagon.default_height_px / 3 )
-          + hexagon_compressed_grid_row_px ( index % 2 )
+        - ( hexagon.default_height_px / 3 )
+        + hexagon_compressed_grid_row_px ( index % 2 )
 
       const cta_start = {
         x: index => cta_center
