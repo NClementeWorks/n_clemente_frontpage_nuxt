@@ -19,8 +19,8 @@
   const screen_width = computed ( () => display.width.value )
   const screen_height = computed ( () => display.height.value )
   const page_height = ref ( 0 )
-  let unwatch_screen_width = ref ( null )
 
+  let unwatch_screen_width = null
 
   const colors = [
     '1DBBE2',
@@ -39,7 +39,9 @@
   const hexagon_width_px = hexagon.default_width_px
 
   onMounted ( async () => {
+
     await nextTick ()
+
     /**
      * Set SVG height to page total height
      */
@@ -92,8 +94,7 @@
        */
       const skills_config = animations_skills.calculate_config ( document, use_cases_config.use_case_img_el_hegiht )
       const skills_start = animations_skills.init_start ( skills_config )
-      animations_skills
-        .init_timeline (
+      animations_skills.init_timeline (
           hexagon_paths,
           skills_start,
           skills_config,
@@ -136,6 +137,7 @@
     <defs>
       <clipPath id="clip_path">
         
+        <!-- main hexagons -->
         <path
           v-for="hex in 7"
           :key="hex"
@@ -147,6 +149,7 @@
           d="M3.8147e-06 85.84C3.8147e-06 89.8822 2.1669 93.6153 5.67106 95.6425L48.8351 120.489C52.3393 122.504 56.6482 122.504 60.1524 120.489L103.329 95.6425C106.833 93.6276 109 89.8822 109 85.84V36.1722C109 32.13 106.833 28.397 103.329 26.3697L60.1648 1.51117C56.6606 -0.503724 52.3517 -0.503724 48.8475 1.51117L5.68346 26.3573C2.1793 28.3722 0.0123843 32.1176 0.0123843 36.1598V85.84H3.8147e-06Z"
           />
 
+        <!-- CTA sides hexagons -->
         <path
           v-for="hex in cta_hexagons"
           :key="hex"
@@ -154,6 +157,7 @@
           :ref="el => cta_hexagon_paths.push ( el )"
           d="M3.8147e-06 85.84C3.8147e-06 89.8822 2.1669 93.6153 5.67106 95.6425L48.8351 120.489C52.3393 122.504 56.6482 122.504 60.1524 120.489L103.329 95.6425C106.833 93.6276 109 89.8822 109 85.84V36.1722C109 32.13 106.833 28.397 103.329 26.3697L60.1648 1.51117C56.6606 -0.503724 52.3517 -0.503724 48.8475 1.51117L5.68346 26.3573C2.1793 28.3722 0.0123843 32.1176 0.0123843 36.1598V85.84H3.8147e-06Z"
           />
+
       </clipPath>
 
       <filter id="inset_shadow" x="-50%" y="-50%" width="200%" height="200%">
@@ -184,9 +188,6 @@
           :offset="`${ (index - 1) * screen_height / page_height / colors.length * 100 }%`" :stop-color="`#${ colors [ ( index - 1 ) % colors.length ] }`"
           :data-index="index"
           />
-        <!-- <stop offset="25%" stop-color="#ED24F4" />
-        <stop offset="50%" stop-color="#1DBBE2" />
-        <stop offset="75%" stop-color="#32DEB3" /> -->
       </linearGradient>
     </defs>
   </svg>
