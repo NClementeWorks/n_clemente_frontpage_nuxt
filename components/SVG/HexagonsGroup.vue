@@ -4,8 +4,6 @@
   import gsap from 'gsap'
   import { ScrollTrigger } from "gsap/ScrollTrigger"
   import { CustomEase } from "gsap/CustomEase"
-  import { useUseCaseStore } from '@/stores/useCase'
-  import { storeToRefs } from 'pinia'
 
   const animations_hero = useAnimationsHexagonsHero ()
   const animations_stack = useAnimationsHexagonsStack ()
@@ -16,16 +14,11 @@
   gsap.registerPlugin ( ScrollTrigger )
 
   const display = useDisplay ()
-  // console.log('display',display)
   const hexagon = useHexagons ()
-  const use_case_store = useUseCaseStore ()
-  console.log('=== use_case_store',use_case_store)
-  
     
   const screen_width = computed ( () => display.width.value )
   const screen_height = computed ( () => display.height.value )
   const page_height = ref ( 0 )
-  // computed ( () => document?.body?.scrollHeight )
   let unwatch_screen_width = ref ( null )
 
 

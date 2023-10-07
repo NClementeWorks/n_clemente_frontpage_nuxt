@@ -1,8 +1,6 @@
 <!-- TheUseCases -->
 
 <script setup>
-  import { useUseCaseStore } from '@/stores/useCase'
-
   const use_cases = [
     {
       title: 'Multilingual Bible Search',
@@ -15,12 +13,6 @@
       client: 'One Voice Fellowship',
     },
   ]
-
-  const use_case_images = ref ( [] )
-  const use_case_store = useUseCaseStore ()
-  console.log('use_case_store',use_case_store)
-  use_case_store.set_use_case_images ( use_case_images.value )
-  
 </script>
 
 <template>
