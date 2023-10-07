@@ -68,6 +68,9 @@
         &--variant-flat
           background: transparent
 
+        .v-img
+          max-width: 25rem
+
         .use_case
           &_title
             font-size: 2rem
