@@ -30,7 +30,6 @@
           <VCard class="use_case_card">
 
             <VImg
-              :ref="el => use_case_images.push ( el )"
               :src="`img/use_cases/${ use_case.img }`"
               ></VImg>
 
