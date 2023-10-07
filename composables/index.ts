@@ -1,3 +1,5 @@
 export { useAnimationsHexagonsHero } from "./animations/hexagons/hero"
 export { useAnimationsHexagonsStack } from "./animations/hexagons/stack"
 export { useAnimationsHexagonsCTA } from "./animations/hexagons/cta"
+export { useAnimationsHexagonsUseCase } from "./animations/hexagons/useCase"
+export { useAnimationsHexagonsSkills } from "./animations/hexagons/skills"

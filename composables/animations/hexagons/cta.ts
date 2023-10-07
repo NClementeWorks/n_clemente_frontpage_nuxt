@@ -22,6 +22,7 @@ export const useAnimationsHexagonsCTA = () => {
     const cta_start_y = ( index : number ) => cta_el_top
       - ( hexagon.default_height_px / 3 )
       + hexagon.hexagon_compressed_grid_row_px ( index % 2 )
+      - ( index % 2 ? hexagon.hexagon_grid_gap_px : 0 )
 
     return {
       cta_center,
@@ -59,7 +60,6 @@ export const useAnimationsHexagonsCTA = () => {
             trigger: '#the_cta',
             start: 'bottom bottom',
             end: 'top center',
-            snap: .5
           }),
           ...new_state,
         },
@@ -96,7 +96,6 @@ export const useAnimationsHexagonsCTA = () => {
         trigger: '#the_cta',
         start: '-100% center',
         end: 'top center',
-        // scrub: undefined,
       }),
       scale: 1,
     }
@@ -106,7 +105,6 @@ export const useAnimationsHexagonsCTA = () => {
         trigger: '#the_cta',
         start: 'top 25%',
         end: 'top top',
-        // scrub: undefined,
       }),
       scale: 0,
     }

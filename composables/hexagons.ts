@@ -3,6 +3,8 @@ export const useHexagons = () => {
   const hexagon_width_px = 109
   const hexagon_height_px = 122
 
+  const hexagon_proportions = hexagon_height_px / hexagon_width_px
+
   const hexagon_grid_gap_px = 8
   
   const hexagon_grid_width_px = hexagon_width_px + hexagon_grid_gap_px
@@ -11,8 +13,8 @@ export const useHexagons = () => {
   const hexagon_grid_column_px = ( col : number ) => hexagon_grid_width_px * .5 * col
   const hexagon_grid_row_px = ( row : number ) => hexagon_grid_height_px * row
 
-  const hexagon_compressed_grid_column_px = ( col : number ) => ( hexagon_width_px - hexagon_grid_gap_px ) * .5 * col
-  const hexagon_compressed_grid_row_px = ( row : number ) => ( hexagon_height_px - hexagon_grid_gap_px ) * row
+  const hexagon_compressed_grid_column_px = ( col : number ) => ( hexagon_grid_width_px - hexagon_grid_gap_px ) * .5 * col
+  const hexagon_compressed_grid_row_px = ( row : number ) => ( hexagon_grid_height_px - hexagon_grid_gap_px ) * row
 
   
   const base_scroll_trigger = ( { trigger, ...args } : any ) => ({
@@ -36,6 +38,9 @@ export const useHexagons = () => {
 
     get hexagon_grid_gap_px () { return hexagon_grid_gap_px },
     get hexagon_grid_width_px () { return hexagon_grid_width_px },
+    get hexagon_grid_height_px () { return hexagon_grid_height_px },
+
+    get hexagon_proportions () { return hexagon_proportions },
 
     hexagon_grid_column_px,
     hexagon_grid_row_px,

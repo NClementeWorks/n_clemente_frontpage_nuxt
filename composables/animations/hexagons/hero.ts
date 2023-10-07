@@ -22,12 +22,12 @@ export const useAnimationsHexagonsHero = () => {
 
   function init_timeline (
     hexagon_paths : Ref<SVGElement>,
-    hero_start : any
+    initial_state : any
   ) : void {
     tl_hero
       .set (
         hexagon_paths.value,
-        hero_start,
+        initial_state,
       )
   }
 
