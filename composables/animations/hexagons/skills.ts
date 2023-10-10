@@ -9,6 +9,9 @@ export const useAnimationsHexagonsSkills = () => {
   
   const tl_skills = gsap.timeline ({})
 
+  const skills_rows = [ 0, 1, 1, 3, 3, 4, 2 ]
+  const skills_cols = [ 1, 0, 2, 2, 0, 1, 1 ]
+
   function calculate_config ( document : Document, position_shift_y : number ) : any {
 
     const skills_el = document.querySelector<HTMLElement> ( '#top_skills_flower' )
@@ -28,25 +31,18 @@ export const useAnimationsHexagonsSkills = () => {
 
   function init_start ( config : any ) : any {
 
-    const skills_rows = [ 0, 1, 1, 3, 3, 4, 2 ]
-    const skills_rows_gaps = [ 0, 2, 2, 4 , 4, 6, 3 ]
-    const skills_cols = [ 1, 0, 2, 2, 0, 1, 1 ]
-    const skills_cols_gaps = [ 2, 0, 4, 4, 0, 2, 2 ]
-
     const skills_start = {
 
       x: ( index : number ) => config.skills_el_left
         // using row grid on x axis since hexagons are rotated 90 deg.
-        + hexagon.hexagon_compressed_grid_row_px ( skills_cols [ index ] )
-        + ( hexagon.hexagon_grid_gap_px * skills_cols_gaps [ index ] )
+        + hexagon.hexagon_grid_row_px ( skills_cols [ index ] )
         // using hexagon height on x axis since hexagons are rotated 90 deg.
-        - ( ( hexagon.hexagon_grid_height_px - hexagon.hexagon_grid_gap_px ) / 2 )
-        ,
+        - ( ( hexagon.hexagon_grid_height_px ) / 2 )
+        + hexagon.hexagon_grid_gap_px,
 
       y: ( index : number ) => config.calculated_skills_section_top
         // using col grid on y axis since hexagons are rotated 90 deg.
-        + hexagon.hexagon_compressed_grid_column_px ( skills_rows [ index ] )
-        + ( hexagon.hexagon_grid_gap_px * skills_rows_gaps [ index ] ),
+        + hexagon.hexagon_grid_column_px ( skills_rows [ index ] ),
         
       scale: ( index : number ) => index === 6 ? 0 : 1,
       rotation: 90,
@@ -79,5 +75,7 @@ export const useAnimationsHexagonsSkills = () => {
     calculate_config,
     init_start,
     init_timeline,   
+    skills_rows,
+    skills_cols,
   }
 }

@@ -29,27 +29,18 @@
   ]
 
   const hexagons = useHexagons ()
+  const skills_animations = useAnimationsHexagonsSkills ()
 
   const flower_gap_px = 8
 
   const hexagon_top = position => {
-    if ( position === 0 )
-      return 0
-    if ( [ 1, 5 ].includes ( position ) )
-      return hexagons.default_width_px * .5 + flower_gap_px // using width for top position since the hexagon is rotated 90 deg
-    if ( [ 2, 4 ].includes ( position ) )
-      return hexagons.default_width_px * 1.5 + ( flower_gap_px * 2 )
-    if ( position === 3 )
-      return hexagons.default_width_px * 2 + ( flower_gap_px * 3 )
+    return hexagons.hexagon_grid_column_px ( skills_animations.skills_rows [ position ] )
   }
 
   const hexagon_left = position => {
-    if ( [ 0, 3 ].includes ( position ) )
-      return hexagons.default_height_px * -.5 // using height for left position since the hexagon is rotated 90 deg
-    if ( [ 1, 2 ].includes ( position ) )
-      return hexagons.default_height_px * .25 + flower_gap_px
-    if ( [ 4, 5 ].includes ( position ) )
-      return hexagons.default_height_px * -1.25 - flower_gap_px
+    return hexagons.hexagon_grid_row_px ( skills_animations.skills_cols [ position ] )
+      - hexagons.hexagon_grid_row_px ( 1.75 )
+      + ( hexagons.hexagon_grid_gap_px * 1.5 )
   }
 
 </script>
@@ -67,27 +58,20 @@
           height: `${ hexagons.default_height_px * 3 }px`
       }"
       >
-      <!-- <SVGHexagon
-        v-for="( skill, index ) in skills"
-        :key="skill.name"
-        :style="{
-          transform: 'rotate( 90deg )',
-          position: 'absolute',
-          top: `${ hexagon_top ( index ) }px`,
-          left: `${ hexagon_left ( index ) }px`,
-        }"
-        /> -->
       <div>
         <VImg
           v-for="( skill, index ) in skills"
           :key="skill.name"
           :src="`/img/skills_icons/${ skill.icon }`"
+          class=""
           :style="{
             position: 'absolute',
-            top: `${ hexagon_top ( index ) + ( hexagons.default_width_px * .2 ) }px`,
-            left: `${ hexagon_left ( index ) + ( hexagons.default_height_px * .15 ) }px`,
-            minHeight: `${ hexagons.default_width_px * .6 }px`,
-            minWidth: `${ hexagons.default_height_px * .6 }px`,
+            top: `${ hexagon_top ( index ) }px`,
+            left: `${ hexagon_left ( index ) }px`,
+            minHeight: `${ hexagons.default_width_px }px`,
+            minWidth: `${ hexagons.default_height_px }px`,
+            maxHeight: `${ hexagons.default_width_px }px`,
+            maxWidth: `${ hexagons.default_height_px }px`,
             mixBlendMode: 'color-burn',
           }"
           />
@@ -95,8 +79,8 @@
       <div
         class="current_skill_wrapper"
         :style="{
-          top: `${ hexagons.default_width_px * 1.15 }px`,
-          left: `${ hexagons.default_height_px * -.55 }px`,
+          top: `${ hexagon_top ( 6 ) }px`,
+          left: `${ hexagon_left ( 6 ) }px`,
           width: `${ hexagons.default_height_px }px`,
           height: `${ hexagons.default_width_px }px`,
         }"
@@ -126,6 +110,16 @@
 
     &_flower_wrapper
       position: relative
+
+      .v-img
+        display: flex
+        align-items: center
+        justify-content: center
+        
+        img
+          height: 60%
+          width: 60%
+          margin: 20%
 
     &_review_resume_btn
       margin: 2rem 0
