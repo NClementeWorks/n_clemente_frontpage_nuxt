@@ -1,15 +1,8 @@
 import { defineVuetifyConfiguration } from 'vuetify-nuxt-module/custom-configuration'
+import { useColor } from './composables/color'
 
-const theme_colors = {
-  green: '#32deb3',
-  magenta: '#ed24f4',
-  cyan: '#1dbbe2',
-  blue: '#0000B2',
-  white: '#ffffff',
-  off_white: '#F2F6F8',
-  gray: '8D8D8D',
-  black: '#000000',
-}
+const color = useColor ()
+
 
   // green rgb: '(50, 222, 179)',
   // magenta rgb: '(237, 36, 244)',
@@ -19,18 +12,18 @@ const custom_theme = {
   dark: false,
   colors: {
     // background: '#fff',
-    surface: theme_colors.off_white,
-    primary: theme_colors.blue,
-    secondary: theme_colors.cyan,
+    surface: color.theme.off_white,
+    primary: color.theme.blue,
+    secondary: color.theme.cyan,
     // error: ovf_colors.red,
-    info: theme_colors.cyan,
-    success: theme_colors.green,
+    info: color.theme.cyan,
+    success: color.theme.green,
     // warning: ovf_colors.orange_bright,
-    ...theme_colors,
+    ...color.theme,
   },
 }
 
-export default defineVuetifyConfiguration({
+export default defineVuetifyConfiguration ({
 
   theme: {
     themes: { custom_theme },
