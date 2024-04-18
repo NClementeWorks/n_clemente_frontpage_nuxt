@@ -34,7 +34,7 @@
           class="footer_button"
           color="green"
           >
-          Let's Work!
+          Let's Join Forces!
         </PrimaryBtn>
 
         <div

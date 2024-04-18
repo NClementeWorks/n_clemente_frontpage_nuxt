@@ -21,7 +21,7 @@ export const useMenu = () => {
         link: '#the_top_skills',
       },
       {
-        label: `Let's Work!`,
+        label: `Let's Join Forces!`,
         link: '#the_contact_form',
         highlight: true,
       },

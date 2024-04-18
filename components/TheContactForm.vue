@@ -69,7 +69,7 @@
       ></div>
 
     <h3 class="section_heading contact_form_heading">
-      Let’s work together
+      Let’s join forces
     </h3>
 
     <VForm>

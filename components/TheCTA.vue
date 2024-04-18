@@ -32,7 +32,7 @@
     </div> -->
 
     <PrimaryBtn>
-      Lets Work!
+      Let's Join Forces!
     </PrimaryBtn>
 
   </div>

@@ -53,7 +53,7 @@
 
       <div class="hero_buttons">
         <PrimaryBtn>
-          Let's Work!
+          Let's Join Forces!
         </PrimaryBtn>
 
         <SecondaryBtn>
