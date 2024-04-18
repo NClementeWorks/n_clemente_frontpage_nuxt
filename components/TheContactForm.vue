@@ -17,10 +17,7 @@
 
   const color = useColor ()
   const bg_colors = [
-    color.theme.cyan,
     color.theme.magenta,
-    color.theme.magenta,
-    color.theme.green,
     color.theme.green,
     color.theme.cyan,
   ]
