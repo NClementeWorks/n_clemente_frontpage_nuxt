@@ -7,7 +7,7 @@ export const useColor = () => {
     blue: '#0000B2',
     white: '#ffffff',
     off_white: '#F2F6F8',
-    gray: '8D8D8D',
+    gray: '#8D8D8D',
     black: '#000000',
   }
 

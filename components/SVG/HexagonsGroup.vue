@@ -5,6 +5,8 @@
   import { ScrollTrigger } from "gsap/ScrollTrigger"
   import { CustomEase } from "gsap/CustomEase"
 
+  const color = useColor ()
+
   const animations_hero = useAnimationsHexagonsHero ()
   const animations_stack = useAnimationsHexagonsStack ()
   const animations_cta = useAnimationsHexagonsCTA ()
@@ -23,10 +25,10 @@
   let unwatch_screen_width = null
 
   const colors = [
-    '1DBBE2',
-    'ED24F4',
-    '1DBBE2',
-    '32DEB3',
+    color.theme.cyan,
+    color.theme.magenta,
+    color.theme.cyan,
+    color.theme.green,
   ]
   const screen_splits = ref ( 1 )
   
@@ -185,7 +187,7 @@
         <stop
           v-for="index in ( screen_splits * colors.length )"
           :key="index"
-          :offset="`${ (index - 1) * screen_height / page_height / colors.length * 100 }%`" :stop-color="`#${ colors [ ( index - 1 ) % colors.length ] }`"
+          :offset="`${ (index - 1) * screen_height / page_height / colors.length * 100 }%`" :stop-color="colors [ ( index - 1 ) % colors.length ]"
           :data-index="index"
           />
       </linearGradient>
