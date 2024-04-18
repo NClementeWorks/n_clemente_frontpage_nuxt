@@ -127,7 +127,7 @@
         left: -50%
         position: absolute
         top: 0
-        width: 110vw
+        width: 200vw
 
     &_heading
       background: linear-gradient( 120deg, rgb( var( --v-theme-magenta ) ), rgb( var( --v-theme-cyan ) ), rgb( var( --v-theme-green ) ) )
