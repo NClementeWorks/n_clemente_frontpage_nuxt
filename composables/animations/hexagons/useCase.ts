@@ -35,16 +35,19 @@ export const useAnimationsHexagonsUseCase = () => {
 
     const use_case_random_x_options = [
 
-      () => gsap.utils.random (
-        screen_width.value * .2,
-        config.use_case_imgs_el_left [ 0 ]
-      ),
-
+      // center space
       () => gsap.utils.random (
         config.use_case_imgs_el_left [ 0 ] + config.use_case_img_el_width - hexagon.default_width_px,
         config.use_case_imgs_el_left [ 1 ]
       ),
+
+      // space before
+      () => gsap.utils.random (
+        screen_width.value * .2,
+        config.use_case_imgs_el_left [ 0 ]
+      ),
       
+      // space after
       () => gsap.utils.random (
         config.use_case_imgs_el_left [ 1 ] + config.use_case_img_el_width,
         config.use_case_imgs_el_left [ 1 ] + config.use_case_img_el_width - hexagon.default_width_px
