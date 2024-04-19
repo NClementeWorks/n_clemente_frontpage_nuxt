@@ -4,7 +4,7 @@
   <div class="copyrights_section">
     <p>Design & Development by Noliani Clemente
       <VIcon
-        icon="fas fa-heart"
+        icon="fas fa-hand-spock"
         size="x-small"
         />
     </p>
