@@ -16,6 +16,8 @@
   .copyrights_section
     background: transparent
     text-align: center
+    left: 0
+    padding: 1rem
 
     p
       color: rgb( var( --v-theme-surface ) )

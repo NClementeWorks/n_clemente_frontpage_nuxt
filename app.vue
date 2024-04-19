@@ -32,7 +32,7 @@
 
   <!-- app content -->
   <VApp class="bg-surface">
-    <VContainer>
+    <VContainer id="app_container">
       
       <!-- <select v-model="$colorMode.preference">
         <option value="system">System</option>
@@ -54,7 +54,7 @@
         </VCol>
 
         <VCol
-          cols="10"
+          cols="12"
           class="main_content"
           >
           <NuxtPage />
@@ -89,8 +89,14 @@ html
   &.md
     left: 25vw
 
-.v-container
+#app_container
   min-height: 100vh
+
+  @media (min-width: 1280px)
+    max-width: 62rem
+
+  @media (min-width: 1920px)
+    max-width: 70rem
 
 .side_nav
   &_wrapper
@@ -102,6 +108,7 @@ html
     position: fixed
     width: 100%
     z-index: 9
+    left: 0
 
     &::before
       background: linear-gradient(0deg, transparent, rgba(0,0,0,.1), transparent)
@@ -111,7 +118,6 @@ html
       width: 2px
 
 .main_content
-  margin-left: calc( 100vw * ( 2/12 ) )
   position: relative
   
 </style>
