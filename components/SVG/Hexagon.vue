@@ -11,11 +11,6 @@
   <svg class="hexagon" width="109" height="122" viewBox="0 0 109 122" fill="none" xmlns="http://www.w3.org/2000/svg">
     
     <defs>
-      <!-- <filter id="inset-shadow">
-        <feOffset dx="-4" dy="4" result="offsetblur" />
-        <feGaussianBlur stdDeviation="5" />
-        <feComposite operator="in" in2="SourceAlpha" />
-      </filter> -->
           
       <filter id="inset-shadow" x="-50%" y="-50%" width="200%" height="200%">
         <feComponentTransfer in=SourceAlpha>
