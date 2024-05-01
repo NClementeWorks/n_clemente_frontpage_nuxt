@@ -1,6 +1,20 @@
 <!-- HexagonSingle -->
 
 <script setup>
+  defineProps ( {
+    color: {
+      type: String,
+      default: 'red',
+      validate: value => value?.match ( /^#([A-Fa-f0-9]{8}|[A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/ ) // hex color
+        || value?.match ( /^rgb\([ ]?[1-2]?[0-9]?[0-9][ ]?,[ ]?[1-2]?[0-9]?[0-9][ ]?,[ ]?[1-2]?[0-9]?[0-9][ ]?\)$/ ) // rgb color
+        || value?.match ( /^rgba\([ ]?[1-2]?[0-9]?[0-9][ ]?,[ ]?[1-2]?[0-9]?[0-9][ ]?,[ ]?[1-2]?[0-9]?[0-9][ ]?,[ ]?(0.)?[0-9]+[ ]?\)/ ) // rgba color
+        || value?.match ( /^[a-z]+$/ ) // color name
+    },
+    flat: {
+      type: Boolean,
+      default: true,
+    },
+  })
 
   const hexagon = useHexagons ()
 
@@ -10,7 +24,7 @@
   
   <svg class="hexagon" width="109" height="122" viewBox="0 0 109 122" fill="none" xmlns="http://www.w3.org/2000/svg">
     
-    <defs>
+    <defs v-if="!flat">
           
       <filter id="inset-shadow" x="-50%" y="-50%" width="200%" height="200%">
         <feComponentTransfer in=SourceAlpha>
@@ -30,9 +44,9 @@
 
     <path
       class="hexagon_path"
-      fill="#1DBBE2"
-      filter="url(#inset-shadow)"
       :d="hexagon.path"
+      :fill="color"
+      :filter="!flat ? 'url(#inset-shadow)' : null"
       />
   </svg>
 
