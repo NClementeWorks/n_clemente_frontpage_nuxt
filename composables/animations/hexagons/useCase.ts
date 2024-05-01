@@ -1,6 +1,4 @@
 import gsap from 'gsap'
-import { useHexagons } from "#imports"
-import { useScreen } from '#imports'
 
 export const useAnimationsHexagonsUseCase = () => {
 

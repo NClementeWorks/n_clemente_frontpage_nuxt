@@ -1,5 +1,4 @@
 import gsap from 'gsap'
-import { useHexagons } from "#imports"
 
 export const useAnimationsHexagonsHero = () => {
 
