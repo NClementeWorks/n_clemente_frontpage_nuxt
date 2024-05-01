@@ -4,6 +4,10 @@
 <script setup lang="ts">
   import gsap from 'gsap';
   import { ScrollTrigger } from "gsap/ScrollTrigger"
+  import { useWindowSize } from '@vueuse/core'
+
+  const { width, height } = useWindowSize ()
+  const random = useRandom ()
 
   gsap.registerPlugin ( ScrollTrigger )
 
@@ -14,6 +18,7 @@
   
   const use_case = useAnimationsHexagonsUseCase ()
   const screen = useScreen ()
+  const hexagon = useHexagons ()
 
   const color = useColor ()
   const bg_colors = [
@@ -57,6 +62,17 @@
         )
     })
   })
+
+  const hexagon_position = () => {
+    const row = random.get_random_int ( 5 )
+    const col_shift = (row % 2)
+    const col_base = random.get_random_int ( 2 )
+    const col = ( col_base * 2 ) - ( col_shift )
+    return {
+      top: `${ hexagon.hexagon_grid_row_px( row ) }px`,
+      left: `calc( 110% - ${ hexagon.hexagon_grid_column_px( col ) }px )`,
+    }
+  }
 </script>
 
 <template>
@@ -67,6 +83,15 @@
       ref="contact_form_bg"
       class="contact_form_bg"
       ></div>
+
+    <div class="contact_form_hexagons">
+    <template v-for="n in 15" :key="n">
+      <SVGHexagon
+        :color="bg_colors[n % bg_colors.length]"
+        :style="hexagon_position ()"
+        />
+      </template>
+    </div>
 
     <h3 class="section_heading contact_form_heading">
       Let’s join forces
@@ -105,6 +130,13 @@
 
     &_section
       margin-bottom: 3rem
+      overflow: hidden
+
+      .hexagon
+        position: absolute
+
+    &_hexagons
+        opacity: .5
 
     &_row
       position: relative
@@ -122,5 +154,6 @@
       color: white
       font-size: 3rem !important
       position: relative
+
 
 </style>
