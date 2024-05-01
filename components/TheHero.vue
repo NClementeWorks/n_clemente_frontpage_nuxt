@@ -53,13 +53,14 @@
 
       <div class="hero_buttons">
         <PrimaryBtn
-          :to="menu.links.contact_form"
+          :to="menu.nav.contact_form.link"
           nuxt
-          >Let's Join Forces!
+          >
+          {{ menu.nav.contact_form.label }}
         </PrimaryBtn>
 
         <SecondaryBtn
-          :to="menu.links.stack"
+          :to="menu.nav.stack.link"
           nuxt
           >
           Explore

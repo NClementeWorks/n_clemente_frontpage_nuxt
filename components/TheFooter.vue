@@ -15,15 +15,15 @@
  
         <div class="footer_menu">
           <BlocksLink
-            v-for="menu in menu.main_menu"
-            :key="menu.link"
+            v-for="menu_item in menu.main_menu"
+            :key="menu_item.link"
             class="footer_menu_link"
             :class="{
-              highlight: menu.highlight
+              highlight: menu_item.highlight
             }"
-            :link="menu.link"
+            :link="menu_item.link"
             >
-            {{ menu.label }}
+            {{ menu_item.label }}
           </BlocksLink>
         </div>
 
@@ -33,10 +33,10 @@
         <PrimaryBtn
           class="footer_button"
           color="green"
-          :to="menu.links.contact_form"
+          :to="menu.nav.contact_form.link"
           nuxt
           >
-          Let's Join Forces!
+          {{ menu.nav.contact_form.label }}
         </PrimaryBtn>
 
         <div

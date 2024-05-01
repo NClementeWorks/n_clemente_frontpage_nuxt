@@ -1,6 +1,12 @@
-const links = {
-  contact_form: '#the_contact_form',
-  stack: '#the_expanded_stack',
+const nav = {
+  contact_form: {
+    link: '#the_contact_form',
+    label: `Let's Join Forces!`,
+  },
+  stack: {
+    link: '#the_expanded_stack',
+    label: `Expanded-Stack`,
+  }
 }
 
 export const useMenu = () => {
@@ -8,17 +14,16 @@ export const useMenu = () => {
   return {
     current_menu: 0,
 
-    links,
+    nav,
 
     main_menu: [
       {
         label: `Home`,
         link: '#the_hero',
       },
-      {
-        label: `Expanded-Stack`,
-        link: links.stack,
-      },
+      
+      nav.stack,
+
       {
         label: `Use Cases`,
         link: '#the_use_cases',
@@ -28,8 +33,7 @@ export const useMenu = () => {
         link: '#the_top_skills',
       },
       {
-        label: `Let's Join Forces!`,
-        link: links.contact_form,
+        ...nav.contact_form,
         highlight: true,
       },
     ],
