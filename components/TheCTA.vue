@@ -4,6 +4,7 @@
 
   const display = useDisplay ()
   const hexagons = useHexagons ()
+  const menu = useMenu ()
 
   const background_hexagons_amount = computed ( () => Math.ceil ( display.width.value / hexagons.default_width_px ) + 1 )
   
@@ -31,8 +32,10 @@
         />
     </div> -->
 
-    <PrimaryBtn>
-      Let's Join Forces!
+    <PrimaryBtn
+      :to="menu.links.contact_form"
+      nuxt
+      >Let's Join Forces!
     </PrimaryBtn>
 
   </div>

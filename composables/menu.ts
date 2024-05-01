@@ -1,7 +1,14 @@
+const links = {
+  contact_form: '#the_contact_form',
+  stack: '#the_expanded_stack',
+}
+
 export const useMenu = () => {
 
   return {
     current_menu: 0,
+
+    links,
 
     main_menu: [
       {
@@ -10,7 +17,7 @@ export const useMenu = () => {
       },
       {
         label: `Expanded-Stack`,
-        link: '#the_expanded_stack',
+        link: links.stack,
       },
       {
         label: `Use Cases`,
@@ -22,7 +29,7 @@ export const useMenu = () => {
       },
       {
         label: `Let's Join Forces!`,
-        link: '#the_contact_form',
+        link: links.contact_form,
         highlight: true,
       },
     ],
@@ -30,6 +37,7 @@ export const useMenu = () => {
     contact_info: [
       {
         label: 'Email',
+        type: 'email',
         icon: 'envelope',
         data: 'noliani.clemente@proton.me',
       },
@@ -44,7 +52,16 @@ export const useMenu = () => {
         network: 'Behance',
         link: 'http://www.be.net/noliani_clemente',
       },
-    ]
+    ],
+
+    get_href_for_type: ( type : string, link : string ) => {
+      switch ( type ) {
+        case 'email':
+          return `mailto:${ link }`
+        default:
+          return link
+      }
+    }
 
   }
 }

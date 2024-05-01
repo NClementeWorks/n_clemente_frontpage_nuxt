@@ -33,6 +33,8 @@
         <PrimaryBtn
           class="footer_button"
           color="green"
+          :to="menu.links.contact_form"
+          nuxt
           >
           Let's Join Forces!
         </PrimaryBtn>
@@ -55,8 +57,9 @@
               ></VIcon>
                         
             <BlocksLink
-              :link="contact.data"
-              />
+              :link="menu.get_href_for_type ( contact.type, contact.data )"
+              >{{ contact.data }}
+          </BlocksLink>
           </div>
 
         </div>

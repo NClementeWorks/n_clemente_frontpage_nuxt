@@ -52,11 +52,16 @@
       <!-- <h2 class="text-4xl py-4">Expanded-Stack Developer</h2> -->
 
       <div class="hero_buttons">
-        <PrimaryBtn>
-          Let's Join Forces!
+        <PrimaryBtn
+          :to="menu.links.contact_form"
+          nuxt
+          >Let's Join Forces!
         </PrimaryBtn>
 
-        <SecondaryBtn>
+        <SecondaryBtn
+          :to="menu.links.stack"
+          nuxt
+          >
           Explore
         </SecondaryBtn>
       </div>
