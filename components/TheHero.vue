@@ -84,9 +84,10 @@
   #text_bubble_wrapper
     position: absolute
     left: 4rem
+    top: 1rem
 
     &.md
-      left: 11rem
+      left: 19rem
 
     .text_bubble_image
       position: absolute
@@ -167,7 +168,7 @@
     
     &.md
       top: 12rem
-      left: 20rem
+      left: 27rem
       width: 36vw
 
     .profile_links

@@ -91,6 +91,10 @@ html
 
 #app_container
   min-height: 100vh
+  padding-left: 10rem
+
+  .v-row
+    width: calc(100vw - 12rem)
 
   @media (min-width: 1280px)
     max-width: 62rem
