@@ -36,6 +36,9 @@ export const useHexagons = () => {
   return {
 
     path,
+    hexagon_width_px,
+    hexagon_height_px,
+
     get default_width_px () { return hexagon_width_px },
     get default_height_px () { return hexagon_height_px },
 
