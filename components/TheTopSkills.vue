@@ -1,6 +1,8 @@
 <!-- TheTopSkills -->
 
 <script setup>
+  import { ref } from 'vue'
+
   const skills = [
     {
       icon: 'Vue.png',
@@ -43,6 +45,8 @@
       + ( hexagons.hexagon_grid_gap_px * 1.5 )
   }
 
+  const current_skill = ref ( skills [ 0 ].name )
+
 </script>
 
 <template>
@@ -74,6 +78,7 @@
             maxWidth: `${ hexagons.default_height_px }px`,
             mixBlendMode: 'color-burn',
           }"
+          @mouseenter="current_skill = skill.name"
           />
       </div>
       <div
@@ -85,7 +90,7 @@
           height: `${ hexagons.default_width_px }px`,
         }"
         >
-        Vue.js
+        {{ current_skill }}
       </div>
     </div>
 
@@ -131,5 +136,6 @@
     justify-content: center
     font-weight: var( --font-weight-bold )
     font-size: 1.5rem
+    text-align: center
 
 </style>
