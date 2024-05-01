@@ -12,7 +12,7 @@
       <VListItem
         v-for="menu in menu.main_menu"
         :key="menu.link"
-        class="side_nav_menu_list_item bg-white opacity-50"
+        class="side_nav_menu_list_item bg-white"
         :class="{
           highlight: menu.highlight
         }"
@@ -47,6 +47,13 @@
   .v-list-item.side_nav_menu_list_item
     border-bottom: 1px solid rgba( 0, 0, 0, .1 )
     cursor: pointer
+
+    .v-list-item__content,
+    .blocks_link
+      align-items: center
+      height: 100%
+      width: 100%
+
 
     &:first-child
       border-top-right-radius: var( --list-border-radius )
