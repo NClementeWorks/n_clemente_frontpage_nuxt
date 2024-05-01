@@ -13,6 +13,7 @@
 
 <template>
 
+  <div id="app_wrapper">
   <!-- profile -->
   <div
     id="profile_pic_wrapper"
@@ -64,6 +65,7 @@
 
     </VContainer>
   </VApp>
+  </div>
 </template>
 
 <style lang="sass">
@@ -73,7 +75,18 @@
 
 html
   overflow-x: hidden
+  overflow-y: visible
   scroll-behavior: smooth
+  max-width: 100vw
+  width: 100vw
+
+body
+  max-width: 100vw
+  width: 100vw
+  margin: 0 !important
+
+#app_wrapper
+  overflow: hidden
 
 #hexagons_group
   position: absolute
@@ -93,14 +106,8 @@ html
   min-height: 100vh
   padding-left: 10rem
 
-  .v-row
-    width: calc(100vw - 12rem)
 
-  @media (min-width: 1280px)
-    max-width: 62rem
 
-  @media (min-width: 1920px)
-    max-width: 70rem
 
 .side_nav
   &_wrapper
