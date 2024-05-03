@@ -181,7 +181,8 @@
         <stop
           v-for="index in ( screen_splits * colors.length )"
           :key="index"
-          :offset="`${ (index - 1) * screen_height / page_height / colors.length * 100 }%`" :stop-color="colors [ ( index - 1 ) % colors.length ]"
+          :offset="`${ (index - 1) * screen_height / ( page_height || 1 /* prevent infinity */) / colors.length * 100 }%`"
+          :stop-color="colors [ ( index - 1 ) % colors.length ]"
           :data-index="index"
           />
       </linearGradient>
