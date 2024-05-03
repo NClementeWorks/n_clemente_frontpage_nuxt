@@ -13,27 +13,7 @@
 
 <template>
   <div>
-
-    <!-- profile -->
-    <!-- <div
-      id="profile_pic_wrapper"
-      :class="{
-        md: display.mdAndUp.value
-      }"
-      >
-      <img
-        src="/img/profile_300.png"
-        />
-    </div> -->
-<!-- 
-    <SVGHexagonsGroup
-      id="hexagons_group"
-      :class="{
-        md: display.mdAndUp.value
-      }"
-      
-      /> -->
-
+    
     <VRow>
       <VCol>
         <TheHero id="the_hero" ref="the_hero_el" />

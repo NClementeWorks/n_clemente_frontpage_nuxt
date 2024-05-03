@@ -30,7 +30,7 @@ export const useAnimationsHexagonsStack = () => {
       scale: ( index : number ) => index >= 6 ? 0 : 1,
 
     } as any
-
+    
     return stack_start
   }
 

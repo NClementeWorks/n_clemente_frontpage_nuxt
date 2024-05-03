@@ -33,7 +33,7 @@
       />
   </div>
   
-  <!-- hexagon -->
+  <!-- hexagons group -->
   <SVGHexagonsGroup
     id="hexagons_group" 
     />

@@ -1,7 +1,5 @@
 @use 'vuetify/settings' with (
 
-  // $color-pack: false,
-
   $button-font-size: 20px,
   $button-font-weight: 500,
   $button-text-letter-spacing: .05em,
@@ -11,7 +9,6 @@
   $button-rounded-border-radius: 28px,
   $button-text-transform: 'capitalize',
 
-  // $list-border-radius: 1rem,
 );
 
 :root {
