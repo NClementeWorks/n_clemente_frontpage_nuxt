@@ -17,6 +17,7 @@
 
   const display = useDisplay ()
   const hexagon = useHexagons ()
+  const screen = useScreen ()
     
   const screen_width = computed ( () => display.width.value )
   const screen_height = computed ( () => display.height.value )
@@ -40,9 +41,8 @@
 
   const hexagon_width_px = hexagon.default_width_px
 
-  onMounted ( async () => {
+  screen.on_screen_ready ( () => {
 
-    await nextTick ()
 
     /**
      * Set SVG height to page total height
@@ -52,7 +52,6 @@
     /**
      * Initial positioning on Hero
      */
-    unwatch_screen_width = watch ( screen_width, async () => {
         
       /**
        * setup color divisions
@@ -106,15 +105,10 @@
       /**
        * Clear current watcher
        */
-      unwatch_screen_width ()
       
-    })
 
   })
 
-  onBeforeUnmount ( () => {
-    unwatch_screen_width ()
-  })
 </script>
 
 <template>
