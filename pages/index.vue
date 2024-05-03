@@ -92,7 +92,7 @@
 <style lang="sass">
 
   #the_hero
-    height: 50rem
+    min-height: 100vh
 
   #the_expanded_stack
     height: 55rem
