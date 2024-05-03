@@ -61,8 +61,8 @@ export const useAnimationsHexagonsSkills = () => {
       {
         ...hexagon.base_scroll_trigger ({
           trigger: '#the_top_skills',
-          start: () => config.calculated_skills_section_top - ( screen_height.value * .85 ),
-          end: () => config.calculated_skills_section_top - ( screen_height.value * .5 ),
+          start: () => config.calculated_skills_section_top - ( screen_height.value * 1.25 ),
+          end: () => config.calculated_skills_section_top - ( screen_height.value * .3 ),
         }),
         ...new_state,
       },

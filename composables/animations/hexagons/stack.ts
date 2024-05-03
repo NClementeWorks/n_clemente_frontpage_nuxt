@@ -46,7 +46,7 @@ export const useAnimationsHexagonsStack = () => {
         {
           ...hexagon.base_scroll_trigger ({
             trigger: '#the_expanded_stack',
-            start: 'top center',
+            start: '-35% center',
             end: 'center center',
           }),
           ...new_state,
