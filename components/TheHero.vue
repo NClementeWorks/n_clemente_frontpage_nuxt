@@ -227,6 +227,10 @@
 
       .v-btn
         margin-right: 2rem
+
+        &.text-white:hover
+          .v-btn__overlay
+            background: #888
     
     &.md
       width: 36vw
