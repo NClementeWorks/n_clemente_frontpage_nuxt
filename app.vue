@@ -111,9 +111,11 @@ body
 
 #app_container
   min-height: 100vh
-  padding-left: 10rem
+  padding-left: 1rem
 
 
+  @media (min-width: 960px)
+    padding-left: 10rem
 
 
 .side_nav
