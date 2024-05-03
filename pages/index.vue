@@ -1,7 +1,14 @@
 <!-- index -->
 
 <script setup>
-  const display = useDisplay()
+  import { useTemplateStore } from '../stores/template'
+  import { ref } from 'vue'
+
+  const template = useTemplateStore()
+
+  const the_hero_el = ref(null)
+  template.add_element ( 'hero_section', the_hero_el )
+
 </script>
 
 <template>
@@ -29,7 +36,7 @@
 
     <VRow>
       <VCol>
-        <TheHero id="the_hero" />
+        <TheHero id="the_hero" ref="the_hero_el" />
       </VCol>
     </VRow>
 

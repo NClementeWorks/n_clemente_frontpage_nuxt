@@ -1,14 +1,20 @@
 <!-- app -->
 
 <script setup>
+  import { useTemplateStore } from '../stores/template'
+
   useHead ({
     htmlAttrs: {
       class: 'bg-surface'
     }
   })
 
-  const display = useDisplay()
+  const display = useDisplay ()
+  const template = useTemplateStore ()
 
+  const profile_pic_el = ref ( null )
+  template.add_element ( 'profile_pic', profile_pic_el )
+  
 </script>
 
 <template>
@@ -16,6 +22,7 @@
   <div id="app_wrapper">
   <!-- profile -->
   <div
+    ref="profile_pic_el"
     id="profile_pic_wrapper"
     :class="{
       md: display.mdAndUp.value

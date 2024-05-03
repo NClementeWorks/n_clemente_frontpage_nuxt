@@ -1,8 +1,65 @@
 <!-- TheHero -->
 
 <script setup>
+  import { useElementBounding } from '@vueuse/core'
+  import { useTemplateStore } from '../stores/template'
+  
   const display = useDisplay ()
   const menu = useMenu ()
+  const template = useTemplateStore ()
+  const profile_pic_props = template.get_element ( 'profile_pic' ).props
+  
+  //
+  // Position Text Bubble
+  //
+  const text_bubble_el = ref ()
+  const {
+    width: text_bubble_el_width,
+  } = useElementBounding ( text_bubble_el )
+
+  const text_bubble_style = computed ( () => {
+    const hero_props = template.get_element ( 'hero_section' ).props
+
+    return {
+      top: `${ profile_pic_props.top
+        - ( profile_pic_props.height / 4 )
+      }px`,
+      left: `${ profile_pic_props.left
+        - hero_props.left
+        + profile_pic_props.width
+        - ( text_bubble_el_width.value / 4 )
+      }px`,
+    }
+  } )
+
+  //
+  // Position Hero Heading
+  //
+  const hero_heading_el = ref ()
+  template.add_element ( 'hero_heading', hero_heading_el )
+
+  const hero_heading_style = computed ( () => {
+    const hero_props = template.get_element ( 'hero_section' ).props
+
+    if ( display.mdAndUp.value )
+      return {
+        top: `${ profile_pic_props.top
+          + ( profile_pic_props.height * .43 )
+        }px`,
+        left: `${ profile_pic_props.left
+          - hero_props.left
+          + profile_pic_props.width
+        }px`,
+      }
+
+    return {
+      top: `${ profile_pic_props.top
+        + profile_pic_props.height
+      }px`,
+      left: `${ 0
+      }px`,
+    }
+  } )
 </script>
 
 <template>
@@ -12,10 +69,11 @@
     <div
       id="text_bubble_wrapper"
       :class="{
-        md: display.mdAndUp.value
       }"
+      :style="text_bubble_style"
       >
       <div
+        ref="text_bubble_el"
         class="text_bubble_image"
         >
         <SVGTextBubble />
@@ -26,7 +84,6 @@
           <h3 class="text_bubble_text text_bubble_text--hi">Hi!</h3>
           <h1 class="text_bubble_text text_bubble_text--name">My name is</h1>
         </div>
-        
         <h1 class="text_bubble_text text_bubble_text--full_name">Noliani Clemente</h1>
       </div>
       
@@ -34,11 +91,13 @@
 
     <!-- hero text -->
     <div
+      ref="hero_heading_el"
       id="hero_heading"
       :class="{
         md: display.mdAndUp.value
-      }">
-
+      }"
+      :style="hero_heading_style"
+      >
       <h2 class="hero_heading_text hero_heading_text--pre">I'm a</h2>
       <h2 class="hero_heading_text hero_heading_text--developer">Full-Stack Developer</h2>
       <div class="hero_heading_text_line"></div>
@@ -91,9 +150,6 @@
     position: absolute
     left: 4rem
     top: 1rem
-
-    &.md
-      left: 19rem
 
     .text_bubble_image
       position: absolute
@@ -173,8 +229,6 @@
         margin-right: 2rem
     
     &.md
-      top: 12rem
-      left: 27rem
       width: 36vw
 
     .profile_links
