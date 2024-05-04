@@ -1,3 +1,5 @@
+import { watch } from 'vue'
+
 export const useTemplateStore = defineStore ( 'template', () => {
 
   const screen = useScreen ()
@@ -17,6 +19,15 @@ export const useTemplateStore = defineStore ( 'template', () => {
       el,
       props: screen.get_element_screen_props ( el )
     }
+  }
+
+  function add_elements ( key : string, el_arr : Ref<Array<HTMLElement>> ) : void {
+    watch ( () => el_arr?.value?.length, () => {
+      template_elements.value [ key ] = el_arr?.value.map ( ( el : HTMLElement ) => ({
+        el,
+        props: screen.get_element_screen_props ( el )
+      }))
+    })
   }
 
   /**
@@ -41,6 +52,7 @@ export const useTemplateStore = defineStore ( 'template', () => {
 
   return {
     add_element,
+    add_elements,
     get_element,
     clear_element,
   }
