@@ -41,7 +41,7 @@ export const useScreen = () => {
       // Initial positioning 
       //
       unwatch_screen_width = watch ( () => display.width.value, async () => {
-        
+
         //
         // Call function
         //
@@ -90,18 +90,12 @@ export const useScreen = () => {
     } = useWindowScroll ()
 
     //
-    //  calculate absolute x position
+    //  calculate absolute x and y positions
     //
     const x = ref ( 0 )
-    on_screen_ready ( () => {
-      x.value = top.value + scroll_x.value 
-    })
-
-    //
-    //  calculate absolute y position
-    //
     const y = ref ( 0 )
     on_screen_ready ( () => {
+      x.value = top.value + scroll_x.value 
       y.value = top.value + scroll_y.value 
     })
 
