@@ -2,6 +2,11 @@ import { useElementBounding, useWindowScroll } from '@vueuse/core'
 
 export const useScreen = () => {
 
+  //
+  // use Vuetify display composable
+  //
+  const display = useDisplay ()
+
   function get_top ( el : HTMLElement | null ) : any {
     return el?.offsetParent
       ? el?.offsetTop + get_top ( el?.offsetParent as HTMLElement )
@@ -19,10 +24,6 @@ export const useScreen = () => {
    * @param callback 
    */
   function on_screen_ready ( callback : Function ) : void {
-    //
-    // use Vuetify display composable
-    //
-    const display = useDisplay ()
 
     //
     // setup watcher clearing function
