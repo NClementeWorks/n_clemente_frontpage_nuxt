@@ -16,14 +16,14 @@ export const useAnimationsHexagonsUseCase = ( gsap : any ) => {
     const use_case_img_el_top = use_case_imgs_props [ 0 ].top + window_scroll_y.value
     
     const use_case_img_el_width = use_case_imgs_props [ 0 ].width || 0
-    const use_case_img_el_hegiht = use_case_img_el_width * hexagon.hexagon_proportions
-    const use_case_img_el_bottom = use_case_img_el_top + use_case_img_el_hegiht
+    const use_case_img_el_height = use_case_img_el_width * hexagon.hexagon_proportions
+    const use_case_img_el_bottom = use_case_img_el_top + use_case_img_el_height
 
     return {
       use_case_imgs_el_left,
       use_case_img_el_top,
       use_case_img_el_bottom,
-      use_case_img_el_hegiht,
+      use_case_img_el_height,
       use_case_img_el_width,
     }
   }

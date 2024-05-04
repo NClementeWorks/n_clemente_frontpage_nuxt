@@ -39,7 +39,7 @@
     const tl_contact_bg = gsap.timeline ({
       scrollTrigger: {
         trigger: contact_form_bg.value,
-        start: () => contact_form_bg_top - use_case_config.use_case_img_el_hegiht,
+        start: () => contact_form_bg_top - use_case_config.use_case_img_el_height,
         toggleActions: 'play pause play pause'
       },
       onComplete: (a:any) => {
