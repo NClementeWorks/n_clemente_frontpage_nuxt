@@ -1,17 +1,22 @@
 <!-- TheCTA -->
 
 <script setup>
+  import { useTemplateStore } from "~/stores/template"
 
+  const template = useTemplateStore ()
   const display = useDisplay ()
   const hexagons = useHexagons ()
   const menu = useMenu ()
 
   const background_hexagons_amount = computed ( () => Math.ceil ( display.width.value / hexagons.default_width_px ) + 1 )
+
+  const cta_el = ref ()
+  template.add_element ( 'cta_section', cta_el )
   
 </script>
 
 <template>
-  <div class="cta_section">
+  <div class="cta_section" ref="cta_el">
 
     <!-- <div
       v-for="line in 2" :key="line"

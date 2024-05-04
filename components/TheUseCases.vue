@@ -1,6 +1,14 @@
 <!-- TheUseCases -->
 
 <script setup>
+  import { useTemplateStore } from '../stores/template'
+  import { ref } from 'vue'
+
+  const template = useTemplateStore ()
+
+  const use_case_img_els = ref([])
+  template.add_elements ( 'use_case_imgs', use_case_img_els )
+
   const use_cases = [
     {
       title: 'Multilingual Bible Search',
@@ -30,6 +38,7 @@
           <VCard class="use_case_card">
 
             <VImg
+              ref="use_case_img_els"
               :src="`img/use_cases/${ use_case.img }`"
               ></VImg>
 

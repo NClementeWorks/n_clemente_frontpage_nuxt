@@ -1,23 +1,22 @@
 import gsap from "gsap"
+import { useTemplateStore } from "~/stores/template"
 
 export const useAnimationsHexagonsCTA = () => {
 
-  const screen = useScreen ()
+  const template = useTemplateStore ()
   const hexagon = useHexagons ()
 
   const tl_cta = gsap.timeline ({})
 
-  function calculate_config ( document : Document ) : any {
+  function calculate_config () : any {
 
-    const cta_el = document.querySelector<HTMLElement> ( '#the_cta' )
-    const cta_el_top = screen.get_top ( cta_el )
-    
-    const cta_el_left = screen.get_left ( cta_el )
-    const cta_center = cta_el_left
-      + ( ( cta_el?.offsetWidth || 0 ) / 2 )
+    const cta_props = template.get_element ( 'cta_section' ).props
+
+    const cta_center = cta_props.left
+      + ( ( cta_props.width || 0 ) / 2 )
       - ( hexagon.default_width_px * 2 )
 
-    const cta_start_y = ( index : number ) => cta_el_top
+    const cta_start_y = ( index : number ) => cta_props.y
       - ( hexagon.default_height_px / 3 )
       + hexagon.hexagon_compressed_grid_row_px ( index % 2 )
       - ( index % 2 ? hexagon.hexagon_grid_gap_px : 0 )

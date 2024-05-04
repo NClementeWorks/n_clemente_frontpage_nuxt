@@ -1,7 +1,9 @@
 <!-- TheTopSkills -->
 
 <script setup>
+  import gsap from 'gsap'
   import { ref } from 'vue'
+  import { useTemplateStore } from '~/stores/template'
 
   const skills = [
     {
@@ -31,7 +33,7 @@
   ]
 
   const hexagons = useHexagons ()
-  const skills_animations = useAnimationsHexagonsSkills ()
+  const skills_animations = useAnimationsHexagonsSkills (gsap)
 
   const flower_gap_px = 8
 
@@ -46,7 +48,17 @@
   }
 
   const current_skill = ref ( skills [ 0 ].name )
-
+  
+  const template = useTemplateStore ()
+  const top_skills_flower = ref ()
+  template.add_element ( 'top_skills_flower', top_skills_flower )
+  
+  const skills_first_icon = ref ()
+  template.add_element ( 'top_skills_first_icon', top_skills_flower )
+  const set_skills_first_icon = ( el, index ) => {
+    if ( index === 0 )
+      skills_first_icon.value = el
+  }
 </script>
 
 <template>
@@ -56,6 +68,7 @@
     </h3>
 
     <div
+      ref="top_skills_flower"
       id="top_skills_flower"
       class="top_skills_flower_wrapper"
       :style="{
@@ -66,6 +79,7 @@
         <VImg
           v-for="( skill, index ) in skills"
           :key="skill.name"
+          :ref="el => set_skills_first_icon ( el, index )"
           :src="`/img/skills_icons/${ skill.icon }`"
           class=""
           :style="{

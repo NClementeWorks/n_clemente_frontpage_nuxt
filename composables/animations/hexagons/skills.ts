@@ -1,9 +1,12 @@
 import gsap from 'gsap'
+import { useTemplateStore } from '~/stores/template'
+import { useWindowScroll } from '@vueuse/core'
 
 export const useAnimationsHexagonsSkills = () => {
 
   const hexagon = useHexagons ()
-  const screen = useScreen ()
+  const template = useTemplateStore ()
+  const { y: window_scroll_y } = useWindowScroll ()
   
   const tl_skills = gsap.timeline ({})
 
@@ -12,19 +15,19 @@ export const useAnimationsHexagonsSkills = () => {
 
   function calculate_config ( document : Document, position_shift_y : number ) : any {
 
-    const skills_el = document.querySelector<HTMLElement> ( '#top_skills_flower' )
-    const skills_el_top = screen.get_top ( skills_el )
-    const skills_el_left = screen.get_left ( skills_el )
+    const top_skills_props = template.get_element ( 'top_skills_flower' ).props
+    const top_skills_first_icon_props = template.get_element ( 'top_skills_first_icon' ).props
 
-    const skills_icon_el = document.querySelector<HTMLElement> ( '#top_skills_flower .v-img' )
-    const skills_icon_el_width = skills_icon_el?.offsetWidth || 0
-    const calculated_skills_section_top = skills_el_top + position_shift_y
+    const skills_el_left = top_skills_props.left
+    const skills_icon_el_width = top_skills_first_icon_props.width || 0
 
+    const calculated_skills_section_top = top_skills_props.top + window_scroll_y.value + position_shift_y
     return {
       skills_el_left,
       skills_icon_el_width,
       calculated_skills_section_top,
     }
+    
   }
 
   function init_start ( config : any ) : any {

@@ -1,19 +1,22 @@
 import gsap from 'gsap'
+import { useTemplateStore } from '~/stores/template'
+import { useWindowScroll } from '@vueuse/core'
 
 export const useAnimationsHexagonsUseCase = () => {
 
   const hexagon = useHexagons ()
-  const screen = useScreen ()
+  const { y: window_scroll_y } = useWindowScroll ()
+  const template = useTemplateStore ()
 
   const tl_use_cases = gsap.timeline ({})
 
-  function calculate_config ( document : Document ) : any {
+  function calculate_config () : any {
+    const use_case_imgs_props = template.get_element ( 'use_case_imgs' ).map ( ( item : any ) => item.props )
 
-    const use_case_img_el = [ ...document.querySelectorAll<HTMLElement> ( '#the_use_cases .v-img' ) ]  
-    const use_case_imgs_el_left = use_case_img_el.map ( el => screen.get_left ( el ) )
-    const use_case_img_el_top = screen.get_top ( use_case_img_el [ 0 ] )
+    const use_case_imgs_el_left = use_case_imgs_props.map ( ( props : ElementScreenProperties ) => props.left )
+    const use_case_img_el_top = use_case_imgs_props [ 0 ].top + window_scroll_y.value
     
-    const use_case_img_el_width = use_case_img_el [ 0 ]?.offsetWidth || 0
+    const use_case_img_el_width = use_case_imgs_props [ 0 ].width || 0
     const use_case_img_el_hegiht = use_case_img_el_width * hexagon.hexagon_proportions
     const use_case_img_el_bottom = use_case_img_el_top + use_case_img_el_hegiht
 

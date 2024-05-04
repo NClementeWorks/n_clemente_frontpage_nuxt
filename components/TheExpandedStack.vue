@@ -1,6 +1,16 @@
 <!-- TheExpandedStack -->
 
 <script setup>
+ import { useTemplateStore } from "~/stores/template"
+
+  const template = useTemplateStore ()
+
+  const expanded_stack_items = ref ()
+  const expanded_stack_item_first_icon = ref ()
+  
+  template.add_element ( 'stack_items', expanded_stack_items )
+  template.add_element ( 'stack_first_icon', expanded_stack_item_first_icon )
+
   const items = [
     {
       icon: 'user',
@@ -27,6 +37,11 @@
       text: 'SQL<br />Databases',
     },
   ]
+
+  const set_expanded_stack_item_first_icon = ( el, index ) => {
+    if ( index === 0 )
+      expanded_stack_item_first_icon.value = el
+  }
 </script>
 
 <template>
@@ -56,15 +71,17 @@
     </div> -->
 
     <div
+      ref="expanded_stack_items"
       id="expanded_stack_items"
       class="expanded_stack_items_wrapper"
       >
       <div
-        v-for="item in items"
+        v-for="( item, index ) in items"
         :key="item.icon"
         class="expanded_stack_item"
         >
         <VIcon
+          :ref="el => set_expanded_stack_item_first_icon ( el, index )"
           :icon="item.icon"
           size="x-large"
           />
