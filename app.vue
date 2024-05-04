@@ -81,7 +81,7 @@
     /**
      * top skills
      */
-    const skills_config = animations_skills.calculate_config ( document, use_cases_config.use_case_img_el_hegiht )
+    const skills_config = animations_skills.calculate_config ( use_cases_config.use_case_img_el_hegiht )
     const skills_start = animations_skills.init_start ( skills_config )
     animations_skills.init_timeline (
         hexagon_paths,

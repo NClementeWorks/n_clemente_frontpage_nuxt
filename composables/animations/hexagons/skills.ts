@@ -12,7 +12,7 @@ export const useAnimationsHexagonsSkills = ( gsap : any ) => {
   const skills_rows = [ 0, 1, 1, 3, 3, 4, 2 ]
   const skills_cols = [ 1, 0, 2, 2, 0, 1, 1 ]
 
-  function calculate_config ( document : Document, position_shift_y : number ) : any {
+  function calculate_config ( position_shift_y : number ) : any {
 
     const top_skills_props = template.get_element ( 'top_skills_flower' ).props
     const top_skills_first_icon_props = template.get_element ( 'top_skills_first_icon' ).props
