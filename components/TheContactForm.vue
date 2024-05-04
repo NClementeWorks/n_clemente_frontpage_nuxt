@@ -16,7 +16,7 @@
     ( value : any ) => value?.length <= message_max_chars || `Max ${ message_max_chars } characters`
   ]
   
-  const use_case = useAnimationsHexagonsUseCase ()
+  const use_case = useAnimationsHexagonsUseCase ( gsap )
   const screen = useScreen ()
   const hexagon = useHexagons ()
 

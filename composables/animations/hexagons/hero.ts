@@ -1,6 +1,5 @@
-import gsap from 'gsap'
 
-export const useAnimationsHexagonsHero = () => {
+export const useAnimationsHexagonsHero = ( gsap : any ) => {
 
   const hexagon = useHexagons ()
 

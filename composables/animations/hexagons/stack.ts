@@ -1,7 +1,6 @@
-import gsap from 'gsap'
 import { useTemplateStore } from '~/stores/template'
 
-export const useAnimationsHexagonsStack = () => {
+export const useAnimationsHexagonsStack = ( gsap : any ) => {
 
   const hexagon = useHexagons ()
   const template = useTemplateStore ()

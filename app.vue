@@ -31,11 +31,11 @@
   //
   // init animations setup
   //
-  const animations_hero = useAnimationsHexagonsHero ()
-  const animations_stack = useAnimationsHexagonsStack ()
-  const animations_cta = useAnimationsHexagonsCTA ()
-  const animations_use_case = useAnimationsHexagonsUseCase ()
-  const animations_skills = useAnimationsHexagonsSkills ()
+  const animations_hero = useAnimationsHexagonsHero ( gsap )
+  const animations_stack = useAnimationsHexagonsStack ( gsap )
+  const animations_cta = useAnimationsHexagonsCTA ( gsap )
+  const animations_use_case = useAnimationsHexagonsUseCase ( gsap )
+  const animations_skills = useAnimationsHexagonsSkills ( gsap )
     
   const screen_width = computed ( () => display.width.value )
   const screen_height = computed ( () => display.height.value )

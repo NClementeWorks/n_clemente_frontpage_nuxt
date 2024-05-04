@@ -1,8 +1,7 @@
-import gsap from 'gsap'
 import { useTemplateStore } from '~/stores/template'
 import { useWindowScroll } from '@vueuse/core'
 
-export const useAnimationsHexagonsSkills = () => {
+export const useAnimationsHexagonsSkills = ( gsap : any ) => {
 
   const hexagon = useHexagons ()
   const template = useTemplateStore ()

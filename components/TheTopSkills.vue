@@ -33,7 +33,7 @@
   ]
 
   const hexagons = useHexagons ()
-  const skills_animations = useAnimationsHexagonsSkills (gsap)
+  const skills_animations = useAnimationsHexagonsSkills ( gsap )
 
   const flower_gap_px = 8
 
