@@ -33,7 +33,7 @@
 
     await nextTick ()
 
-    const use_case_config = use_case.calculate_config ( document )
+    const use_case_config = use_case.calculate_config ()
     const contact_form_bg_top = screen.get_top ( contact_form_bg.value )
 
     const tl_contact_bg = gsap.timeline ({
