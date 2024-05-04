@@ -4,6 +4,7 @@
   import gsap from 'gsap'
   import { ScrollTrigger } from "gsap/ScrollTrigger"
   import { CustomEase } from "gsap/CustomEase"
+ import { useTemplateStore } from "~/stores/template"
 
   const color = useColor ()
 
@@ -32,12 +33,15 @@
     color.theme.green,
   ]
   const screen_splits = ref ( 1 )
+  const template = useTemplateStore ()
   
   const svg_rectangle = ref ( null )
   const hexagon_paths = ref ( [] )
+  template.hexagon_paths = hexagon_paths
 
   const cta_hexagons = ref ( 0 )
   const cta_hexagon_paths = ref ( [] )
+  template.cta_hexagon_paths = cta_hexagon_paths
 
   const hexagon_width_px = hexagon.default_width_px
 
