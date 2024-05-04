@@ -50,10 +50,15 @@ export const useTemplateStore = defineStore ( 'template', () => {
     template_elements.value [ key ] = null
   }
 
+  const hexagon_paths = ref ([])
+  const cta_hexagon_paths = ref ([])
+
   return {
     add_element,
     add_elements,
     get_element,
     clear_element,
+    hexagon_paths,
+    cta_hexagon_paths,
   }
 })
