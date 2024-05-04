@@ -9,6 +9,9 @@
   const template = useTemplateStore ()
   const profile_pic_props = template.get_element ( 'profile_pic' ).props
   
+  const hero_el = ref(null)
+  template.add_element ( 'hero_section', hero_el )
+  
   //
   // Position Text Bubble
   //
@@ -63,7 +66,7 @@
 </script>
 
 <template>
-  <div>
+  <div ref="hero_el">
 
     <!-- text bubble -->
     <div

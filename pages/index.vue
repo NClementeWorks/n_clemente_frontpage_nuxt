@@ -1,13 +1,8 @@
 <!-- index -->
 
 <script setup>
-  import { useTemplateStore } from '../stores/template'
-  import { ref } from 'vue'
 
-  const template = useTemplateStore()
 
-  const the_hero_el = ref(null)
-  template.add_element ( 'hero_section', the_hero_el )
 
 </script>
 
