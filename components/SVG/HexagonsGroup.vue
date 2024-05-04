@@ -1,21 +1,9 @@
 <!-- HexagonsGroup -->
 
 <script setup>
-  import gsap from 'gsap'
-  import { ScrollTrigger } from "gsap/ScrollTrigger"
-  import { CustomEase } from "gsap/CustomEase"
  import { useTemplateStore } from "~/stores/template"
 
   const color = useColor ()
-
-  const animations_hero = useAnimationsHexagonsHero ()
-  const animations_stack = useAnimationsHexagonsStack ()
-  const animations_cta = useAnimationsHexagonsCTA ()
-  const animations_use_case = useAnimationsHexagonsUseCase ()
-  const animations_skills = useAnimationsHexagonsSkills ()
-
-  gsap.registerPlugin ( ScrollTrigger )
-
   const display = useDisplay ()
   const hexagon = useHexagons ()
   const screen = useScreen ()
@@ -23,8 +11,6 @@
   const screen_width = computed ( () => display.width.value )
   const screen_height = computed ( () => display.height.value )
   const page_height = ref ( 0 )
-
-  let unwatch_screen_width = null
 
   const colors = [
     color.theme.cyan,
@@ -57,49 +43,8 @@
      */
     screen_splits.value = Math.ceil ( page_height.value / screen_height.value )
 
-    /**
-     * hero
-     */
-    const hero_start = animations_hero.init_start ( screen_width )
-    animations_hero.init_timeline ( hexagon_paths, hero_start )
-    
-    /**
-     * expanded stack
-     */
-    const stack_start = animations_stack.init_start ( document )
-    animations_stack.init_timeline ( hexagon_paths, hero_start, stack_start ) //, screen_height )
-
-    /**
-     * cta
-     */
-    const cta_config = animations_cta.calculate_config ( document )
-    const cta_start = animations_cta.init_start ( cta_config )
-    animations_cta.init_timeline ( hexagon_paths, stack_start, cta_start )
-
     // cta sides hexagons
     cta_hexagons.value = Math.ceil ( screen_width.value / hexagon_width_px ) * 2 + 4 // add extra padding
-    watch ( () => cta_hexagon_paths.value.length, async () =>  {
-      animations_cta.init_side_hexagons ( cta_hexagon_paths, cta_config )
-    })
-
-    /**
-     * use cases
-     */
-    const use_cases_config = animations_use_case.calculate_config ( document )
-    const use_cases_start = animations_use_case.init_start ( use_cases_config, screen_width )
-    animations_use_case.init_timeline ( hexagon_paths, cta_start, use_cases_start )
-    
-    /**
-     * top skills
-     */
-    const skills_config = animations_skills.calculate_config ( document, use_cases_config.use_case_img_el_hegiht )
-    const skills_start = animations_skills.init_start ( skills_config )
-    animations_skills.init_timeline (
-        hexagon_paths,
-        skills_start,
-        skills_config,
-        screen_height
-      )
   })
 </script>
 
