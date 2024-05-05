@@ -8,7 +8,7 @@
         size="x-small"
         />
     </p>
-    <p>© Noliani Clemente 2023</p>
+    <p>© Noliani Clemente {{ new Date().getYear() + 1900 }}</p>
   </div>
 </template>
 
