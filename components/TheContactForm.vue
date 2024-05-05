@@ -1,4 +1,3 @@
-0
 <!-- TheContactForm -->
 
 <script setup lang="ts">
@@ -6,9 +5,8 @@
   import { ScrollTrigger } from "gsap/ScrollTrigger"
   import { useWindowSize } from '@vueuse/core'
 
-  const { width, height } = useWindowSize ()
   const random = useRandom ()
-
+  
   gsap.registerPlugin ( ScrollTrigger )
 
   const message_max_chars = 1000
@@ -70,13 +68,13 @@
     const col = ( col_base * 2 ) - ( col_shift )
     return {
       top: `${ hexagon.hexagon_grid_row_px( row ) }px`,
-      left: `calc( 110% - ${ hexagon.hexagon_grid_column_px( col ) }px )`,
+      right: `-${ hexagon.hexagon_grid_column_px( col ) }px`,
     }
   }
 </script>
 
 <template>
-  <div class="section contact_form_section">
+  <div class="section contact_form_section" ref="contact_form_el">
 
     <div
       id="contact_form_bg"
@@ -97,7 +95,7 @@
       Let’s join forces
     </h3>
 
-    <VForm>
+    <VForm class="contact_form">
       <VTextField
         prepend-icon="fas fa-user"
         label="Jane Doe"
@@ -110,7 +108,7 @@
 
       <VTextarea
         prepend-icon="fas fa-message"
-        label="Leave me a note..."
+        label="Leave a note..."
         counter
         :rules="message_rules"
         ></VTextarea>
@@ -127,16 +125,19 @@
 
 <style lang="sass">
   .contact_form
+    position: relative
+    z-index: 2
 
     &_section
-      margin-bottom: 3rem
-      overflow: hidden
+      padding-bottom: 3rem
 
       .hexagon
         position: absolute
 
     &_hexagons
         opacity: .5
+        position: relative
+        z-index: 1
 
     &_row
       position: relative
@@ -144,11 +145,11 @@
     &_bg
       background: rgb( var( --v-theme-cyan ) )
       content: ''
-      height: calc( 100% + 3rem ) // add parent bottom padding
-      left: -50%
+      height: 100%
+      left: 0
       position: absolute
       top: 0
-      width: 200vw
+      width: 100vw
 
     &_heading
       color: white

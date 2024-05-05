@@ -1,7 +1,7 @@
 <!-- app -->
 
 <script setup>
-  import { useTimelines } from '../composables/animations/timelines'
+  import { useElementBounding } from '@vueuse/core'
   import { useTemplateStore } from '../stores/template'
 
   useHead ({
@@ -12,45 +12,23 @@
 
   const display = useDisplay ()
   const template = useTemplateStore ()
+
+  const footer_el = ref ()
+  const {
+    height: footer_height,
+  } = useElementBounding ( footer_el )
   
-  //
-  // save profile_pic reference to store
-  //
-  const profile_pic_el = ref ( null )
-  template.add_element ( 'profile_pic', profile_pic_el )
-
-  //
-  // setup background hexagons animation
-  //
-  const timelines = useTimelines ()
-  timelines.init_hexagon_timelines ()
-
 </script>
 
 <template>
 
-  <div id="app_wrapper">
-  <!-- profile -->
-  <div
-    ref="profile_pic_el"
-    id="profile_pic_wrapper"
-    :class="{
-      md: display.mdAndUp.value
-    }"
-    >
-    <img
-      src="/img/profile_300.png"
-      />
-  </div>
-  
-  <!-- hexagons group -->
-  <SVGHexagonsGroup
-    id="hexagons_group" 
-    />
-
   <!-- app content -->
-  <VApp class="bg-surface">
-    <VContainer id="app_container">
+  <VApp id="application" class="bg-surface">
+
+    <VContainer id="app_container" class="bg-surface"
+      :style="{
+        marginBottom: `${ footer_height }px`
+      }">
       
       <!-- <select v-model="$colorMode.preference">
         <option value="system">System</option>
@@ -61,7 +39,7 @@
 
       <VRow
         no-gutters
-        class="d-flex justify-center"
+        class="content_row d-flex justify-center"
         >
         
         <VCol
@@ -81,12 +59,24 @@
       </VRow>
 
     </VContainer>
+      
+    <VRow id="app_footer" class="footer_row" ref="footer_el">
+      <VCol>
+        
+        <VFooter>
+          <TheFooter id="the_footer" />
+          <TheCopyrights
+            id="the_copyrights"
+            />
+        </VFooter>
+        
+      </VCol>
+    </VRow>
   </VApp>
-  </div>
+  
 </template>
 
 <style lang="sass">
-
 *
   font-family: Roboto, sans-serif
 
@@ -102,8 +92,10 @@ body
   width: 100vw
   margin: 0 !important
 
-#app_wrapper
-  overflow: hidden
+#application
+  overflow-x: hidden
+  position: relative
+  z-index: 1
 
 #hexagons_group
   position: absolute
@@ -120,13 +112,34 @@ body
     left: 25vw
 
 #app_container
+  padding: 0
+  margin: 0
+  max-width: 100vw
   min-height: 100vh
-  padding-left: 1rem
+  margin-bottom: 37rem // magic number, should be overwritten by inline style
+  z-index: 1
 
+  .content_row
+    width: 100vw
+    max-width: 100vw
+    min-width: 100vw
 
-  @media (min-width: 960px)
-    padding-left: 10rem
+.v-footer
+  display: flex
+  flex-direction: columns
+  justify-content: center
 
+#app_footer
+  bottom: 0
+  overflow-x: hidden
+  padding: 0 12rem
+  position: fixed
+  width: 100vw
+
+#the_copyrights
+  position: relative
+  bottom: 0
+  color: gray
 
 .side_nav
   &_wrapper
@@ -150,4 +163,17 @@ body
 .main_content
   position: relative
   
+  .main > .v-row
+    padding: 0 12rem
+    max-width: 100vw
+    min-width: 100vw
+    overflow-x: hidden
+    position: relative
+    left: 0
+
+    .v-col
+      max-width: calc(100% - 24rem) !important
+      padding: 0
+      overflow: visible
+
 </style>

@@ -1,17 +1,60 @@
 <!-- index -->
 
-<script setup>
+<script setup lang="ts">
+  import gsap from 'gsap'
+  import { ScrollTrigger } from "gsap/ScrollTrigger"
+  import { useTemplateStore } from '~/stores/template'
+  import { useElementBounding } from '@vueuse/core'
+  import { useTimelines } from '../composables/animations/timelines'
 
+  gsap.registerPlugin(ScrollTrigger)
 
+  const display = useDisplay ()
+  const screen = useScreen ()
+  const template = useTemplateStore ()
+
+  const menu = useMenu ()
+  
+  //
+  // save profile_pic reference to store
+  //
+  const profile_pic_el = ref ( null )
+  template.add_element ( 'profile_pic', profile_pic_el )
+
+  //
+  // setup background hexagons animation
+  //
+  const timelines = useTimelines ()
+  timelines.init_hexagon_timelines ()
 
 </script>
 
 <template>
+   
+    <!-- profile -->
+    <div
+      ref="profile_pic_el"
+      id="profile_pic_wrapper"
+      :class="{
+        md: display.mdAndUp.value
+      }"
+      >
+      <img
+        src="/img/profile_300.png"
+        />
+    </div>
+    
+    <!-- hexagons group -->
+    <SVGHexagonsGroup
+      id="hexagons_group" 
+      />
+
   <div>
+    <div class="main">
     
     <VRow>
       <VCol>
-        <TheHero id="the_hero" ref="the_hero_el" />
+        <TheHero id="the_hero" />
       </VCol>
     </VRow>
 
@@ -44,27 +87,15 @@
         <TheContactForm id="the_contact_form" />
       </VCol>
     </VRow>
-
-    <VRow class="footer_row">
-      <VCol>
-        
-        <VFooter>
-          <TheFooter id="the_footer" />
-          <TheCopyrights
-            id="the_copyrights"
-            :style="{
-              left: `calc( ( ${ display.width.value }px - 1200px ) / 2 )`
-            }"
-            />
-        </VFooter>
-        
-      </VCol>
-    </VRow>
+  </div>
 
   </div>
 </template>
 
 <style lang="sass">
+
+  .main
+    position: relative
 
   #the_hero
     min-height: 100vh
@@ -81,12 +112,4 @@
     &_heading
       font-size: calc(var(--font-size-default) * 2.5)
       align-self: flex-start
-
-  #the_copyrights
-    position: fixed
-    width: calc( 10% )
-    /* border: 1px solid white */
-    text-align: left
-    bottom: 0
-    color: gray
 </style>

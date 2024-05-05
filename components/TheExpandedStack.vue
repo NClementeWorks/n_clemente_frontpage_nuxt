@@ -49,27 +49,6 @@
 
     <h2 class="section_heading expanded_stack_heading">The Expanded-Stack</h2>
 
-    <!-- <div
-      :style="{
-        position: 'absolute',
-        top: '10rem',
-        display: 'flex',
-        flexDirection: 'column',
-        left: '38%',
-      }"
-      >
-      <SVGHexagon
-        v-for="hex in items.length"
-        :key="hex"
-        :data="hex"
-        :style="{
-          position: 'absolute',
-          marginLeft: hex % 2 ? '-1.85rem' : '1.85rem',
-          top: `${ ( hex - 1 ) * 7.625 * .8 }rem`,
-        }"  
-        />
-    </div> -->
-
     <div
       ref="expanded_stack_items"
       id="expanded_stack_items"

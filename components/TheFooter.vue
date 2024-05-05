@@ -1,6 +1,6 @@
 <!-- TheFooter -->
 
-<script setup>
+<script setup lang="ts">
   const menu = useMenu ()
 </script>
 
@@ -118,19 +118,17 @@
           margin-bottom: 0
 
     &_row
-      position: relative
-
       .v-footer
         background: transparent
 
       &::before
         background: rgb( var( --v-theme-blue ) )
         content: ''
-        height: calc( 100% + 3rem ) // add parent bottom padding
-        left: -50%
+        height: 100%
+        left: 0
         position: absolute
         top: 0
-        width: 200vw
+        width: 100vw
 
     &_heading
       background: linear-gradient( 120deg, rgb( var( --v-theme-magenta ) ), rgb( var( --v-theme-cyan ) ), rgb( var( --v-theme-green ) ) )

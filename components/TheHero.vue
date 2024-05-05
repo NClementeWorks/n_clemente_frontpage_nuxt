@@ -21,14 +21,11 @@
   } = useElementBounding ( text_bubble_el )
 
   const text_bubble_style = computed ( () => {
-    const hero_props = template.get_element ( 'hero_section' ).props
-
     return {
       top: `${ profile_pic_props.top
         - ( profile_pic_props.height / 4 )
       }px`,
       left: `${ profile_pic_props.left
-        - hero_props.left
         + profile_pic_props.width
         - ( text_bubble_el_width.value / 4 )
       }px`,

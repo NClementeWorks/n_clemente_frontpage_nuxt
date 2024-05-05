@@ -69,6 +69,9 @@
   .use_cases
 
     &_list
+      .v-row
+        padding: 0 6rem
+        
       .v-card
         margin: 1rem 2rem
 
