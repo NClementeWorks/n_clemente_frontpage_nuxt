@@ -127,8 +127,11 @@ body
 
 .v-footer
   display: flex
-  flex-direction: columns
+  flex-direction: column
   justify-content: center
+
+  max-width: calc(100% - 24rem) !important
+  padding: 0 4rem
 
 #app_footer
   bottom: 0
@@ -141,6 +144,7 @@ body
   position: relative
   bottom: 0
   color: gray
+  font-size: .75em
 
 .side_nav
   &_wrapper

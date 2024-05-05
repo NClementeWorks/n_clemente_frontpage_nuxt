@@ -30,15 +30,6 @@
       </VCol>
       <VCol>
 
-        <PrimaryBtn
-          class="footer_button"
-          color="green"
-          :to="menu.nav.contact_form.link"
-          nuxt
-          >
-          {{ menu.nav.contact_form.label }}
-        </PrimaryBtn>
-
         <div
           v-for="contact in menu.contact_info"
           :key="contact.data"
@@ -74,6 +65,18 @@
           />
 
       </VCol>
+      <VCol>
+
+        <PrimaryBtn
+          class="footer_button"
+          color="green"
+          :to="menu.nav.contact_form.link"
+          nuxt
+          >
+          {{ menu.nav.contact_form.label }}
+        </PrimaryBtn>
+
+      </VCol>
     </VRow>
   </div>
 </template>
@@ -91,6 +94,9 @@
         opacity: .8
         font-size: 1.5rem
         margin: 1.75rem 0
+
+        &:first-child
+          margin-top: 0
 
       a.blocks_link
         color: white
