@@ -31,6 +31,8 @@
 
   const hexagon_width_px = hexagon.default_width_px
 
+  const svg_height = computed ( () => page_height.value - footer_props.height.toFixed(0) )
+
   screen.on_screen_ready ( () => {
 
     /**
@@ -46,13 +48,15 @@
     // cta sides hexagons
     cta_hexagons.value = Math.ceil ( screen_width.value / hexagon_width_px ) * 2 + 4 // add extra padding
   })
+
+  const footer_props = template.get_element( 'footer' ).props
 </script>
 
 <template>
   <svg
     :width="screen_width"
-    :height="page_height"
-    :viewBox="`0 0 ${ screen_width } ${ page_height }`"
+    :height="svg_height"
+    :viewBox="`0 0 ${ screen_width } ${ svg_height }`"
     xmlns="http://www.w3.org/2000/svg"
     filter="url( #inset_shadow )"
     >
@@ -62,7 +66,7 @@
       ref="svg_rectangle"
       x="0" y="0"
       :width="screen_width"
-      :height="page_height"
+      :height="svg_height"
       clip-path="url( #clip_path )"
       fill="url( #linear_gradient )"
       ></rect>

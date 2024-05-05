@@ -14,6 +14,7 @@
   const template = useTemplateStore ()
 
   const footer_el = ref ()
+  template.add_element( 'footer', footer_el )
   const {
     height: footer_height,
   } = useElementBounding ( footer_el )
