@@ -11,24 +11,24 @@
       name: 'Vue.js',
     },
     {
-      icon: 'WP.png',
-      name: 'Wordpress',
-    },
-    {
-      icon: 'Java.png',
-      name: 'Java',
+      icon: 'Node.png',
+      name: 'Node JS',
     },
     {
       icon: 'Adobe.png',
       name: 'Adobe Suite',
     },
     {
-      icon: 'MySQL.png',
-      name: 'MySQL',
+      icon: 'PHP.png',
+      name: 'PHP',
     },
     {
-      icon: 'JS.png',
-      name: 'Javascript',
+      icon: 'WP.png',
+      name: 'Wordpress',
+    },
+    {
+      icon: 'MySQL.png',
+      name: 'MySQL',
     },
   ]
 
