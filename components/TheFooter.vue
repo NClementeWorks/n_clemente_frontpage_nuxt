@@ -129,6 +129,7 @@
 
       &::before
         background: rgb( var( --v-theme-blue ) )
+        background-image: linear-gradient(165deg, black, transparent)
         content: ''
         height: 100%
         left: 0
