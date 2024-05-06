@@ -98,17 +98,17 @@
     <VForm class="contact_form">
       <VTextField
         prepend-icon="fas fa-user"
-        label="Jane Doe"
+        label="Your Name"
         ></VTextField>
 
       <VTextField
         prepend-icon="fas fa-envelope"
-        label="jane.doe@email.com"
+        label="your@email.com"
         ></VTextField>
 
       <VTextarea
         prepend-icon="fas fa-message"
-        label="Leave a note..."
+        label="Please, leave a note..."
         counter
         :rules="message_rules"
         ></VTextarea>
@@ -156,5 +156,15 @@
       font-size: 3rem !important
       position: relative
 
+  .v-field
+    input
+      background: transparent
+      border: none
+      font-size: 1.2rem
+      padding-left: 1rem
+
+  .v-textarea .v-field__input
+    background: transparent
+    font-size: 1.2rem
 
 </style>
