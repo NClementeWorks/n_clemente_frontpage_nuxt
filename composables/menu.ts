@@ -29,7 +29,7 @@ export const useMenu = () => {
         link: '#the_use_cases',
       },
       {
-        label: `Resume Top Skills`,
+        label: `Top Skills`,
         link: '#the_top_skills',
       },
       {

@@ -64,7 +64,7 @@
 <template>
   <div class="section top_skills_section">
     <h3 class="section_heading top_skills_heading">
-      Top Resume Skills
+      Top Skills
     </h3>
 
     <div
