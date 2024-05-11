@@ -66,7 +66,12 @@ export const useTimelines = () => {
       /**
        * top skills
        */
-      const skills_config = animations_skills.calculate_config ( use_cases_config.use_case_img_el_height )
+      // count only elements with distinct top positions
+      const use_case_img_rows = new Set ( use_cases_config.use_case_img_el_top ).size
+      // y shift is the expected image height multiplied by the amount of rows
+      const skills_y_shift = use_case_img_rows * use_cases_config.use_case_img_el_height
+
+      const skills_config = animations_skills.calculate_config ( skills_y_shift )
       const skills_start = animations_skills.init_start ( skills_config )
       animations_skills.init_timeline (
           hexagon_paths,

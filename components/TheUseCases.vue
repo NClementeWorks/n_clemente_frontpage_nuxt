@@ -42,21 +42,23 @@
               :src="`img/use_cases/${ use_case.img }`"
               ></VImg>
 
-            <VCardTitle>
-              <h3 class="use_case_title">{{ use_case.title }}</h3>
-            </VCardTitle>
-            
-            <VCardSubtitle>
-              {{ use_case.client }}
-            </VCardSubtitle>
+            <div class="use_case_card_content">
+              <VCardTitle>
+                <h3 class="use_case_title">{{ use_case.title }}</h3>
+              </VCardTitle>
+              
+              <VCardSubtitle>
+                {{ use_case.client }}
+              </VCardSubtitle>
 
-            <VCardActions>
-              <SecondaryBtn
-                append-icon="fas fa-arrow-right"
-                >
-                Read Use Case
-              </SecondaryBtn>
-            </VCardActions>
+              <VCardActions>
+                <SecondaryBtn
+                  append-icon="fas fa-arrow-right"
+                  >
+                  Read Use Case
+                </SecondaryBtn>
+              </VCardActions>
+            </div>
           </VCard>
         </VCol>
 
@@ -68,23 +70,38 @@
 <style lang="sass">
   .use_cases
 
+    &_section
+      padding-top: 4rem
+
     &_list
       .v-row
-        padding: 0 6rem
-        
+        width: 100%
+
+        .v-col
+          max-width: 100% !important
+          margin: 2rem auto
+
       .v-card
-        margin: 1rem 2rem
+        max-width: 25rem
+        margin: 0 auto
 
         &--variant-elevated,
         &--variant-flat
           background: transparent
 
         .v-img
-          max-width: 25rem
+          width: 16rem
+          min-width: 16rem
+          width: calc(80%)
+          max-width: 20rem
+          margin: auto
 
         .use_case
+
           &_title
             font-size: 2rem
             text-wrap: wrap
 
+ #the_use_cases .use_cases_list > .v-row > .v-col
+  max-width: 100% !important
 </style>

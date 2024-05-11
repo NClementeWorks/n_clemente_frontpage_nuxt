@@ -11,13 +11,13 @@ export const useAnimationsHexagonsUseCase = ( gsap : any ) => {
 
   function calculate_config () : any {
     const use_case_imgs_props = template.get_element ( 'use_case_imgs' ).map ( ( item : any ) => item.props )
-
+    
     const use_case_imgs_el_left = use_case_imgs_props.map ( ( props : ElementScreenProperties ) => props.left )
-    const use_case_img_el_top = use_case_imgs_props [ 0 ].top + window_scroll_y.value
+    const use_case_img_el_top = use_case_imgs_props.map ( ( props : ElementScreenProperties ) => props.top + window_scroll_y.value )
     
     const use_case_img_el_width = use_case_imgs_props [ 0 ].width || 0
     const use_case_img_el_height = use_case_img_el_width * hexagon.hexagon_proportions
-    const use_case_img_el_bottom = use_case_img_el_top + use_case_img_el_height
+    const use_case_img_el_bottom = use_case_img_el_top [ 0 ] + use_case_img_el_height
 
     return {
       use_case_imgs_el_left,
@@ -33,35 +33,59 @@ export const useAnimationsHexagonsUseCase = ( gsap : any ) => {
     screen_width : Ref<number>
   ) : any {
 
+    //
+    //
     const use_case_random_x_options = [
-
+      
+      // space before
+      () => gsap.utils.random (
+        // screen_width.value * .2,
+        config.use_case_imgs_el_left [ 0 ] - hexagon.default_width_px,
+        config.use_case_imgs_el_left [ 0 ]
+      ),
+      
       // center space
       () => gsap.utils.random (
         config.use_case_imgs_el_left [ 0 ] + config.use_case_img_el_width - hexagon.default_width_px,
         config.use_case_imgs_el_left [ 1 ]
       ),
 
+      // space after
+      () => gsap.utils.random (
+        config.use_case_imgs_el_left [ 1 ] + config.use_case_img_el_width,
+        config.use_case_imgs_el_left [ 1 ] + config.use_case_img_el_width + hexagon.default_width_px
+      ),
+    ]
+
+    //
+    //
+    const use_case_random_y_options = ( top : number ) => ([
+
       // space before
       () => gsap.utils.random (
-        screen_width.value * .2,
-        config.use_case_imgs_el_left [ 0 ]
+        top - ( hexagon.default_height_px / 2 ),
+        top
       ),
       
       // space after
       () => gsap.utils.random (
-        config.use_case_imgs_el_left [ 1 ] + config.use_case_img_el_width,
-        config.use_case_imgs_el_left [ 1 ] + config.use_case_img_el_width - hexagon.default_width_px
+        top + config.use_case_img_el_height,
+        top + config.use_case_img_el_height + hexagon.default_height_px
       ),
-    ]
+    ])
 
+    //
+    //
     const use_cases_random_start = {
 
       x: ( index : number ) => use_case_random_x_options [ index % 3 ] (),
 
-      y: () => gsap.utils.random (
-        config.use_case_img_el_top,
-        config.use_case_img_el_bottom - hexagon.default_height_px
-      ),
+      y: ( index : number ) => {
+        const top_index = index % config.use_case_img_el_top.length
+        const top_value = config.use_case_img_el_top [ top_index ]
+        const y_options = use_case_random_y_options ( top_value )
+        return y_options [ index % 2 ] ()
+      },
 
       scale: () => gsap.utils.random ( 0.5, 1 ),
 

@@ -122,10 +122,11 @@
   .top_skills
 
     &_section
-      position: relative
+      align-items: center
       display: flex
       flex-direction: column
-      align-items: center
+      padding-bottom: 4rem
+      position: relative
 
     &_flower_wrapper
       position: relative
