@@ -109,6 +109,9 @@
           />
         <h2 class="hero_heading_text hero_heading_text--designer">UX Designer</h2>
       </div>
+      <div>
+        <h3>Specialized in <strong>VueJS</strong> and its Ecosystem</h3>
+      </div>
       <!-- <h2 class="text-4xl py-4">Expanded-Stack Developer</h2> -->
 
       <div class="hero_buttons">

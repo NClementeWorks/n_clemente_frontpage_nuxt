@@ -7,6 +7,7 @@
         icon="fas fa-hand-spock"
         size="x-small"
         />
+        with VueJS and Nuxt
     </p>
     <p>© Noliani Clemente {{ new Date().getYear() + 1900 }}</p>
   </div>
