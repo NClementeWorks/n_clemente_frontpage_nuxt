@@ -6,8 +6,13 @@
 
   useHead ({
     htmlAttrs: {
-      class: 'bg-surface'
-    }
+      class: 'bg-surface',
+    },
+    link: [{
+      rel:'icon',
+      type: 'image/svg+xml',
+      href: 'favicon.svg'
+    }],
   })
 
   const display = useDisplay ()
