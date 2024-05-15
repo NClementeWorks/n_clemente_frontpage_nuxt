@@ -40,9 +40,9 @@
     >
     <slot>{{ link }}</slot>
   </a>
-  <a
+  <NuxtLink
     v-else
-    :href="link"
+    :to="link"
     :target="external ? '_blank' : ''"
     class="blocks_link"
     >
@@ -53,7 +53,7 @@
       size="x-small"
       class="blocks_link_icon"
       ></VIcon>
-  </a>
+  </NuxtLink>
 </template>
 
 <style lang="sass">
