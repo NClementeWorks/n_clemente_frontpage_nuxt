@@ -1,7 +1,12 @@
 <!-- SideNav -->
 
 <script setup>
-  const menu = useMenu ()
+  const props = defineProps({
+    menu_items: {
+      type: Array,
+      validate: items => items.every ( item => item.link?.match ( /^#\w/ ) && item.label.trim ().length )
+    }
+  })
 </script>
 
 <template>
@@ -10,7 +15,7 @@
       class="side_nav_menu_list"
       >
       <VListItem
-        v-for="menu in menu.main_menu"
+        v-for="menu in menu_items"
         :key="menu.link"
         class="side_nav_menu_list_item bg-white"
         :class="{

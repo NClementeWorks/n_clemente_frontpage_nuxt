@@ -15,6 +15,7 @@
     }],
   })
 
+  const menu = useMenu ()
   const display = useDisplay ()
   const template = useTemplateStore ()
 
@@ -52,7 +53,7 @@
           cols="2"
           class="side_nav_wrapper"
           >
-          <TheSideNav />
+          <TheSideNav :menu_items="menu.main_menu" />
         </VCol>
 
         <VCol
