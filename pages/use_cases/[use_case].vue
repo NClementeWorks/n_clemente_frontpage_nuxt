@@ -7,7 +7,6 @@
 
   const prev_item = computed ( () => navigation [ 0 ].children [ current_nav_idx.value - 1 ] || null )
   const next_item = computed ( () => navigation [ 0 ].children [ current_nav_idx.value + 1 ] || null )
-  console.log('current_nav', current_nav )
 </script>
 
 <template>
@@ -17,7 +16,6 @@
       <VRow>
         <VCol>
 
-          <!-- <ContentNavigation /> -->
           <ul class="page_breadcrumbs">
             <li>
               <BlocksLink to="/">
@@ -37,9 +35,55 @@
           </ul>
 
 
-          <h1 class="page_title">{{ current_nav.title }}</h1>
+          <ContentDoc>
+            <template v-slot="{ doc }">
+                
+              <VRow
+                no-gutters
+                class="content_row d-flex justify-center"
+                >
+                
+                <VCol
+                  cols="2"
+                  class="side_nav_wrapper"
+                  >
+                  <TheSideNav :menu_items="doc?.body?.children?.filter( node=>node.tag==='h2').map( node => ({ link: `#${ node.props?.id }`, label: node.children?.find(n=>n.type==='text')?.value }) )" />
+                  <!-- <div class="side_nav_menu_list_wrapper overflow-visible">
+                    <VList
+                      class="side_nav_menu_list"
+                      >
+                      <VListItem
+                        v-for="menu in doc?.body?.children?.filter( node=>node.tag==='h2').map( node => ({ link: `#${ node.props?.id }`, label: node.children?.find(n=>n.type==='text')?.value }) )"
+                        :key="menu.link"
+                        class="side_nav_menu_list_item bg-white"
+                        >
+                        <BlocksLink
+                          :link="menu.link"
+                          >
+                          {{ menu.label }}
+                        </BlocksLink>
+                      </VListItem>
+                    </VList>
+                  </div> -->
+                </VCol>
+              </VRow>
 
-          <ContentDoc />
+  
+
+              <img :src="doc.image.src" class="page_header_image" />
+              <div class="page_title">
+                <h1>{{ doc.title }}</h1>
+                <span class="page_subheading">{{ doc.description }}</span>
+              </div>
+
+              <ContentRenderer :value="doc" class="page_content" />
+            </template>
+            
+            <template #not-found>
+              <h1>Our apologies, we could not find the page you are requesting</h1>
+            </template>
+          </ContentDoc>
+
 
           <div class="page_bottom_nav">
             <BlocksLink
@@ -93,13 +137,72 @@
       .icon
         margin: 0 .5rem
 
-      // &:not(:first-child)::before
-      //   font-family: var( --fa-font-solid )
-      //   content: '\f105'
-      //   margin: 0 .5rem
+  &_header_image
+    margin-top: 2em
 
   &_title
     margin: 2em 0
+
+    h1
+      font-size: 4.5rem
+
+  &_subheading
+    font-style: italic
+    font-size: 2rem
+
+  &_image
+    max-width: 50%
+
+  &_content
+    margin: 4rem 0
+
+    a
+      color: rgb( var( --v-theme-primary-darken-1 ) )
+
+      &:hover
+        color: rgb( var( --v-theme-blue ) )
+
+      &:visited
+        color: rgb( var( --v-theme-secondary-darken-1 ) )
+        &:hover
+          color: rgb( var( --v-theme-blue ) )
+
+    h2, h3, h4
+      margin-top: 3em
+
+    h2
+      font-size: 3em
+
+      &:first-of-type
+        margin-top: 1.5em
+
+    p
+      color: rgb( var( --v-theme-surface-variant ) )
+      font-size: 1.15rem
+      line-height: 1.65
+
+    .figure
+      align-items: center
+      display: flex
+      flex-direction: column
+      margin: 4rem 0
+
+      em
+        margin-top: 1em
+
+    blockquote
+      background: rgba(var(--v-theme-green), .15)
+      border: 1px solid #8888
+      border-radius: 1rem
+      font-size: .8rem
+      padding: 1rem 2rem
+      margin: 0
+
+      h2:first-child, h3:first-child, h4:first-child
+        margin-top: 1em
+
+      p
+        font-size: .8rem
 
   &_bottom_nav
     border-top: 1px solid rgb( var( --v-theme-gray ) )
@@ -132,4 +235,8 @@
 
       .icon
         margin-left: .5rem
+
+
+.main_content .main > .v-row .v-col.side_nav_wrapper
+  max-width: fit-content !important
 </style>
