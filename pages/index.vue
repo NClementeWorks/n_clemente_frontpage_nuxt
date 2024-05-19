@@ -12,7 +12,7 @@
   const display = useDisplay ()
   const screen = useScreen ()
   const template = useTemplateStore ()
-
+  const timelines = useTimelines ()
   const menu = useMenu ()
   
   //
@@ -21,12 +21,29 @@
   const profile_pic_el = ref<HTMLElement | null> ( null )
   template.add_element ( 'profile_pic', profile_pic_el )
 
-  //
-  // setup background hexagons animation
-  //
-  const timelines = useTimelines ()
-  timelines.init_hexagon_timelines ()
+  /**
+   * Init timelines at parent component when child components are mounted
+   */
+  onMounted ( async () => {
 
+    await nextTick ()
+
+    screen.on_screen_ready ( () => {
+
+      watch ( () => template.elements_ready, ready => {
+        if ( ready ) {
+          timelines.init_hexagon_timelines ( display )
+        }
+      },{
+        immediate: true,
+      })
+
+    })
+
+  })
+
+  onBeforeUnmount ( screen.clear_on_screen_ready_watcher )
+  
 </script>
 
 <template>

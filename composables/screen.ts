@@ -20,49 +20,40 @@ export const useScreen = () => {
   }
 
   /**
-   * 
+   * function to clear any watchers created by on_screen_ready
+   * should be called inside BeforeUnmount on the same component as on_screen_ready was called
+   */
+  let clear_on_screen_ready_watcher : any
+
+  /**
+   * Needs to be called inside a lifecycle hook
    * @param callback 
    */
-  function on_screen_ready ( callback : Function ) : void {
+  async function on_screen_ready ( callback : Function ) : Promise<void> {
 
     //
     // setup watcher clearing function
     //
     let unwatch_screen_width : Function | null = null
-    const clear_watcher = () => unwatch_screen_width && unwatch_screen_width ()
-    
-    //
-    // wait for mounting process and screen dimensions set to call callback
-    //
-    onMounted ( async () => {
+    clear_on_screen_ready_watcher = () => unwatch_screen_width && unwatch_screen_width ()
 
-      await nextTick ()
+    //
+    // Initial positioning 
+    //
+    unwatch_screen_width = watch ( () => display.width.value, async () => {
 
       //
-      // Initial positioning 
+      // Call function
       //
-      unwatch_screen_width = watch ( () => display.width.value, async () => {
+      callback ()
 
-        //
-        // Call function
-        //
-         callback ()
+      //
+      // Clear current watcher
+      //
+      clear_on_screen_ready_watcher ()
+      
+    })
 
-        //
-        // Clear current watcher
-        //
-        clear_watcher ()
-        
-      })
-  
-    })
-  
-    /**
-     * clear watcher on unmount
-     */
-    onBeforeUnmount ( () => {
-      clear_watcher ()
-    })
   }
   
   /**
@@ -70,7 +61,7 @@ export const useScreen = () => {
    * @param el 
    * @returns 
    */
-  function get_element_screen_props ( el : HTMLElement ) : ElementScreenProperties {
+  function get_element_screen_props ( el : Ref<HTMLElement | null> | HTMLElement ) : ElementScreenProperties {
 
     //
     // VueUse element bounding box
@@ -115,6 +106,7 @@ export const useScreen = () => {
     get_top,
     get_left,
     on_screen_ready,
+    clear_on_screen_ready_watcher,
     get_element_screen_props,
   }
 }

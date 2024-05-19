@@ -1,7 +1,7 @@
 <!-- HexagonsGroup -->
 
 <script setup>
- import { useTemplateStore } from "~/stores/template"
+  import { useTemplateStore } from "~/stores/template"
 
   const color = useColor ()
   const display = useDisplay ()
@@ -33,21 +33,29 @@
 
   const svg_height = computed ( () => page_height.value - footer_props.height.toFixed(0) )
 
-  screen.on_screen_ready ( () => {
+  onMounted ( async () => {
 
-    /**
-     * Set SVG height to page total height
-     */
-    page_height.value = document.body.scrollHeight
+    await nextTick ()
 
-    /**
-     * Initial positioning on Hero
-     */
-    screen_splits.value = Math.ceil ( page_height.value / screen_height.value )
+    screen.on_screen_ready ( () => {
 
-    // cta sides hexagons
-    cta_hexagons.value = Math.ceil ( screen_width.value / hexagon_width_px ) * 2 + 4 // add extra padding
+      /**
+       * Set SVG height to page total height
+       */
+      page_height.value = document.body.scrollHeight
+
+      /**
+       * Initial positioning on Hero
+       */
+      screen_splits.value = Math.ceil ( page_height.value / screen_height.value )
+
+      // cta sides hexagons
+      cta_hexagons.value = Math.ceil ( screen_width.value / hexagon_width_px ) * 2 + 4 // add extra padding
+
+    })
   })
+
+  onBeforeUnmount ( screen.clear_on_screen_ready_watcher )
 
   const footer_props = template.get_element( 'footer' ).props
 </script>
