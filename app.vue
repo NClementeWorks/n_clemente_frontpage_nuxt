@@ -136,7 +136,6 @@ body
   flex-direction: column
   justify-content: center
 
-  max-width: calc(100% - 24rem) !important
   padding: 0 4rem
 
 #app_footer
@@ -183,7 +182,7 @@ body
     left: 0
 
     .v-col
-      max-width: calc(100% - 24rem) !important
+      max-width: 100% //calc(100% - 24rem) !important
       padding: 0
       overflow: visible
 
