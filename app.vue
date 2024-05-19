@@ -16,7 +16,6 @@
   })
 
   const menu = useMenu ()
-  const display = useDisplay ()
   const template = useTemplateStore ()
 
   const footer_el = ref ()
@@ -36,7 +35,7 @@
       :style="{
         marginBottom: `${ footer_height }px`
       }">
-      
+
       <!-- <select v-model="$colorMode.preference">
         <option value="system">System</option>
         <option value="light">Light</option>
@@ -135,7 +134,6 @@ body
   display: flex
   flex-direction: column
   justify-content: center
-
   padding: 0 4rem
 
 #app_footer
