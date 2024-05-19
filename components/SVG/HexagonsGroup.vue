@@ -31,7 +31,7 @@
 
   const hexagon_width_px = hexagon.default_width_px
 
-  const svg_height = computed ( () => page_height.value - footer_props.height.toFixed(0) )
+  const svg_height = computed ( () => Math.abs ( page_height.value - footer_props.height.toFixed(0) ) )
 
   onMounted ( async () => {
 
