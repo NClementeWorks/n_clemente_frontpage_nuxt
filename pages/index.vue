@@ -5,9 +5,9 @@
   import { ScrollTrigger } from "gsap/ScrollTrigger"
   import { useTemplateStore } from '~/stores/template'
   import { useElementBounding } from '@vueuse/core'
-  import { useTimelines } from '../composables/animations/timelines'
+  import { useTimelines } from '~/composables/animations/timelines'
 
-  gsap.registerPlugin(ScrollTrigger)
+  gsap.registerPlugin ( ScrollTrigger )
 
   const display = useDisplay ()
   const screen = useScreen ()
@@ -18,7 +18,7 @@
   //
   // save profile_pic reference to store
   //
-  const profile_pic_el = ref ( null )
+  const profile_pic_el = ref<HTMLElement | null> ( null )
   template.add_element ( 'profile_pic', profile_pic_el )
 
   //
@@ -42,7 +42,7 @@
       <img
         src="/img/profile_300.png"
         />
-    </div>
+      </div>
     
     <!-- hexagons group -->
     <SVGHexagonsGroup
