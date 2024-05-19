@@ -53,7 +53,7 @@
           cols="2"
           class="side_nav_wrapper"
           >
-          <TheSideNav :menu_items="menu.main_menu" />
+          <SideNav :menu_items="menu.main_menu" />
         </VCol>
 
         <VCol

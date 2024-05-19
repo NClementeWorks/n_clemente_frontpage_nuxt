@@ -47,7 +47,7 @@
                   cols="2"
                   class="side_nav_wrapper"
                   >
-                  <TheSideNav :menu_items="doc?.body?.children?.filter( node=>node.tag==='h2').map( node => ({ link: `#${ node.props?.id }`, label: node.children?.find(n=>n.type==='text')?.value }) )" />
+                  <SideNav :menu_items="doc?.body?.children?.filter( node=>node.tag==='h2').map( node => ({ link: `#${ node.props?.id }`, label: node.children?.find(n=>n.type==='text')?.value }) )" />
                   <!-- <div class="side_nav_menu_list_wrapper overflow-visible">
                     <VList
                       class="side_nav_menu_list"
