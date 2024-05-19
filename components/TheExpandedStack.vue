@@ -40,7 +40,7 @@
 
   const set_expanded_stack_item_first_icon = ( el, index ) => {
     if ( index === 0 )
-      expanded_stack_item_first_icon.value = el
+      expanded_stack_item_first_icon.value = el.$el
   }
 </script>
 
