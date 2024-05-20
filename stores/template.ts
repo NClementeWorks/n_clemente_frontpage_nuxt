@@ -1,4 +1,3 @@
-import { Value } from 'sass'
 import { watch } from 'vue'
 
 export interface TemplateElement {
@@ -74,7 +73,7 @@ export const useTemplateStore = defineStore ( 'template', () => {
 
   watch ( home_elements, 
     () => {
-      elements_ready.value = Object.entries(home_elements.value).every ( ([ key, element ] : [ string, any ]) => !!element?.length || !!element)
+      elements_ready.value = Object.values(home_elements.value).every ( ( element : any ) => !!element?.length || !!element)
     }, {
     deep: true,
   })
