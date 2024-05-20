@@ -3,13 +3,9 @@ import { ScrollTrigger } from "gsap/ScrollTrigger"
 import { useTemplateStore } from "~/stores/template"
 
 export const useTimelines = () => {
-
-  const init_hexagon_timelines = () => {
-    
-    const display = useDisplay ()
-    const screen = useScreen ()
-    const template = useTemplateStore ()
-    
+  const template = useTemplateStore ()
+  
+  const init_hexagon_timelines = ( display : any ) => {
     //
     // register gsap scroll plugin
     //
@@ -27,11 +23,7 @@ export const useTimelines = () => {
     const screen_width = computed ( () => display.width.value )
     const screen_height = computed ( () => display.height.value )
 
-    /**
-     * Init timelines at parent component to increase chances of child components mounted
-     */
-    screen.on_screen_ready ( () => {
-      const hexagon_paths = ref ( template.hexagon_paths )
+      const hexagon_paths = ref<SVGElement[]> ( template.hexagon_paths )
       const cta_hexagon_paths = ref ( template.cta_hexagon_paths )
 
       /**
@@ -79,7 +71,6 @@ export const useTimelines = () => {
           skills_config,
           screen_height
         )
-    })
   }
 
   return {
