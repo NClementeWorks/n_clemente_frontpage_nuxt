@@ -1,15 +1,16 @@
-import { useTemplateStore } from "~/stores/template"
+import { TemplateElement, useTemplateStore } from "~/stores/template"
 
 export const useAnimationsHexagonsCTA = ( gsap : any ) => {
 
   const template = useTemplateStore ()
   const hexagon = useHexagons ()
+  const { as_plain_object } = useUtils ()
 
   const tl_cta = gsap.timeline ({})
 
   function calculate_config () : any {
 
-    const cta_props = template.get_element ( 'cta_section' ).props
+    const cta_props = as_plain_object ( ( template.get_element ( 'cta_section' ) as TemplateElement ).props )
 
     const cta_center = cta_props.left
       + ( ( cta_props.width || 0 ) / 2 )

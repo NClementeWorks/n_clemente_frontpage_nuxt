@@ -1,16 +1,17 @@
-import { useTemplateStore } from '~/stores/template'
+import { TemplateElement, useTemplateStore } from '~/stores/template'
 
 export const useAnimationsHexagonsStack = ( gsap : any ) => {
 
   const hexagon = useHexagons ()
   const template = useTemplateStore ()
+  const { as_plain_object } = useUtils ()
 
   const tl_stack = gsap.timeline ({})
 
   function init_start () : any {
-
-    const stack_items_props = template.get_element ( 'stack_items' ).props
-    const stack_first_icon_props = template.get_element ( 'stack_first_icon' ).props
+    
+    const stack_items_props = as_plain_object ( ( template.get_element ( 'stack_items' ) as TemplateElement ).props )
+    const stack_first_icon_props = as_plain_object ( ( template.get_element ( 'stack_first_icon' ) as TemplateElement ).props )
 
     const stack_start = {
 

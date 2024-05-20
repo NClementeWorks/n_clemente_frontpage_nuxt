@@ -1,4 +1,4 @@
-import { useTemplateStore } from '~/stores/template'
+import { TemplateElement, useTemplateStore } from '~/stores/template'
 import { useWindowScroll } from '@vueuse/core'
 
 export const useAnimationsHexagonsUseCase = ( gsap : any ) => {
@@ -6,18 +6,20 @@ export const useAnimationsHexagonsUseCase = ( gsap : any ) => {
   const hexagon = useHexagons ()
   const { y: window_scroll_y } = useWindowScroll ()
   const template = useTemplateStore ()
+  const { as_plain_object } = useUtils ()
 
   const tl_use_cases = gsap.timeline ({})
 
   function calculate_config () : any {
-    const use_case_imgs_props = template.get_element ( 'use_case_imgs' ).map ( ( item : any ) => item.props )
+    const use_case_imgs_props = ( template.get_element ( 'use_case_imgs' ) as TemplateElement[] )
+      ?.map ( ( item : TemplateElement ) => as_plain_object ( item.props ))
     
-    const use_case_imgs_el_left = use_case_imgs_props.map ( ( props : ElementScreenProperties ) => props.left )
-    const use_case_img_el_top = use_case_imgs_props.map ( ( props : ElementScreenProperties ) => props.top + window_scroll_y.value )
+    const use_case_imgs_el_left = use_case_imgs_props?.map ( ( props : any ) => props.left )
+    const use_case_img_el_top = use_case_imgs_props?.map ( ( props : any ) => props.top + window_scroll_y.value )
     
-    const use_case_img_el_width = use_case_imgs_props [ 0 ].width || 0
+    const use_case_img_el_width = use_case_imgs_props ? use_case_imgs_props [ 0 ]?.width || 0 : 0
     const use_case_img_el_height = use_case_img_el_width * hexagon.hexagon_proportions
-    const use_case_img_el_bottom = use_case_img_el_top [ 0 ] + use_case_img_el_height
+    const use_case_img_el_bottom = (use_case_img_el_top ? use_case_img_el_top [ 0 ] : 0) + use_case_img_el_height
 
     return {
       use_case_imgs_el_left,

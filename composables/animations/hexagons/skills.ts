@@ -1,4 +1,4 @@
-import { useTemplateStore } from '~/stores/template'
+import { TemplateElement, useTemplateStore } from '~/stores/template'
 import { useWindowScroll } from '@vueuse/core'
 
 export const useAnimationsHexagonsSkills = ( gsap : any ) => {
@@ -6,6 +6,7 @@ export const useAnimationsHexagonsSkills = ( gsap : any ) => {
   const hexagon = useHexagons ()
   const template = useTemplateStore ()
   const { y: window_scroll_y } = useWindowScroll ()
+  const { as_plain_object } = useUtils ()
   
   const tl_skills = gsap.timeline ({})
 
@@ -14,8 +15,8 @@ export const useAnimationsHexagonsSkills = ( gsap : any ) => {
 
   function calculate_config ( position_shift_y : number ) : any {
 
-    const top_skills_props = template.get_element ( 'top_skills_flower' ).props
-    const top_skills_first_icon_props = template.get_element ( 'top_skills_first_icon' ).props
+    const top_skills_props = as_plain_object ( ( template.get_element ( 'top_skills_flower' ) as TemplateElement ).props )
+    const top_skills_first_icon_props = as_plain_object ( ( template.get_element ( 'top_skills_first_icon' ) as TemplateElement ).props )
 
     const skills_el_left = top_skills_props.left
     const skills_icon_el_width = top_skills_first_icon_props.width || 0
