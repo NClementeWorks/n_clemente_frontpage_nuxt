@@ -180,7 +180,7 @@ body
     left: 0
 
     .v-col
-      max-width: 100% //calc(100% - 24rem) !important
+      max-width: calc(100% - 24rem) !important
       padding: 0
       overflow: visible
 
