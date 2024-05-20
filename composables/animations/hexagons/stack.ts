@@ -33,7 +33,7 @@ export const useAnimationsHexagonsStack = ( gsap : any ) => {
   }
 
   function init_timeline (
-    hexagon_paths : Ref<SVGElement>,
+    hexagon_paths : Ref<SVGElement[]>,
     previous_state : any,
     new_state: any,
   ) : void {

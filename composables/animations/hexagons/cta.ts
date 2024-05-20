@@ -44,7 +44,7 @@ export const useAnimationsHexagonsCTA = ( gsap : any ) => {
   }
   
   function init_timeline (
-    hexagon_paths : Ref<SVGElement>,
+    hexagon_paths : Ref<SVGElement[]>,
     previous_state : any,
     new_state: any,
   ) : void {
@@ -65,7 +65,7 @@ export const useAnimationsHexagonsCTA = ( gsap : any ) => {
 
   // cta sides hexagons
   function init_side_hexagons (
-    cta_hexagon_paths : Ref<Array<HTMLElement>>,
+    cta_hexagon_paths : Ref<SVGElement[]>,
     config : any,
   ) : any {
 

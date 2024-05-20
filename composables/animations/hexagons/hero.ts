@@ -19,7 +19,7 @@ export const useAnimationsHexagonsHero = ( gsap : any ) => {
   }
 
   function init_timeline (
-    hexagon_paths : Ref<SVGElement>,
+    hexagon_paths : Ref<SVGElement[]>,
     initial_state : any
   ) : void {
     tl_hero

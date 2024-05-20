@@ -32,7 +32,6 @@ export const useAnimationsHexagonsUseCase = ( gsap : any ) => {
 
   function init_start (
     config: any,
-    screen_width : Ref<number>
   ) : any {
 
     //
@@ -97,7 +96,7 @@ export const useAnimationsHexagonsUseCase = ( gsap : any ) => {
   }
 
   function init_timeline (
-    hexagon_paths : Ref<SVGElement>,
+    hexagon_paths : Ref<SVGElement[]>,
     previous_state : any,
     new_state: any,
   ) : void {

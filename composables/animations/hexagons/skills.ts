@@ -54,7 +54,7 @@ export const useAnimationsHexagonsSkills = ( gsap : any ) => {
   }
 
   function init_timeline (
-    hexagon_paths : Ref<SVGElement>,
+    hexagon_paths : Ref<SVGElement[]>,
     new_state : any,
     config : any,
     screen_height : Ref<number>,
