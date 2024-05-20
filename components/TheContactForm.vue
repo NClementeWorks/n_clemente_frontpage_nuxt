@@ -83,11 +83,11 @@
       ></div>
 
     <div class="contact_form_hexagons">
-    <template v-for="n in 15" :key="n">
-      <SVGHexagon
-        :color="bg_colors[n % bg_colors.length]"
-        :style="hexagon_position ()"
-        />
+      <template v-for="n in 15" :key="n">
+        <SVGHexagon
+          :color="bg_colors[n % bg_colors.length]"
+          :style="hexagon_position ()"
+          />
       </template>
     </div>
 
