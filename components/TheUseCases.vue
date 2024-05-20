@@ -98,6 +98,12 @@
 
         .use_case
 
+          &_card_content
+            background: #fffc
+            padding-bottom: 1rem
+            margin: 1rem
+            border-radius: 3rem
+
           &_title
             font-size: 2rem
             text-wrap: wrap

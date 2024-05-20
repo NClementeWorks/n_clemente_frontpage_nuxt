@@ -53,7 +53,7 @@ export const useAnimationsHexagonsUseCase = ( gsap : any ) => {
 
       // space after
       () => gsap.utils.random (
-        config.use_case_imgs_el_left [ 1 ] + config.use_case_img_el_width,
+        config.use_case_imgs_el_left [ 1 ] + config.use_case_img_el_width - hexagon.default_width_px,
         config.use_case_imgs_el_left [ 1 ] + config.use_case_img_el_width + hexagon.default_width_px
       ),
     ]
@@ -65,12 +65,12 @@ export const useAnimationsHexagonsUseCase = ( gsap : any ) => {
       // space before
       () => gsap.utils.random (
         top - ( hexagon.default_height_px / 2 ),
-        top
+        top + hexagon.default_height_px
       ),
       
       // space after
       () => gsap.utils.random (
-        top + config.use_case_img_el_height,
+        top + config.use_case_img_el_height - hexagon.default_height_px,
         top + config.use_case_img_el_height + hexagon.default_height_px
       ),
     ])
@@ -79,13 +79,13 @@ export const useAnimationsHexagonsUseCase = ( gsap : any ) => {
     //
     const use_cases_random_start = {
 
-      x: ( index : number ) => use_case_random_x_options [ index % 3 ] (),
+      x: () => use_case_random_x_options [ gsap.utils.random (0, 2, 1) ] (),
 
       y: ( index : number ) => {
         const top_index = index % config.use_case_img_el_top.length
         const top_value = config.use_case_img_el_top [ top_index ]
         const y_options = use_case_random_y_options ( top_value )
-        return y_options [ index % 2 ] ()
+        return y_options [ gsap.utils.random (0, 1, 1) ] ()
       },
 
       scale: () => gsap.utils.random ( 0.5, 1 ),
