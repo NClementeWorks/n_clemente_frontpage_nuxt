@@ -5,8 +5,6 @@
   import { ScrollTrigger } from "gsap/ScrollTrigger"
   import { useWindowSize } from '@vueuse/core'
 
-  const random = useRandom ()
-  
   gsap.registerPlugin ( ScrollTrigger )
 
   const message_max_chars = 1000
@@ -62,9 +60,9 @@
   })
 
   const hexagon_position = () => {
-    const row = random.get_random_int ( 5 )
+    const row = gsap.utils.random ( 1, 5, 1 )
     const col_shift = (row % 2)
-    const col_base = random.get_random_int ( 2 )
+    const col_base = gsap.utils.random ( 1, 2, 1 )
     const col = ( col_base * 2 ) - ( col_shift )
     return {
       top: `${ hexagon.hexagon_grid_row_px( row ) }px`,
