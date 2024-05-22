@@ -52,7 +52,7 @@ export const useTimelines = () => {
        * use cases
        */
       const use_cases_config = animations_use_case.calculate_config ()
-      const use_cases_start = animations_use_case.init_start ( use_cases_config, screen_width )
+      const use_cases_start = animations_use_case.init_start ( use_cases_config )
       animations_use_case.init_timeline ( hexagon_paths, cta_start, use_cases_start )
       
       /**
