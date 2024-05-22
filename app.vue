@@ -18,7 +18,6 @@
   const menu = useMenu ()
   const template = useTemplateStore ()
   const route = useRoute ()
-  console.log('route',route)
 
   const footer_el = ref ()
   template.add_element( 'footer', footer_el )
