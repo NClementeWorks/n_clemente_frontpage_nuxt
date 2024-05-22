@@ -37,12 +37,12 @@
 
     await nextTick ()
 
-    screen.on_screen_ready ( () => {
+    /**
+     * Set SVG height to page total height
+     */
+    page_height.value = document.body.scrollHeight
 
-      /**
-       * Set SVG height to page total height
-       */
-      page_height.value = document.body.scrollHeight
+    screen.on_screen_ready ( () => {
 
       /**
        * Initial positioning on Hero
