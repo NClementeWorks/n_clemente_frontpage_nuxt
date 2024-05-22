@@ -17,6 +17,8 @@
 
   const menu = useMenu ()
   const template = useTemplateStore ()
+  const route = useRoute ()
+  console.log('route',route)
 
   const footer_el = ref ()
   template.add_element( 'footer', footer_el )
@@ -49,6 +51,7 @@
         >
         
         <VCol
+          v-if="route.fullPath === '/'"
           cols="2"
           class="side_nav_wrapper"
           >
@@ -153,13 +156,13 @@ body
   &_wrapper
     align-items: center
     display: flex
+    left: 0
     min-height: 62%
     overflow: hidden
     padding-right: 10%
     position: fixed
-    width: 100%
+    width: 12rem
     z-index: 9
-    left: 0
 
     &::before
       background: linear-gradient(0deg, transparent, rgba(0,0,0,.1), transparent)
