@@ -7,6 +7,7 @@
   const display = useDisplay ()
   const hexagon = useHexagons ()
   const screen = useScreen ()
+  const { first_init } = useTemplateStore ()
     
   const screen_width = computed ( () => display.width.value )
   const screen_height = computed ( () => display.height.value )
@@ -36,14 +37,19 @@
   onMounted ( async () => {
 
     await nextTick ()
+    
+    if ( !first_init )
+      init ()
+    else
+      screen.on_screen_ready ( init )
+  })
 
-    /**
-     * Set SVG height to page total height
-     */
-    page_height.value = document.body.scrollHeight
-
-    screen.on_screen_ready ( () => {
-
+  const init = () => {
+      /**
+       * Set SVG height to page total height
+       */
+      page_height.value = document.body.scrollHeight
+      
       /**
        * Initial positioning on Hero
        */
@@ -51,6 +57,7 @@
 
       // cta sides hexagons
       cta_hexagons.value = Math.ceil ( screen_width.value / hexagon_width_px ) * 2 + 4 // add extra padding
+  }
 
     })
   })
