@@ -1,14 +1,25 @@
 <script setup lang="ts">
+import { useTemplateStore } from "~/stores/template"
+
   const use_case_id = useRoute().params.use_case
   const navigation = await fetchContentNavigation()
 
-  const current_nav_idx = computed ( () => navigation [ 0 ].children.findIndex( ( nav : any ) => nav._path.split ( '/' ) [ 2 ] === use_case_id ) )
-  const current_nav = computed ( () => navigation [ 0 ].children [ current_nav_idx.value ] )
-
-  const prev_item = computed ( () => navigation [ 0 ].children [ current_nav_idx.value - 1 ] || null )
-  const next_item = computed ( () => navigation [ 0 ].children [ current_nav_idx.value + 1 ] || null )
   const template = useTemplateStore ()
   template.first_init = false
+
+  const current_nav_idx = computed ( () => navigation [ 0 ].children?.findIndex( ( nav : any ) => nav._path.split ( '/' ) [ 2 ] === use_case_id ) )
+  const current_nav = computed ( () => navigation [ 0 ].children && current_nav_idx?.value && navigation [ 0 ].children [ current_nav_idx?.value ] )
+
+  const prev_item = computed ( () =>
+    current_nav_idx?.value && current_nav_idx?.value > 0 && navigation [ 0 ].children
+      ? navigation [ 0 ].children [ current_nav_idx.value - 1 ]
+      : null
+    )
+  const next_item = computed ( () =>
+    current_nav_idx?.value && current_nav_idx?.value < ( navigation [ 0 ].children?.length || 0 ) - 2 && navigation [ 0 ].children
+      ? navigation [ 0 ].children [ current_nav_idx.value + 1 ]
+      : null
+    )
 </script>
 
 <template>
