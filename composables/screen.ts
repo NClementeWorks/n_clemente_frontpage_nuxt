@@ -82,13 +82,25 @@ export const useScreen = () => {
     } = useWindowScroll ()
 
     //
-    //  calculate absolute x and y positions
+    //  calculate absolute x position
     //
-    const x = ref ( 0 )
-    const y = ref ( 0 )
-    on_screen_ready ( () => {
-      x.value = top.value + scroll_x.value 
-      y.value = top.value + scroll_y.value 
+    const x = ref ( left.value || 0 )
+    watch ( [
+      scroll_x,
+      left,
+    ], () => {
+      x.value = left.value + scroll_x.value
+    })
+
+    //
+    //  calculate absolute y position
+    //
+    const y = ref ( top.value || 0 )
+    watch ( [
+      scroll_y,
+      top
+    ], () => {
+      y.value = top.value + scroll_y.value
     })
 
     return {
