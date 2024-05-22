@@ -28,11 +28,15 @@
 
     await nextTick ()
 
+    if ( !template.first_init ) {
+      timelines.init_hexagon_timelines ( display )
+    }
     screen.on_screen_ready ( () => {
 
       watch ( () => template.elements_ready, ready => {
         if ( ready ) {
           timelines.init_hexagon_timelines ( display )
+          template.first_init = false
         }
       },{
         immediate: true,

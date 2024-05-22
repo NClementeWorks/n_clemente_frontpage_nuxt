@@ -78,6 +78,8 @@ export const useTemplateStore = defineStore ( 'template', () => {
     deep: true,
   })
 
+  const first_init = ref ( true )
+
   return {
     add_element,
     add_elements,
@@ -89,5 +91,6 @@ export const useTemplateStore = defineStore ( 'template', () => {
     template_elements,
 
     elements_ready,
+    first_init,
   }
 })

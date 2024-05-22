@@ -7,6 +7,8 @@
 
   const prev_item = computed ( () => navigation [ 0 ].children [ current_nav_idx.value - 1 ] || null )
   const next_item = computed ( () => navigation [ 0 ].children [ current_nav_idx.value + 1 ] || null )
+  const template = useTemplateStore ()
+  template.first_init = false
 </script>
 
 <template>
