@@ -24,37 +24,6 @@ export const useScreen = () => {
    * should be called inside BeforeUnmount on the same component as on_screen_ready was called
    */
   let clear_on_screen_ready_watcher : any
-
-  /**
-   * Needs to be called inside a lifecycle hook
-   * @param callback 
-   */
-  async function on_screen_ready ( callback : Function ) : Promise<void> {
-
-    //
-    // setup watcher clearing function
-    //
-    let unwatch_screen_width : Function | null = null
-    clear_on_screen_ready_watcher = () => unwatch_screen_width && unwatch_screen_width ()
-
-    //
-    // Initial positioning 
-    //
-    unwatch_screen_width = watch ( () => display.width.value, async () => {
-
-      //
-      // Call function
-      //
-      callback ()
-
-      //
-      // Clear current watcher
-      //
-      clear_on_screen_ready_watcher ()
-      
-    })
-
-  }
   
   /**
    * 
@@ -117,7 +86,6 @@ export const useScreen = () => {
   return {
     get_top,
     get_left,
-    on_screen_ready,
     clear_on_screen_ready_watcher,
     get_element_screen_props,
   }
