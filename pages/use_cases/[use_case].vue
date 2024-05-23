@@ -20,6 +20,15 @@ import { useTemplateStore } from "~/stores/template"
       ? navigation [ 0 ].children [ current_nav_idx.value + 1 ]
       : null
     )
+
+  const use_case_menu_items = ( doc : any ) => {
+    return doc?.body?.children
+      ?.filter( ( node : any ) => node.tag === 'h2' )
+      ?.map( ( node : any ) => ({
+        link: `#${ node.props?.id }`,
+        label: node.children?.find ( ( n : any ) => n?.type === 'text' )?.value
+      }) )
+  }
 </script>
 
 <template>
@@ -60,7 +69,8 @@ import { useTemplateStore } from "~/stores/template"
                   cols="2"
                   class="side_nav_wrapper"
                   >
-                  <SideNav :menu_items="doc?.body?.children?.filter( node=>node.tag==='h2').map( node => ({ link: `#${ node.props?.id }`, label: node.children?.find(n=>n.type==='text')?.value }) )" />
+                  <SideNav
+                    :menu_items="use_case_menu_items ( doc )" />
                   <!-- <div class="side_nav_menu_list_wrapper overflow-visible">
                     <VList
                       class="side_nav_menu_list"
