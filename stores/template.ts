@@ -67,13 +67,21 @@ export const useTemplateStore = defineStore ( 'template', () => {
   }
 
   const hexagon_paths = ref<SVGElement[]> ([])
+  const cta_hexagons = ref ( -1 )
   const cta_hexagon_paths = ref<SVGElement[]> ([])
 
   const elements_ready = ref ( false )
 
-  watch ( home_elements, 
+  watch ( [
+    home_elements,
+    () => hexagon_paths.value.length,
+    () => cta_hexagon_paths.value.length,
+  ], 
     () => {
-      elements_ready.value = Object.values(home_elements.value).every ( ( element : any ) => !!element?.length || !!element)
+      elements_ready.value =
+        Object.values ( home_elements.value ).every ( ( element : any ) => !!element?.length || !!element )
+          && hexagon_paths.value.length === 7
+          && cta_hexagon_paths.value.length === cta_hexagons.value
     }, {
     deep: true,
   })
@@ -86,6 +94,7 @@ export const useTemplateStore = defineStore ( 'template', () => {
     get_element,
     clear_element,
     hexagon_paths,
+    cta_hexagons,
     cta_hexagon_paths,
 
     template_elements,

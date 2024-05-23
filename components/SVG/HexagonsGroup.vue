@@ -6,7 +6,6 @@
   const color = useColor ()
   const display = useDisplay ()
   const hexagon = useHexagons ()
-  const screen = useScreen ()
   const { first_init } = useTemplateStore ()
     
   const screen_width = computed ( () => display.width.value )
@@ -23,12 +22,8 @@
   const template = useTemplateStore ()
   
   const svg_rectangle = ref ( null )
-  const hexagon_paths = ref ( [] )
-  template.hexagon_paths = hexagon_paths
-
-  const cta_hexagons = ref ( 0 )
-  const cta_hexagon_paths = ref ( [] )
-  template.cta_hexagon_paths = cta_hexagon_paths
+  template.cta_hexagon_paths = []
+  template.hexagon_paths = []
 
   const hexagon_width_px = hexagon.default_width_px
 
@@ -41,7 +36,7 @@
     if ( !first_init )
       init ()
     else
-      screen.on_screen_ready ( init )
+      watch ( () => display.width.value, init )
   })
 
   const init = () => {
@@ -56,15 +51,12 @@
       screen_splits.value = Math.ceil ( page_height.value / screen_height.value )
 
       // cta sides hexagons
-      cta_hexagons.value = Math.ceil ( screen_width.value / hexagon_width_px ) * 2 + 4 // add extra padding
+      template.cta_hexagons = Math.ceil ( screen_width.value / hexagon_width_px ) * 2 + 4 // add extra padding
   }
 
-    })
-  })
-
-  onBeforeUnmount ( screen.clear_on_screen_ready_watcher )
-
+  const cta_hexagons = computed ( () => template.cta_hexagons > 0 ? template.cta_hexagons : 0 )
   const footer_props = template.get_element( 'footer' ).props
+  
 </script>
 
 <template>
@@ -95,8 +87,8 @@
           :key="hex"
           :id="`hex_${ hex }`"
           :ref="el => {
-            if ( !hexagon_paths.includes ( el ) )
-              hexagon_paths.push ( el )
+            if ( !template.hexagon_paths.includes ( el ) )
+              template.hexagon_paths.push ( el )
           }"
           :d="hexagon.path"
           />
@@ -106,7 +98,10 @@
           v-for="hex in cta_hexagons"
           :key="hex"
           :id="`hex_cta_${ hex }`"
-          :ref="el => cta_hexagon_paths.push ( el )"
+          :ref="el => {
+            if ( !template.cta_hexagon_paths.includes ( el ) )
+              template.cta_hexagon_paths.push ( el )
+          }"
           :d="hexagon.path"
           />
 

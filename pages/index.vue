@@ -22,31 +22,16 @@
   template.add_element ( 'profile_pic', profile_pic_el )
 
   /**
-   * Init timelines at parent component when child components are mounted
+   * Init timelines at parent component when relevant child components are mounted
    */
-  onMounted ( async () => {
-
-    await nextTick ()
-
-    if ( !template.first_init ) {
+  watch ( () => template.elements_ready, ready => {
+    if ( ready ) {
       timelines.init_hexagon_timelines ( display )
+      template.first_init = false
     }
-    screen.on_screen_ready ( () => {
-
-      watch ( () => template.elements_ready, ready => {
-        if ( ready ) {
-          timelines.init_hexagon_timelines ( display )
-          template.first_init = false
-        }
-      },{
-        immediate: true,
-      })
-
-    })
-
+  },{
+    immediate: true,
   })
-
-  onBeforeUnmount ( screen.clear_on_screen_ready_watcher )
   
 </script>
 
