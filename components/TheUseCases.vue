@@ -5,6 +5,7 @@
   import { ref } from 'vue'
 
   const template = useTemplateStore ()
+  const router = useRouter ()
 
   const use_case_img_els = ref ( [] )
   template.add_elements ( 'use_case_imgs', use_case_img_els )
@@ -37,14 +38,20 @@
           >
           <VCard class="use_case_card">
 
-            <VImg
-              ref="use_case_img_els"
-              :src="`img/use_cases/${ use_case.img }`"
-              ></VImg>
+            <NuxtLink to="/use_cases/multilingual-bible-search">
+              <VImg
+                ref="use_case_img_els"
+                :src="`img/use_cases/${ use_case.img }`"
+                ></VImg>
+            </NuxtLink>
 
             <div class="use_case_card_content">
               <VCardTitle>
-                <h3 class="use_case_title">{{ use_case.title }}</h3>
+                <h3 class="use_case_title">
+                  <BlocksLink to="use_cases/multilingual-bible-search">
+                    {{ use_case.title }}
+                  </BlocksLink>
+                </h3>
               </VCardTitle>
               
               <VCardSubtitle>
@@ -52,11 +59,18 @@
               </VCardSubtitle>
 
               <VCardActions>
-                <SecondaryBtn
+                <!-- <SecondaryBtn
+                  @click="router.to ( 'use_cases/multilingual-bible-search' )"
                   append-icon="fas fa-arrow-right"
+                > -->
+                <BlocksLink
+                  to="use_cases/multilingual-bible-search"
+                  append_icon="fas fa-arrow-right"
+                  class="use_case_read_more"
                   >
                   Read Use Case
-                </SecondaryBtn>
+                </BlocksLink>
+                <!-- </SecondaryBtn> -->
               </VCardActions>
             </div>
           </VCard>
@@ -107,6 +121,18 @@
           &_title
             font-size: 2rem
             text-wrap: wrap
+
+            a
+              text-decoration: none
+              color: rgb( var( --v-theme-surface-variant ) )
+
+              &:hover
+                color: rgb( var( --v-theme-blue ) )
+
+          &_read_more
+            font-size: var( --v-btn-size )
+            font-weight: bold
+            margin-left: .5rem
 
  #the_use_cases .use_cases_list > .v-row > .v-col
   max-width: 100% !important

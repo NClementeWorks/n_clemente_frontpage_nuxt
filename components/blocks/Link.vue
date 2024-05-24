@@ -10,6 +10,10 @@
       type: Boolean,
       default: false,
     },
+    append_icon: {
+      type: String,
+      default: null,
+    }
   })
 
   const {
@@ -45,12 +49,13 @@
     :to="link"
     :target="external ? '_blank' : ''"
     class="blocks_link"
+    :append-icon="append_icon"
     >
       <slot>{{ link.replace ( 'http://www.', '' ) }}</slot>
     <VIcon
-      v-if="external"
-      icon="fas fa-up-right-from-square"
-      size="x-small"
+      v-if="!!append_icon?.length || external"
+      :icon="append_icon || 'fas fa-up-right-from-square'"
+      :size="external ? 'x-small' : ''"
       class="blocks_link_icon"
       ></VIcon>
   </NuxtLink>
@@ -67,6 +72,7 @@
   position: relative
   width: fit-content
   overflow: visible
+  align-items: center
 
   .blocks_link_icon
     margin-left: .38em
