@@ -5,14 +5,12 @@
   import { ScrollTrigger } from "gsap/ScrollTrigger"
   import { useTemplateStore } from '~/stores/template'
   import { useElementBounding } from '@vueuse/core'
-  import { useTimelines } from '~/composables/animations/timelines'
 
   gsap.registerPlugin ( ScrollTrigger )
 
   const display = useDisplay ()
   const screen = useScreen ()
   const template = useTemplateStore ()
-  const timelines = useTimelines ()
   const menu = useMenu ()
   
   //
@@ -21,18 +19,6 @@
   const profile_pic_el = ref<HTMLElement | null> ( null )
   template.add_element ( 'profile_pic', profile_pic_el )
 
-  /**
-   * Init timelines at parent component when relevant child components are mounted
-   */
-  watch ( () => template.elements_ready, ready => {
-    if ( ready ) {
-      timelines.init_hexagon_timelines ( display )
-      template.first_init = false
-    }
-  },{
-    immediate: true,
-  })
-  const row_classes = computed ( () => display.mdAndUp.value ? 'md' : display.smAndUp.value ? 'sm' : '' )
   
 </script>
 
