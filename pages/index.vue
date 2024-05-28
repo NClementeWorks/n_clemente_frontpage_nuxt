@@ -32,6 +32,7 @@
   },{
     immediate: true,
   })
+  const row_classes = computed ( () => display.mdAndUp.value ? 'md' : display.smAndUp.value ? 'sm' : '' )
   
 </script>
 
@@ -58,37 +59,40 @@
   <div>
     <div class="main">
     
-    <VRow>
+    <VRow :class="row_classes">
       <VCol>
         <TheHero id="the_hero" />
       </VCol>
     </VRow>
 
-    <VRow>
+    <VRow :class="row_classes">
       <VCol>
         <TheExpandedStack id="the_expanded_stack" />
       </VCol>
     </VRow>
 
-    <VRow>
+    <VRow :class="row_classes">
       <VCol>
         <TheCTA id="the_cta" />
       </VCol>
     </VRow>
 
-    <VRow>
+    <VRow :class="row_classes">
       <VCol>
         <TheUseCases id="the_use_cases" />
       </VCol>
     </VRow>
 
-    <VRow>
+    <VRow :class="row_classes">
       <VCol>
         <TheTopSkills id="the_top_skills" />
       </VCol>
     </VRow>
 
-    <VRow class="contact_form_row">
+    <VRow
+      :class="row_classes"
+      class="contact_form_row"
+      >
       <VCol>
         <TheContactForm id="the_contact_form" />
       </VCol>

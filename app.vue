@@ -68,7 +68,11 @@
 
     </VContainer>
       
-    <VRow id="app_footer" class="footer_row" ref="footer_el">
+    <VRow
+      id="app_footer"
+      class="footer_row"
+      :class="display.mdAndUp.value ? 'md' : display.smAndUp.value ? 'sm' : ''"
+      ref="footer_el">
       <VCol>
         
         <VFooter>
@@ -104,6 +108,9 @@ body
   overflow-x: hidden
   position: relative
   z-index: 1
+
+  .v-row
+    margin: 0
 
 #hexagons_group
   position: absolute
@@ -141,10 +148,23 @@ body
 #app_footer
   bottom: 0
   overflow-x: hidden
-  padding: 0 12rem
+  padding-left: 2rem
   position: fixed
   width: 100vw
 
+  &:not(.sm, .md)
+    .v-row .v-col
+      min-width: 100%
+
+      &:last-child
+        display: none
+
+  &.sm
+    padding-left: 8rem
+
+  &.md
+    padding-left: 12rem
+    
 #the_copyrights
   position: relative
   bottom: 0
@@ -174,13 +194,19 @@ body
   position: relative
   
   .main > .v-row
-    padding: 0 12rem
+    padding-left: 4rem
     max-width: 100vw
     min-width: 100vw
     overflow-x: hidden
     position: relative
     left: 0
 
+    &.sm
+      padding-left: 8rem
+
+    &.md
+      padding-left: 12rem
+     
     .v-col
       max-width: calc(100% - 24rem) !important
       padding: 0
