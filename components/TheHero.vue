@@ -109,7 +109,10 @@
           />
         <h2 class="hero_heading_text hero_heading_text--designer">UX Designer</h2>
       </div>
-      <h3 class="hero_heading_text--note">Specialized in <strong>VueJS</strong> and its Ecosystem</h3>
+      <h3 class="hero_heading_text--note">
+        <span style="display: inline-block">Specialized in <strong>VueJS</strong>&nbsp;</span>
+        <span style="display: inline-block">and its Ecosystem</span>
+      </h3>
 
       <div class="hero_buttons">
         <PrimaryBtn
@@ -223,6 +226,7 @@
 
       &--note
         margin-top: 0
+        max-width: calc( 100vw - 8rem )
 
     .hero_buttons
       display: flex
