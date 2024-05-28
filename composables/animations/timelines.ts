@@ -42,8 +42,8 @@ export const useTimelines = () => {
        * expanded stack
        */
       const stack_start = animations_stack.init_start ()
-      animations_stack.init_timeline ( hexagon_paths, hero_start, stack_start ) //, screen_height )
 
+      animations_stack.init_timeline ( hexagon_paths, hero_start, stack_start )
       /**
        * cta
        */
