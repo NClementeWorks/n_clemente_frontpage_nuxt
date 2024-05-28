@@ -61,7 +61,7 @@ export const useScreen = () => {
     watch ( [
       scroll_x,
       left,
-    ], () => {
+    ], ( value, old_value ) => {
       //
       // do not update the value for scroll events
       if ( screen_scrolled_x ) return
@@ -77,7 +77,7 @@ export const useScreen = () => {
     watch ( [
       scroll_y,
       top
-    ], () => {
+    ], ( value, old_value ) => {
       //
       // do not update the value for scroll events
       if ( screen_scrolled_y ) return
