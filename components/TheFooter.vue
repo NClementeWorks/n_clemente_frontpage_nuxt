@@ -11,24 +11,7 @@
     </h3>
 
     <VRow>
-      <VCol>
- 
-        <div class="footer_menu">
-          <BlocksLink
-            v-for="menu_item in menu.main_menu"
-            :key="menu_item.link"
-            class="footer_menu_link"
-            :class="{
-              highlight: menu_item.highlight
-            }"
-            :link="menu_item.link"
-            >
-            {{ menu_item.label }}
-          </BlocksLink>
-        </div>
-
-      </VCol>
-      <VCol>
+      <VCol cols="3">
 
         <div
           v-for="contact in menu.contact_info"
@@ -65,7 +48,7 @@
           />
 
       </VCol>
-      <VCol>
+      <VCol cols="3">
 
         <PrimaryBtn
           class="footer_button"
@@ -75,6 +58,23 @@
           >
           {{ menu.nav.contact_form.label }}
         </PrimaryBtn>
+
+      </VCol>
+      <VCol cols="3">
+ 
+        <div class="footer_menu">
+          <BlocksLink
+            v-for="menu_item in menu.main_menu"
+            :key="menu_item.link"
+            class="footer_menu_link"
+            :class="{
+              highlight: menu_item.highlight
+            }"
+            :link="menu_item.link"
+            >
+            {{ menu_item.label }}
+          </BlocksLink>
+        </div>
 
       </VCol>
     </VRow>
