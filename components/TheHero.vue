@@ -43,7 +43,7 @@
 
     if ( display.mdAndUp.value )
       return {
-        top: `${ profile_pic_props.y
+        marginTop: `${ profile_pic_props.y
           + ( profile_pic_props.height * .43 )
         }px`,
         left: `${ profile_pic_props.left
@@ -53,7 +53,7 @@
       }
 
     return {
-      top: `${ profile_pic_props.y
+      marginTop: `${ profile_pic_props.y
         + profile_pic_props.height
       }px`,
       left: `${ 0
@@ -193,7 +193,6 @@
   #hero_heading
     left: 13.75rem
     position: relative
-    top: 19rem
     width: fit-content
 
     .hero_heading_text
