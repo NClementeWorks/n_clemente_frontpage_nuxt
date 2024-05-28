@@ -8,8 +8,6 @@ export const useAnimationsHexagonsUseCase = ( gsap : any ) => {
   const template = useTemplateStore ()
   const { as_plain_object } = useUtils ()
 
-  const tl_use_cases = gsap.timeline ({})
-
   function calculate_config () : any {
     const use_case_imgs_props = ( template.get_element ( 'use_case_imgs' ) as TemplateElement[] )
       ?.map ( ( item : TemplateElement ) => as_plain_object ( item.props ))
@@ -100,6 +98,9 @@ export const useAnimationsHexagonsUseCase = ( gsap : any ) => {
     previous_state : any,
     new_state: any,
   ) : void {
+    
+    const tl_use_cases = gsap.timeline ({})
+
     tl_use_cases
       .fromTo (
         hexagon_paths.value,

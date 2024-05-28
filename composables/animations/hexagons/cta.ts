@@ -6,8 +6,6 @@ export const useAnimationsHexagonsCTA = ( gsap : any ) => {
   const hexagon = useHexagons ()
   const { as_plain_object } = useUtils ()
 
-  const tl_cta = gsap.timeline ({})
-
   function calculate_config () : any {
 
     const cta_props = as_plain_object ( ( template.get_element ( 'cta_section' ) as TemplateElement ).props )
@@ -48,6 +46,9 @@ export const useAnimationsHexagonsCTA = ( gsap : any ) => {
     previous_state : any,
     new_state: any,
   ) : void {
+    
+    const tl_cta = gsap.timeline ({})
+  
     tl_cta
       .fromTo (
         hexagon_paths.value,

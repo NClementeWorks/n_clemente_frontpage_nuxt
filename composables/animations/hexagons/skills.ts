@@ -8,8 +8,6 @@ export const useAnimationsHexagonsSkills = ( gsap : any ) => {
   const { y: window_scroll_y } = useWindowScroll ()
   const { as_plain_object } = useUtils ()
   
-  const tl_skills = gsap.timeline ({})
-
   const skills_rows = [ 0, 1, 1, 3, 3, 4, 2 ]
   const skills_cols = [ 1, 0, 2, 2, 0, 1, 1 ]
 
@@ -59,6 +57,9 @@ export const useAnimationsHexagonsSkills = ( gsap : any ) => {
     config : any,
     screen_height : Ref<number>,
   ) : void {
+    
+    const tl_skills = gsap.timeline ({})
+  
     tl_skills.to (
       hexagon_paths.value,
       {
