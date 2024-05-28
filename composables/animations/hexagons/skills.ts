@@ -21,7 +21,7 @@ export const useAnimationsHexagonsSkills = ( gsap : any ) => {
     const skills_el_left = top_skills_props.left
     const skills_icon_el_width = top_skills_first_icon_props.width || 0
 
-    const calculated_skills_section_top = top_skills_props.top + window_scroll_y.value + position_shift_y
+    const calculated_skills_section_top = top_skills_props.y + window_scroll_y.value + position_shift_y
     return {
       skills_el_left,
       skills_icon_el_width,
