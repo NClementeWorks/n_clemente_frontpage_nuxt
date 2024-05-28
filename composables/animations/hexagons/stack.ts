@@ -6,7 +6,6 @@ export const useAnimationsHexagonsStack = ( gsap : any ) => {
   const template = useTemplateStore ()
   const { as_plain_object } = useUtils ()
 
-  const tl_stack = gsap.timeline ({})
 
   function init_start () : any {
     
@@ -37,6 +36,9 @@ export const useAnimationsHexagonsStack = ( gsap : any ) => {
     previous_state : any,
     new_state: any,
   ) : void {
+
+    const tl_stack = gsap.timeline ({})
+
     tl_stack
       .fromTo (
         hexagon_paths.value,
