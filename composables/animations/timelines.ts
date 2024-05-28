@@ -1,11 +1,17 @@
 import gsap from 'gsap'
 import { ScrollTrigger } from "gsap/ScrollTrigger"
-import { useTemplateStore } from "~/stores/template"
+import { TemplateElement, useTemplateStore } from "~/stores/template"
 
 export const useTimelines = () => {
   const template = useTemplateStore ()
   
   const init_hexagon_timelines = ( display : any ) => {
+    
+    //
+    // watch when is the last home element hydrated
+    //
+    const stack_items_props = ( template.get_element ( 'top_skills_first_icon' ) as TemplateElement ).props
+    watch(() => stack_items_props.y, value => {
     //
     // register gsap scroll plugin
     //
@@ -71,6 +77,9 @@ export const useTimelines = () => {
           skills_config,
           screen_height
         )
+
+      })
+
   }
 
   return {
