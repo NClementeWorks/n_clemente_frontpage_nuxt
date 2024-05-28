@@ -25,6 +25,17 @@ export const useScreen = () => {
    */
   let clear_on_screen_ready_watcher : any
   
+  //
+  // VueUse window scroll position
+  //
+  const {
+    x: scroll_x,
+    y: scroll_y,
+  } = useWindowScroll ()
+
+  let screen_scrolled_x = false
+  let screen_scrolled_y = false
+
   /**
    * 
    * @param el 
@@ -42,13 +53,6 @@ export const useScreen = () => {
       height,
     } = useElementBounding ( el )
     
-    //
-    // VueUse window scroll position
-    //
-    const {
-      x: scroll_x,
-      y: scroll_y,
-    } = useWindowScroll ()
 
     //
     //  calculate absolute x position
@@ -58,6 +62,11 @@ export const useScreen = () => {
       scroll_x,
       left,
     ], () => {
+      //
+      // do not update the value for scroll events
+      if ( screen_scrolled_x ) return
+      else screen_scrolled_x = value[0] - old_value[0] !== 0
+      
       x.value = left.value + scroll_x.value
     })
 
@@ -69,6 +78,11 @@ export const useScreen = () => {
       scroll_y,
       top
     ], () => {
+      //
+      // do not update the value for scroll events
+      if ( screen_scrolled_y ) return
+      else screen_scrolled_y = value[0] - old_value[0] !== 0
+
       y.value = top.value + scroll_y.value
     })
 
