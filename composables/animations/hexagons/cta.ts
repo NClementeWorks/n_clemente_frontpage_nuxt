@@ -126,12 +126,12 @@ export const useAnimationsHexagonsCTA = ( gsap : any ) => {
         cta_sides_trigger,
       )
       .fromTo (
-        cta_hex_right_side.reverse (),
+        [ ...cta_hex_right_side ].reverse (),
         { scale: 1 },
         cta_sides_trigger_reverse,
       )
       .fromTo (
-        cta_hex_left_side.reverse (),
+        [ ...cta_hex_left_side ].reverse (),
         { scale: 1 },
         cta_sides_trigger_reverse,
       )
