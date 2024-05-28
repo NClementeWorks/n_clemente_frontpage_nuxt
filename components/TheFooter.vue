@@ -149,12 +149,16 @@
       width: fit-content
 
       &_link
+
         &.blocks_link
           display: block
           padding: 1.5rem 0
           border-bottom: 1px solid rgba( var( --v-theme-white ), .4 )
           margin: 0 !important
           width: 100%
+
+          &:first-child
+            padding-top: 0
 
           &.highlight
             color: rgb( var( --v-theme-green ) )
