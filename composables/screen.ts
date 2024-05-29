@@ -2,11 +2,6 @@ import { useElementBounding, useWindowScroll } from '@vueuse/core'
 
 export const useScreen = () => {
 
-  //
-  // use Vuetify display composable
-  //
-  const display = useDisplay ()
-
   function get_top ( el : HTMLElement | null ) : any {
     return el?.offsetParent
       ? el?.offsetTop + get_top ( el?.offsetParent as HTMLElement )
