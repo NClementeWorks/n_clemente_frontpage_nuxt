@@ -109,7 +109,7 @@ export const useAnimationsHexagonsUseCase = ( gsap : any ) => {
           ...hexagon.base_scroll_trigger ({
             trigger: '#the_use_cases',
             start: 'top 25%',
-            end: '-5% top',
+            end: 'top top',
           }),
           ...new_state,
         },
