@@ -1,11 +1,9 @@
 import { TemplateElement, useTemplateStore } from '~/stores/template'
-import { useWindowScroll } from '@vueuse/core'
 
 export const useAnimationsHexagonsSkills = ( gsap : any ) => {
 
   const hexagon = useHexagons ()
   const template = useTemplateStore ()
-  const { y: window_scroll_y } = useWindowScroll ()
   const { as_plain_object } = useUtils ()
   
   const skills_rows = [ 0, 1, 1, 3, 3, 4, 2 ]
@@ -19,7 +17,7 @@ export const useAnimationsHexagonsSkills = ( gsap : any ) => {
     const skills_el_left = top_skills_props.left
     const skills_icon_el_width = top_skills_first_icon_props.width || 0
 
-    const calculated_skills_section_top = top_skills_props.y + window_scroll_y.value + position_shift_y
+    const calculated_skills_section_top = top_skills_props.y + position_shift_y
     return {
       skills_el_left,
       skills_icon_el_width,
