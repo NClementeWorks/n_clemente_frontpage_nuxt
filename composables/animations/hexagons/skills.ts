@@ -1,13 +1,17 @@
 import { TemplateElement, useTemplateStore } from '~/stores/template'
 
+const _skills_rows = [ 0, 1, 1, 3, 3, 4, 2 ]
+const _skills_cols = [ 1, 0, 2, 2, 0, 1, 1 ]
+
+export const skills_rows = _skills_rows
+export const skills_cols = _skills_cols
+
 export const useAnimationsHexagonsSkills = ( gsap : any ) => {
 
   const hexagon = useHexagons ()
   const template = useTemplateStore ()
   const { as_plain_object } = useUtils ()
   
-  const skills_rows = [ 0, 1, 1, 3, 3, 4, 2 ]
-  const skills_cols = [ 1, 0, 2, 2, 0, 1, 1 ]
 
   function calculate_config ( position_shift_y : number ) : any {
 
@@ -32,14 +36,14 @@ export const useAnimationsHexagonsSkills = ( gsap : any ) => {
 
       x: ( index : number ) => config.skills_el_left
         // using row grid on x axis since hexagons are rotated 90 deg.
-        + hexagon.hexagon_grid_row_px ( skills_cols [ index ] )
+        + hexagon.hexagon_grid_row_px ( _skills_cols [ index ] )
         // using hexagon height on x axis since hexagons are rotated 90 deg.
         - ( ( hexagon.hexagon_grid_height_px ) / 2 )
         + hexagon.hexagon_grid_gap_px,
 
       y: ( index : number ) => config.calculated_skills_section_top
         // using col grid on y axis since hexagons are rotated 90 deg.
-        + hexagon.hexagon_grid_column_px ( skills_rows [ index ] ),
+        + hexagon.hexagon_grid_column_px ( _skills_rows [ index ] ),
         
       scale: ( index : number ) => index === 6 ? 0 : 1,
       rotation: 90,
@@ -75,7 +79,5 @@ export const useAnimationsHexagonsSkills = ( gsap : any ) => {
     calculate_config,
     init_start,
     init_timeline,   
-    skills_rows,
-    skills_cols,
   }
 }

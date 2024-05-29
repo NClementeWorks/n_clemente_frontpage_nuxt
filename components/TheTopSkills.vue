@@ -1,9 +1,9 @@
 <!-- TheTopSkills -->
 
 <script setup>
-  import gsap from 'gsap'
   import { ref } from 'vue'
   import { useTemplateStore } from '~/stores/template'
+  import { skills_rows, skills_cols } from '~/composables/animations/hexagons/skills'
 
   const skills = [
     {
@@ -33,16 +33,15 @@
   ]
 
   const hexagons = useHexagons ()
-  const skills_animations = useAnimationsHexagonsSkills ( gsap )
 
   const flower_gap_px = 8
 
   const hexagon_top = position => {
-    return hexagons.hexagon_grid_column_px ( skills_animations.skills_rows [ position ] )
+    return hexagons.hexagon_grid_column_px ( skills_rows [ position ] )
   }
 
   const hexagon_left = position => {
-    return hexagons.hexagon_grid_row_px ( skills_animations.skills_cols [ position ] )
+    return hexagons.hexagon_grid_row_px ( skills_cols [ position ] )
       - hexagons.hexagon_grid_row_px ( 1.75 )
       + ( hexagons.hexagon_grid_gap_px * 1.5 )
   }
