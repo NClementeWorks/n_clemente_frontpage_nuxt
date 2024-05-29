@@ -31,7 +31,7 @@
   /**
    * Init timelines at parent component when relevant child components are mounted
    */
-   watch ( () => template.elements_ready, ready => {
+  watch ( () => template.elements_ready, ready => {
     if ( ready ) {
       timelines.init_hexagon_timelines ( display )
       template.first_init = false

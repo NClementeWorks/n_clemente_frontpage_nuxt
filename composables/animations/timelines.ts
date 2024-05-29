@@ -12,22 +12,23 @@ export const useTimelines = () => {
     //
     const stack_items_props = ( template.get_element ( 'top_skills_first_icon' ) as TemplateElement ).props
     watch(() => stack_items_props.y, value => {
-    //
-    // register gsap scroll plugin
-    //
-    gsap.registerPlugin ( ScrollTrigger )
 
-    //
-    // init animations setup
-    //
-    const animations_hero = useAnimationsHexagonsHero ( gsap )
-    const animations_stack = useAnimationsHexagonsStack ( gsap )
-    const animations_cta = useAnimationsHexagonsCTA ( gsap )
-    const animations_use_case = useAnimationsHexagonsUseCase ( gsap )
-    const animations_skills = useAnimationsHexagonsSkills ( gsap )
+      //
+      // register gsap scroll plugin
+      //
+      gsap.registerPlugin ( ScrollTrigger )
+
+      //
+      // init animations setup
+      //
+      const animations_hero = useAnimationsHexagonsHero ( gsap )
+      const animations_stack = useAnimationsHexagonsStack ( gsap )
+      const animations_cta = useAnimationsHexagonsCTA ( gsap )
+      const animations_use_case = useAnimationsHexagonsUseCase ( gsap )
+      const animations_skills = useAnimationsHexagonsSkills ( gsap )
       
-    const screen_width = computed ( () => display.width.value )
-    const screen_height = computed ( () => display.height.value )
+      const screen_width = computed ( () => display.width.value )
+      const screen_height = computed ( () => display.height.value )
 
       const hexagon_paths = ref<SVGElement[]> ( template.hexagon_paths )
       const cta_hexagon_paths = ref ( template.cta_hexagon_paths )
@@ -42,7 +43,6 @@ export const useTimelines = () => {
        * expanded stack
        */
       const stack_start = animations_stack.init_start ()
-
       animations_stack.init_timeline ( hexagon_paths, hero_start, stack_start )
       /**
        * cta
