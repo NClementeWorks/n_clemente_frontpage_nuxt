@@ -46,7 +46,7 @@
     <div class="main">
     
     <VRow :class="row_classes">
-      <VCol>
+      <VCol class="the_hero_wrapper" >
         <TheHero id="the_hero" />
       </VCol>
     </VRow>
@@ -93,7 +93,7 @@
   .main
     position: relative
 
-  #the_hero
+  .the_hero_wrapper
     min-height: 100vh
 
   #the_expanded_stack
