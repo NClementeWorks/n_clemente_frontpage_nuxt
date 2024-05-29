@@ -105,8 +105,8 @@
 
         .v-img
           width: 16rem
-          min-width: 16rem
-          width: calc(80%)
+          min-width: 14rem
+          width: 80%
           max-width: 20rem
           margin: auto
 

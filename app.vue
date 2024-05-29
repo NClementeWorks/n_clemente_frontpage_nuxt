@@ -217,15 +217,21 @@ body
     position: relative
     left: 0
 
+    .v-col
+      max-width: calc(100% - 8rem) !important
+      padding: 0
+      overflow: visible
+
     &.sm
       padding-left: 8rem
+
+      .v-col
+        max-width: calc(100% - 16rem) !important
 
     &.md
       padding-left: 12rem
      
-    .v-col
-      max-width: calc(100% - 24rem) !important
-      padding: 0
-      overflow: visible
+      .v-col
+        max-width: calc(100% - 24rem) !important
 
 </style>
