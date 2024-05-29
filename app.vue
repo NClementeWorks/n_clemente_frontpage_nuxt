@@ -35,6 +35,7 @@
     if ( ready ) {
       timelines.init_hexagon_timelines ( display )
       template.first_init = false
+      window.scrollTo ( { top: 1 } ) // hack to activate vertical positioning
     }
   },{
     immediate: true,
