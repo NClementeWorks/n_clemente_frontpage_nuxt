@@ -19,6 +19,7 @@
   const profile_pic_el = ref<HTMLElement | null> ( null )
   template.add_element ( 'profile_pic', profile_pic_el )
 
+  const row_classes = computed ( () => display.mdAndUp.value ? 'md' : display.smAndUp.value ? 'sm' : '' )
   
 </script>
 
