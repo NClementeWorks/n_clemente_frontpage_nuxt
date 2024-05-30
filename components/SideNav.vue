@@ -25,6 +25,9 @@
     emit ( 'open_changed', value )
   })
 
+  const collapsible = computed ( () => !display.mdAndUp.value )
+  watch ( collapsible, value => { is_open.value = !value })
+
   //
   // mobile menu transitions
   //
@@ -52,6 +55,7 @@
   }
 
   const close_menu = () => {
+    if ( collapsible.value )
       is_open.value = false
   }
 </script>
@@ -74,6 +78,7 @@
         @leave="onLeave"
         >
         <VListItem
+          v-if="collapsible"
           class="side_nav_menu_list_item bg-white"
           @click="is_open = !is_open"
           >
