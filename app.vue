@@ -3,7 +3,6 @@
 <script setup>
   import { useElementBounding } from '@vueuse/core'
   import { useTemplateStore } from '../stores/template'
-  import { useTimelines } from '~/composables/animations/timelines'
 
   useHead ({
     htmlAttrs: {
@@ -20,7 +19,6 @@
   const template = useTemplateStore ()
   const route = useRoute ()
   const display = useDisplay ()
-  const timelines = useTimelines ()
 
   const footer_el = ref ()
   template.add_element( 'footer', footer_el )
@@ -28,17 +26,6 @@
     height: footer_height,
   } = useElementBounding ( footer_el )
 
-  /**
-   * Init timelines at parent component when relevant child components are mounted
-   */
-  watch ( () => template.elements_ready, ready => {
-    if ( ready ) {
-      timelines.init_hexagon_timelines ( display )
-      template.first_init = false
-      window.scrollTo ( { top: 1 } ) // hack to activate vertical positioning
-    }
-  },{
-    immediate: true,
   })
   
 </script>

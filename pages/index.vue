@@ -5,6 +5,7 @@
   import { ScrollTrigger } from "gsap/ScrollTrigger"
   import { useTemplateStore } from '~/stores/template'
   import { useElementBounding } from '@vueuse/core'
+  import { useTimelines } from '~/composables/animations/timelines'
 
   gsap.registerPlugin ( ScrollTrigger )
 
@@ -12,6 +13,7 @@
   const screen = useScreen ()
   const template = useTemplateStore ()
   const menu = useMenu ()
+  const timelines = useTimelines ()
   
   //
   // save profile_pic reference to store
@@ -21,6 +23,24 @@
 
   const row_classes = computed ( () => display.mdAndUp.value ? 'md' : display.smAndUp.value ? 'sm' : '' )
   
+  let timeline_activation_timeout : NodeJS.Timeout | null = null
+  onMounted ( async () => {
+
+    await nextTick ()
+
+    watch ( () => template.elements_ready, ready => {
+      if ( ready ) {
+        timelines.init_hexagon_timelines ( display )
+        template.first_init = false
+        // hack to activate vertical positioning
+        timeline_activation_timeout = setTimeout ( () => { 
+          window.scrollTo ( 0, 1 ) 
+        }, 10)
+      }
+    },{
+      immediate: true,
+    })
+  })
 </script>
 
 <template>
