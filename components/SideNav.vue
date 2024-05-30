@@ -40,6 +40,10 @@
       onComplete: done,
     })
   }
+
+  const close_menu = () => {
+      is_open.value = false
+  }
 </script>
 
 <template>
@@ -69,6 +73,7 @@
             :class="{
               highlight: menu.highlight
             }"
+            @click="close_menu"
             >
             <BlocksLink
               :link="menu.link"
