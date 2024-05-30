@@ -52,6 +52,7 @@
       <VRow
         no-gutters
         class="content_row d-flex justify-center"
+        :class="display.mdAndUp.value ? 'md' : display.smAndUp.value ? 'sm' : ''"
         >
         
         <VCol
@@ -178,7 +179,7 @@ body
 
 .side_nav
   &_wrapper
-    align-items: center
+    align-items: start
     display: flex
     left: 0
     min-height: 62%
@@ -194,6 +195,9 @@ body
       display: block
       height: 50vh
       width: 2px
+
+    .md &
+      align-items: center
 
 .main_content
   position: relative

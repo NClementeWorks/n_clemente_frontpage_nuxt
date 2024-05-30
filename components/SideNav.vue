@@ -3,6 +3,8 @@
 <script setup>
   import gsap from 'gsap'
 
+  const display = useDisplay ()
+
   const props = defineProps({
     menu_items: {
       type: Array,
@@ -47,7 +49,11 @@
 </script>
 
 <template>
-  <div class="side_nav_menu_list_wrapper overflow-visible">
+  <div
+    class="side_nav_menu_list_wrapper overflow-visible"
+    :class="display.mdAndUp.value ? 'md' : display.smAndUp.value ? 'sm' : ''"
+    >
+    
     <VList
       class="side_nav_menu_list"
       >
@@ -92,37 +98,57 @@
   .side_nav
     &_wrapper
       background-image: radial-gradient( ellipse at center left, rgba( var( --v-theme-black ), .1 ), transparent 57% )
+      margin-top: 2rem
+
+      &.md,
+      &.sm
+        margin-top: 0
 
     &_menu_list_wrapper
       padding-right: 1rem
 
       .side_nav_menu_list_item.v-list-item
-        padding: 0 1rem
+        padding-inline-start: .5rem
         min-height: 4rem
 
-  .v-list.side_nav_menu_list
-    box-shadow: -.25rem .5rem .5rem rgba( 0, 0, 0, .2 ), -.15rem .9rem 1rem rgba( 0, 0, 0, .1 ), -.05rem .5rem 1.5rem rgba( 0, 0, 0, .05 )
-    border-top-right-radius: var( --list-border-radius )
-    border-bottom-right-radius: var( --list-border-radius )
-    height: fit-content
-    overflow: visible
-    padding: 0
+      .v-list.side_nav_menu_list
+        box-shadow: -.25rem .5rem .5rem rgba( 0, 0, 0, .2 ), -.15rem .9rem 1rem rgba( 0, 0, 0, .1 ), -.05rem .5rem 1.5rem rgba( 0, 0, 0, .05 )
+        border-top-right-radius: var( --list-border-radius )
+        border-bottom-right-radius: var( --list-border-radius )
+        height: fit-content
+        overflow: visible
+        padding: 0
 
-  .v-list-item.side_nav_menu_list_item
-    border-bottom: 1px solid rgba( 0, 0, 0, .1 )
-    cursor: pointer
+      .v-list-item.side_nav_menu_list_item
+        border-bottom: 1px solid rgba( 0, 0, 0, .1 )
+        cursor: pointer
 
-    .v-list-item__content,
-    .blocks_link
-      align-items: center
-      height: 100%
-      width: 100%
+      .v-list-item--density-default:not(.v-list-item--nav).v-list-item--one-line
+        padding-inline: .5rem
 
+        .v-list-item__content,
+        .blocks_link
+          display: flex
+          align-items: center
+          height: 100%
+          width: 100%
 
-    &:first-child
-      border-top-right-radius: var( --list-border-radius )
+        &:first-child
+          border-top-right-radius: var( --list-border-radius )
 
-    &:last-child
-      border-bottom-right-radius: var( --list-border-radius )
+        &:last-child
+          border-bottom-right-radius: var( --list-border-radius )
 
+      &.sm,
+      &.md
+        .side_nav_menu_list_item.v-list-item
+          padding: 0 1rem
+
+        .v-list-item.side_nav_menu_list_item
+
+          &:first-child
+            border-top-right-radius: var( --list-border-radius )
+
+          &:last-child
+            border-bottom-right-radius: var( --list-border-radius )
 </style>
