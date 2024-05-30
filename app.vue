@@ -30,6 +30,7 @@
     template.clear_watchers ()
   })
 
+  const is_side_menu_open = ref ( false )
 </script>
 
 <template>
@@ -59,8 +60,14 @@
           v-if="route.fullPath === '/'"
           cols="2"
           class="side_nav_wrapper"
+          :style="{
+            minWidth: is_side_menu_open ? display.smAndUp.value ? 'unset' : '100vw' : '0',
+            marginLeft: is_side_menu_open ? '0' : '-2px',
+          }"
           >
-          <SideNav :menu_items="menu.main_menu" />
+          <SideNav
+            :menu_items="menu.main_menu"
+            @open_changed="is_side_menu_open = $event"/>
         </VCol>
 
         <VCol
@@ -188,6 +195,8 @@ body
     position: fixed
     width: 12rem
     z-index: 9
+    transition: all .3s ease
+    min-width: 0
 
     &::before
       background: linear-gradient(0deg, transparent, rgba(0,0,0,.1), transparent)

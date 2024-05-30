@@ -12,10 +12,18 @@
     }
   })
 
+  const emit = defineEmits ([
+    'open_changed',
+  ])
+
   //
   // mobile menu open/close
   //
   const is_open = ref ( false )
+
+  watch ( is_open, value => {
+    emit ( 'open_changed', value )
+  })
 
   //
   // mobile menu transitions
@@ -56,6 +64,9 @@
     
     <VList
       class="side_nav_menu_list"
+      :style="{
+        minWidth: is_open ? display.smAndUp.value ? 'unset' : '100vw' : '0'
+      }"
       >
       <TransitionGroup appear
         @before-enter="beforeEnter"
@@ -118,6 +129,8 @@
         height: fit-content
         overflow: visible
         padding: 0
+        transition: all .3s ease
+        min-width: 0
 
       .v-list-item.side_nav_menu_list_item
         border-bottom: 1px solid rgba( 0, 0, 0, .1 )
