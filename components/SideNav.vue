@@ -1,6 +1,8 @@
 <!-- SideNav -->
 
 <script setup>
+  import gsap from 'gsap'
+
   const props = defineProps({
     menu_items: {
       type: Array,
@@ -12,6 +14,32 @@
   // mobile menu open/close
   //
   const is_open = ref ( false )
+
+  //
+  // mobile menu transitions
+  //
+  const beforeEnter = el => {
+    el.style.opacity = 0
+    el.style.height = 0
+  }
+
+  const onEnter = (el, done) => {
+    gsap.to ( el, {
+      opacity: 1,
+      height: '4rem',
+      delay: el.dataset.index * 0.10,
+      onComplete: done,
+    })
+  }
+
+  const onLeave = (el, done) => {
+    gsap.to ( el, {
+      opacity: 0,
+      height: 0,
+      delay: el.dataset.index * 0.03,
+      onComplete: done,
+    })
+  }
 </script>
 
 <template>
@@ -19,6 +47,10 @@
     <VList
       class="side_nav_menu_list"
       >
+      <TransitionGroup appear
+        @before-enter="beforeEnter"
+        @enter="onEnter"
+        @leave="onLeave"
         >
         <VListItem
           class="side_nav_menu_list_item bg-white"
@@ -45,6 +77,7 @@
             </BlocksLink>
           </VListItem>
         </template>
+      </TransitionGroup>
     </VList>
   </div>
 </template>
