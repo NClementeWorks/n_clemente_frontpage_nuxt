@@ -11,6 +11,9 @@
   const cta_el = ref ()
   template.add_element ( 'cta_section', cta_el )
   
+  onBeforeUnmount ( () => {
+    template.clear_watchers ()
+  })
 </script>
 
 <template>

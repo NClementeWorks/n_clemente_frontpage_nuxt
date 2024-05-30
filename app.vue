@@ -26,8 +26,10 @@
     height: footer_height,
   } = useElementBounding ( footer_el )
 
+  onBeforeUnmount ( () => {
+    template.clear_watchers ()
   })
-  
+
 </script>
 
 <template>

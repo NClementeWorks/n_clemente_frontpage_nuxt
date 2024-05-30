@@ -29,6 +29,7 @@
 
   const svg_height = computed ( () => Math.abs ( page_height.value - footer_props.height.toFixed(0) ) )
 
+  let width_unwatch = null
   onMounted ( async () => {
 
     await nextTick ()
@@ -36,7 +37,7 @@
     if ( !first_init )
       init ()
     else
-      watch ( () => display.width.value, init )
+      width_unwatch = watch ( () => display.width.value, init )
   })
 
   const init = () => {
@@ -57,6 +58,9 @@
   const cta_hexagons = computed ( () => template.cta_hexagons > 0 ? template.cta_hexagons : 0 )
   const footer_props = template.get_element( 'footer' ).props
   
+  onBeforeUnmount ( () => {
+    if ( width_unwatch ) width_unwatch ()
+  })
 </script>
 
 <template>

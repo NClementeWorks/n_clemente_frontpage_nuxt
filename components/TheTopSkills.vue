@@ -58,6 +58,10 @@
     if ( index === 0 )
       skills_first_icon.value = el
   }
+  
+  onBeforeUnmount ( () => {
+    template.clear_watchers ()
+  })
 </script>
 
 <template>

@@ -11,6 +11,10 @@
   template.add_element ( 'stack_items', expanded_stack_items )
   template.add_element ( 'stack_first_icon', expanded_stack_item_first_icon )
 
+  onBeforeUnmount ( () => {
+    template.clear_watchers ()
+  })
+  
   const items = [
     {
       icon: 'user',

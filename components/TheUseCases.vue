@@ -10,6 +10,10 @@
   const use_case_img_els = ref ( [] )
   template.add_elements ( 'use_case_imgs', use_case_img_els )
 
+  onBeforeUnmount ( () => {
+    template.clear_watchers ()
+  })
+  
   const use_cases = [
     {
       title: 'Multilingual Bible Search',

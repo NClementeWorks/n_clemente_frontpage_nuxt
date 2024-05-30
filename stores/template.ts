@@ -37,8 +37,9 @@ export const useTemplateStore = defineStore ( 'template', () => {
       home_elements.value [ key ] = el
   }
 
+  let add_elements_unwatch : Function | null = null
   function add_elements ( key : string, el_arr : Ref<HTMLElement[]> ) : void {
-    watch ( () => el_arr?.value?.length, () => {
+    add_elements_unwatch = watch ( () => el_arr?.value?.length, () => {
       template_elements.value [ key ] = el_arr?.value.map ( ( el : HTMLElement ) => ({
         el,
         props: screen.get_element_screen_props ( el )
@@ -72,7 +73,7 @@ export const useTemplateStore = defineStore ( 'template', () => {
 
   const elements_ready = ref ( false )
 
-  watch ( [
+  const home_elements_unwatch = watch ( [
     home_elements,
     () => hexagon_paths.value.length,
     () => cta_hexagon_paths.value.length,
@@ -88,6 +89,12 @@ export const useTemplateStore = defineStore ( 'template', () => {
 
   const first_init = ref ( true )
 
+  const clear_watchers = () => {
+    screen.clear_watchers ()
+    if ( add_elements_unwatch ) add_elements_unwatch ()
+    if ( home_elements_unwatch ) home_elements_unwatch ()
+  }
+
   return {
     add_element,
     add_elements,
@@ -101,5 +108,7 @@ export const useTemplateStore = defineStore ( 'template', () => {
 
     elements_ready,
     first_init,
+
+    clear_watchers,
   }
 })

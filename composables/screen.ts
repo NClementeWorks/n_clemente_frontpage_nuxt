@@ -31,6 +31,9 @@ export const useScreen = () => {
   let screen_scrolled_x = false
   let screen_scrolled_y = false
 
+  let x_unwatch : Function | null = null
+  let y_unwatch : Function | null = null
+
   /**
    * 
    * @param el 
@@ -53,7 +56,7 @@ export const useScreen = () => {
     //  calculate absolute x position
     //
     const x = ref ( left.value || 0 )
-    watch ( [
+    x_unwatch = watch ( [
       scroll_x,
       left,
     ], ( value, old_value ) => {
@@ -69,7 +72,7 @@ export const useScreen = () => {
     //  calculate absolute y position
     //
     const y = ref ( top.value || 0 )
-    watch ( [
+    y_unwatch = watch ( [
       scroll_y,
       top
     ], ( value, old_value ) => {
@@ -90,6 +93,11 @@ export const useScreen = () => {
       height,
     }
   }
+
+  const clear_watchers = () => {
+    if ( x_unwatch ) x_unwatch ()
+    if ( y_unwatch ) y_unwatch ()
+  }
   
 
   return {
@@ -97,5 +105,6 @@ export const useScreen = () => {
     get_left,
     clear_on_screen_ready_watcher,
     get_element_screen_props,
+    clear_watchers,
   }
 }

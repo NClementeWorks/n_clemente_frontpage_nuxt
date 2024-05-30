@@ -61,6 +61,9 @@
     }
   } )
 
+  onBeforeUnmount ( () => {
+    template.clear_watchers ()
+  })
 </script>
 
 <template>
