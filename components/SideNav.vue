@@ -7,6 +7,11 @@
       validate: items => items.every ( item => item.link?.match ( /^#\w/ ) && item.label.trim ().length )
     }
   })
+
+  //
+  // mobile menu open/close
+  //
+  const is_open = ref ( false )
 </script>
 
 <template>
@@ -14,20 +19,32 @@
     <VList
       class="side_nav_menu_list"
       >
-      <VListItem
-        v-for="menu in menu_items"
-        :key="menu.link"
-        class="side_nav_menu_list_item bg-white"
-        :class="{
-          highlight: menu.highlight
-        }"
         >
-        <BlocksLink
-          :link="menu.link"
+        <VListItem
+          class="side_nav_menu_list_item bg-white"
+          @click="is_open = !is_open"
           >
-          {{ menu.label }}
-        </BlocksLink>
-      </VListItem>
+          <VIcon
+            :icon="`fas fa-${ is_open ? 'xmark' : 'bars' }`"
+            />
+        </VListItem>
+        <template v-if="is_open">
+          <VListItem
+            v-for="( menu, index ) in menu_items"
+            :key="menu.link"
+            :data-index="index"
+            class="side_nav_menu_list_item bg-white"
+            :class="{
+              highlight: menu.highlight
+            }"
+            >
+            <BlocksLink
+              :link="menu.link"
+              >
+              {{ menu.label }}
+            </BlocksLink>
+          </VListItem>
+        </template>
     </VList>
   </div>
 </template>
