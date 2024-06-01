@@ -1,9 +1,5 @@
 import { watch } from 'vue'
-
-export interface TemplateElement {
-  el: Ref<HTMLElement>,
-  props: ElementScreenProperties,
-}
+import { useElementBounding } from '@vueuse/core'
 
 export const useTemplateStore = defineStore ( 'template', () => {
 
@@ -35,9 +31,7 @@ export const useTemplateStore = defineStore ( 'template', () => {
     }
     
     if ( home_elements.value [ key ] !== undefined ) {
-      el_unwatch = watch ( el, () => {
-        home_elements.value [ key ] = el
-      })
+      el_unwatch = watch ( el, () => { home_elements.value [ key ] = el })
     }
   }
 
@@ -94,7 +88,6 @@ export const useTemplateStore = defineStore ( 'template', () => {
   const first_init = ref ( true )
 
   const clear_watchers = () => {
-    screen.clear_watchers ()
     if ( add_elements_unwatch ) add_elements_unwatch ()
     if ( el_unwatch ) el_unwatch ()
   }

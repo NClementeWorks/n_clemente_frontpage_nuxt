@@ -1,16 +1,17 @@
-import { TemplateElement, useTemplateStore } from '~/stores/template'
+import { useTemplateStore } from '~/stores/template'
+import { useWindowScroll } from '@vueuse/core'
 
 export const useAnimationsHexagonsStack = ( gsap : any ) => {
 
   const hexagon = useHexagons ()
   const template = useTemplateStore ()
-  const { as_plain_object } = useUtils ()
-
+  const { y: scroll_y } = useWindowScroll ()
 
   function init_start () : any {
     
-    const stack_items_props = as_plain_object ( ( template.get_element ( 'stack_items' ) as TemplateElement ).props )
-    const stack_first_icon_props = as_plain_object ( ( template.get_element ( 'stack_first_icon' ) as TemplateElement ).props )
+    const stack_items_props = ( template.get_element ( 'stack_items' ) as TemplateElement ).props
+    const stack_first_icon_props = ( template.get_element ( 'stack_first_icon' ) as TemplateElement ).props
+    const stack_top = stack_items_props.top + scroll_y.value
 
     const stack_start = {
 
@@ -20,8 +21,7 @@ export const useAnimationsHexagonsStack = ( gsap : any ) => {
         + ( ( stack_first_icon_props.width || 0 ) / 2 )
         + hexagon.hexagon_grid_column_px ( index % 2 ),
 
-      y: ( index : number ) =>
-        stack_items_props.y
+      y: ( index : number ) => stack_top
         + hexagon.hexagon_grid_row_px ( index ),
 
       scale: ( index : number ) => index >= 6 ? 0 : 1,

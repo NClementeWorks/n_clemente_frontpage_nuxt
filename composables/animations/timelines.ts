@@ -1,10 +1,11 @@
 import gsap from 'gsap'
 import { ScrollTrigger } from "gsap/ScrollTrigger"
-import { TemplateElement, useTemplateStore } from "~/stores/template"
+import { useTemplateStore } from "~/stores/template"
 
 export const useTimelines = () => {
   const template = useTemplateStore ()
   const display = useDisplay ()
+  const hexagons = useHexagons ()
 
   const init = () => {
     //
@@ -74,24 +75,11 @@ export const useTimelines = () => {
 
   }
 
-  let first_init_unwatch : Function | null = null
   const init_hexagon_timelines = () => {
-    //
-    // watch when is the last home element hydrated
-    //
-    const stack_items_props = ( template.get_element ( 'top_skills_first_icon' ) as TemplateElement ).props
-    if ( template.first_init )
-      first_init_unwatch = watch(() => stack_items_props.y, init )
-    else
       init ()
   }
 
-  const clear_watchers = () => {
-    if ( !!first_init_unwatch ) first_init_unwatch ()
-  }
-  
   return {
     init_hexagon_timelines,
-    clear_watchers,
   }
 }

@@ -1,16 +1,15 @@
-import { TemplateElement, useTemplateStore } from '~/stores/template'
+import { useTemplateStore } from '~/stores/template'
 import { useWindowScroll } from '@vueuse/core'
 
 export const useAnimationsHexagonsUseCase = ( gsap : any ) => {
 
   const hexagon = useHexagons ()
   const template = useTemplateStore ()
-  const { as_plain_object } = useUtils ()
   const { y: scroll_y } = useWindowScroll ()
 
   function calculate_config () : any {
     const use_case_imgs_props = ( template.get_element ( 'use_case_imgs' ) as TemplateElement[] )
-      ?.map ( ( item : TemplateElement ) => as_plain_object ( item.props ))
+      ?.map ( ( item : TemplateElement ) => item.props )
     
     const use_case_imgs_el_left = use_case_imgs_props?.map ( ( props : any ) => props.left )
     const use_case_img_el_top = use_case_imgs_props?.map ( ( props : any ) => props.top + scroll_y.value )
@@ -38,7 +37,6 @@ export const useAnimationsHexagonsUseCase = ( gsap : any ) => {
       
       // space before
       () => gsap.utils.random (
-        // screen_width.value * .2,
         config.use_case_imgs_el_left [ 0 ] - hexagon.default_width_px,
         config.use_case_imgs_el_left [ 0 ]
       ),

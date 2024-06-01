@@ -1,21 +1,22 @@
-import { TemplateElement, useTemplateStore } from "~/stores/template"
+import { useTemplateStore } from "~/stores/template"
+import { useWindowScroll } from '@vueuse/core'
 
 export const useAnimationsHexagonsCTA = ( gsap : any ) => {
 
   const template = useTemplateStore ()
   const hexagon = useHexagons ()
-  const { as_plain_object } = useUtils ()
+  const { y: scroll_y } = useWindowScroll ()
 
   function calculate_config () : any {
 
-    const cta_props = as_plain_object ( ( template.get_element ( 'cta_section' ) as TemplateElement ).props )
-
+    const cta_props = ( template.get_element ( 'cta_section' ) as TemplateElement ).props
+    const cta_top = cta_props.top + scroll_y.value - ( hexagon.default_height_px / 3 )
+    
     const cta_center = cta_props.left
       + ( ( cta_props.width || 0 ) / 2 )
       - ( hexagon.default_width_px * 2 )
 
-    const cta_start_y = ( index : number ) => cta_props.y
-      - ( hexagon.default_height_px / 3 )
+    const cta_start_y = ( index : number ) => cta_top
       + hexagon.hexagon_compressed_grid_row_px ( index % 2 )
       - ( index % 2 ? hexagon.hexagon_grid_gap_px : 0 )
 

@@ -3,7 +3,7 @@
 <script setup lang="ts">
   import gsap from 'gsap';
   import { ScrollTrigger } from "gsap/ScrollTrigger"
-  import { useWindowSize } from '@vueuse/core'
+  import { useWindowScroll } from '@vueuse/core'
 
   gsap.registerPlugin ( ScrollTrigger )
 
@@ -12,6 +12,7 @@
     ( value : any ) => value?.length <= message_max_chars || `Max ${ message_max_chars } characters`
   ]
   
+  const { y: scroll_y } = useWindowScroll ()
   const use_case = useAnimationsHexagonsUseCase ( gsap )
   const screen = useScreen ()
   const hexagon = useHexagons ()
@@ -30,12 +31,12 @@
     await nextTick ()
 
     const use_case_config = use_case.calculate_config ()
-    const contact_form_bg_top = screen.get_top ( contact_form_bg.value )
+    const contact_form_bg_top = screen.get_element_screen_props ( contact_form_bg ).top
 
     const tl_contact_bg = gsap.timeline ({
       scrollTrigger: {
         trigger: contact_form_bg.value,
-        start: () => contact_form_bg_top - use_case_config.use_case_img_el_height,
+        start: () => contact_form_bg_top.value + scroll_y.value - use_case_config.use_case_img_el_height,
         toggleActions: 'play pause play pause'
       },
       onComplete: (a:any) => {

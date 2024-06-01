@@ -3,10 +3,12 @@
 <script setup>
   import { useElementBounding } from '@vueuse/core'
   import { useTemplateStore } from '../stores/template'
+  import { useWindowScroll } from '@vueuse/core'
   
   const display = useDisplay ()
   const menu = useMenu ()
   const template = useTemplateStore ()
+  const { y: scroll_y } = useWindowScroll ()
   const profile_pic_props = template.get_element ( 'profile_pic' ).props
   
   const hero_el = ref(null)
@@ -43,7 +45,7 @@
 
     if ( display.mdAndUp.value )
       return {
-        marginTop: `${ profile_pic_props.y
+        marginTop: `${ profile_pic_props.top + scroll_y.value
           + ( profile_pic_props.height * .43 )
         }px`,
         left: `${ profile_pic_props.left
@@ -53,7 +55,7 @@
       }
 
     return {
-      marginTop: `${ profile_pic_props.y
+      marginTop: `${ profile_pic_props.top + scroll_y.value
         + profile_pic_props.height
       }px`,
       left: `${ 0

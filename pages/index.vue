@@ -24,7 +24,6 @@
   const row_classes = computed ( () => display.mdAndUp.value ? 'md' : display.smAndUp.value ? 'sm' : '' )
   
   let elements_ready_unwatch : Function | null = null
-  let timeline_activation_timeout : NodeJS.Timeout | null = null
   onMounted ( async () => {
 
     await nextTick ()
@@ -33,10 +32,6 @@
       if ( ready ) {
         timelines.init_hexagon_timelines ()
         template.first_init = false
-        // hack to activate vertical positioning
-        timeline_activation_timeout = setTimeout ( () => { 
-          window.scrollTo ( 0, 1 ) 
-        }, 10)
       }
     },{
       immediate: true,
@@ -44,14 +39,10 @@
   })
 
   onBeforeUnmount ( () => {
-    timelines.clear_watchers ()
     template.clear_watchers ()
 
     if ( elements_ready_unwatch )
       elements_ready_unwatch ()
-
-    if ( timeline_activation_timeout )
-      clearTimeout ( timeline_activation_timeout )
 
     template.reset_elements ()
   })
