@@ -75,7 +75,7 @@ export const useTimelines = () => {
   }
 
   let first_init_unwatch : Function | null = null
-  const init_hexagon_timelines = ( display : any ) => {
+  const init_hexagon_timelines = () => {
     //
     // watch when is the last home element hydrated
     //

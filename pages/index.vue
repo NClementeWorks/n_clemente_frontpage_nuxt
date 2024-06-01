@@ -31,7 +31,7 @@
 
     elements_ready_unwatch = watch ( () => template.elements_ready, ready => {
       if ( ready ) {
-        timelines.init_hexagon_timelines ( display )
+        timelines.init_hexagon_timelines ()
         template.first_init = false
         // hack to activate vertical positioning
         timeline_activation_timeout = setTimeout ( () => { 
