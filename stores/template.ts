@@ -27,14 +27,18 @@ export const useTemplateStore = defineStore ( 'template', () => {
    * @param key map key
    * @param el HTML element
    */
+  let el_unwatch : Function | null = null
   function add_element ( key : string, el : Ref<HTMLElement | null> ) : void {
     template_elements.value [ key ] = {
       el,
       props: screen.get_element_screen_props ( el )
     }
     
-    if ( home_elements.value [ key ] !== undefined )
-      home_elements.value [ key ] = el
+    if ( home_elements.value [ key ] !== undefined ) {
+      el_unwatch = watch ( el, () => {
+        home_elements.value [ key ] = el
+      })
+    }
   }
 
   let add_elements_unwatch : Function | null = null
@@ -92,7 +96,22 @@ export const useTemplateStore = defineStore ( 'template', () => {
   const clear_watchers = () => {
     screen.clear_watchers ()
     if ( add_elements_unwatch ) add_elements_unwatch ()
-    if ( home_elements_unwatch ) home_elements_unwatch ()
+    if ( el_unwatch ) el_unwatch ()
+  }
+
+  const reset_elements = () => {
+    template_elements.value = {
+      footer: template_elements.value.footer
+    }
+
+    home_elements.value = {
+      stack_items: null,
+      stack_first_icon: null,
+      cta_section: null,
+      use_case_imgs: null,
+      top_skills_flower: null,
+      top_skills_first_icon: null,
+    }
   }
 
   return {
@@ -105,10 +124,12 @@ export const useTemplateStore = defineStore ( 'template', () => {
     cta_hexagon_paths,
 
     template_elements,
+    home_elements,
 
     elements_ready,
     first_init,
 
+    reset_elements,
     clear_watchers,
   }
 })

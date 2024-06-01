@@ -52,6 +52,8 @@
 
     if ( timeline_activation_timeout )
       clearTimeout ( timeline_activation_timeout )
+
+    template.reset_elements ()
   })
 </script>
 
