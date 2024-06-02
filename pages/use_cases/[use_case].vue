@@ -3,9 +3,12 @@ import { useTemplateStore } from "~/stores/template"
 
   const use_case_id = useRoute().params.use_case
   const navigation = await fetchContentNavigation()
-
+  const display = useDisplay ()
   const template = useTemplateStore ()
+
   template.first_init = false
+
+  const row_classes = computed ( () => display.mdAndUp.value ? 'md' : display.smAndUp.value ? 'sm' : '' )
 
   const current_nav_idx = computed ( () => navigation [ 0 ].children?.findIndex( ( nav : any ) => nav._path.split ( '/' ) [ 2 ] === use_case_id ) )
   const current_nav = computed ( () => navigation [ 0 ].children && current_nav_idx?.value && navigation [ 0 ].children [ current_nav_idx?.value ] )
@@ -35,7 +38,7 @@ import { useTemplateStore } from "~/stores/template"
   <div>
     <div class="main page">
     
-      <VRow>
+      <VRow :class="row_classes">
         <VCol>
 
           <ul class="page_breadcrumbs">
