@@ -86,7 +86,7 @@
             :icon="`fas fa-${ is_open ? 'xmark' : 'bars' }`"
             />
         </VListItem>
-        <template v-if="is_open">
+        <template v-if="!collapsible || is_open">
           <VListItem
             v-for="( menu, index ) in menu_items"
             :key="menu.link"
